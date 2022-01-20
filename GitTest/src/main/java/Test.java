@@ -5,6 +5,8 @@ public class Test {
 		
 		System.out.println("첫번째 코드");
 		System.out.println("두번째 코드");
+		
+		System.out.println("뀨아아앙");
 
 	}
 
