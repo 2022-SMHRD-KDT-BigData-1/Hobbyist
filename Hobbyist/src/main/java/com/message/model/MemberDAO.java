@@ -53,15 +53,20 @@ public class MemberDAO {
 	public int memberJoin(MemberDTO member) {
 		connect();
 		
-		sql="insert into web_member values(?,?,?,?)";
+		sql="insert into member values(?,?,?,?,?,?,?,?)";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, member.getM_email());
 			psmt.setString(2, member.getM_pw());
-			psmt.setString(3, member.getM_tel()); 
-			psmt.setString(4, member.getM_address());
+			psmt.setString(3, member.getM_nick()); 
+			psmt.setString(4, member.getM_age());
+			psmt.setString(5, member.getM_gender());
+			psmt.setString(6, member.getM_tel());
+			psmt.setString(7, member.getM_address());
+			psmt.setString(8, member.getM_hashtag());
+			
 			
 			cnt = psmt.executeUpdate();
 			
@@ -77,7 +82,7 @@ public class MemberDAO {
 		connect();
 		
 		MemberDTO member = null;
-		sql = "select m_tel, m_address from web_member where m_email = ? and m_pw = ?";
+		sql = "select m_nick from member where m_email = ? and m_pw = ?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -88,8 +93,8 @@ public class MemberDAO {
 			
 			if(rs.next()) {//rs.next는 회원가입된 정보가 DB에 있는지 확인
 				
-				member = new MemberDTO(email, pw, pw, pw, pw, pw, email, pw);
-				//pw는 조회하지 않았기 때문에 null값을 넣어줌., tel, address는 sql문 실행해서 가져오는 것
+				member = new MemberDTO(email, pw, rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+				
 				
 			}
 			
@@ -106,15 +111,18 @@ public class MemberDAO {
 		
 		connect();
 		
-		sql="update web_member set m_pw=?, m_tel=?, m_address=? where m_email=?";
+		sql="update member set m_pw=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_hashtag=? where m_email=?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, memberDTO.getM_pw());
-			psmt.setString(2, memberDTO.getM_tel());
-			psmt.setString(3, memberDTO.getM_address());
-			psmt.setString(4, memberDTO.getM_email());
+			psmt.setString(2, memberDTO.getM_nick());
+			psmt.setString(3, memberDTO.getM_age());
+			psmt.setString(4, memberDTO.getM_gender());
+			psmt.setString(5, memberDTO.getM_tel());
+			psmt.setString(6, memberDTO.getM_address());
+			psmt.setString(7, memberDTO.getM_hashtag());
 			
 			cnt=psmt.executeUpdate();
 			
@@ -127,12 +135,13 @@ public class MemberDAO {
 		
 		return cnt;
 	}
+	
 	public ArrayList<MemberDTO> memberSelectAll() {
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		connect();
 		try {
 
-			String sql = "select m_email, m_tel, m_address from web_member";
+			String sql = "select m_email, m_nick, m_age, m_gender, m_tel, m_address, m_hashtag from member";
 
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
@@ -140,10 +149,14 @@ public class MemberDAO {
 			while (rs.next()) {
 				//rs 객체 내에 저장된 회원정보들 접근 -> Member 객체 생성 -> list에 저장
 				String m_email = rs.getString(1);
-				String m_tel = rs.getString(2);
-				String m_address = rs.getString(3);
+				String m_nick = rs.getString(2);
+				String m_age = rs.getString(3);
+				String m_gender = rs.getString(4);
+				String m_tel = rs.getString(5);
+				String m_address = rs.getString(6);
+				String m_hashtag = rs.getString(7);
 				if(!m_email.equals("admin")) {
-					list.add(new MemberDTO(m_email, sql, m_email, m_tel, m_address, m_address, m_tel, m_address));
+					list.add(new MemberDTO(m_email, m_nick, m_age, m_gender, m_tel, m_address, m_tel, m_hashtag));
 				}
 				
 			}
