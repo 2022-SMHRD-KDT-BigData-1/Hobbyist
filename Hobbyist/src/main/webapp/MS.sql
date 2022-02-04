@@ -16,6 +16,16 @@ create table pj_member(
 	constraint email_pk primary key(email)
 )
 
+create table academy(
+	a_seq
+	a_name varchar(20) not null,
+	a_day date not null,
+	a_address varchar not null,
+	a_tel varchar not null,
+	a_time time not null,
+	a_category Number(5),
+	a_m_category number(5)
+)
 
 
 
