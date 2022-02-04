@@ -15,19 +15,32 @@ create table pj_member(
 	address varchar(50) not null,
 	constraint email_pk primary key(email)
 )
-
+drop table pj_member
 create table academy(
-	a_seq
+	a_seq number(5),
 	a_name varchar(20) not null,
+	a_day date not null,
+	a_address varchar(20) not null,
+	a_tel varchar(20) not null,
+	a_time varchar(20) not null,
+	a_category Number(5),
+	a_m_category Number(5),
+	constraint academy_pk primary key(a_seq)
+);
+select * from academy
+create table academy(
+	a_seq NUMBER(5),
+	
+)
+
+a_name varchar(20) not null,
 	a_day date not null,
 	a_address varchar not null,
 	a_tel varchar not null,
-	a_time time not null,
+	a_time varchar not null,
 	a_category Number(5),
-	a_m_category number(5)
-)
-
-
+	a_m_category Number(5),
+	constraint academy_pk primary key(a_seq)
 
 
 
