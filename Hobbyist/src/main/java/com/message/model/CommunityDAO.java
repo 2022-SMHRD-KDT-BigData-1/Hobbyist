@@ -30,7 +30,6 @@ public class CommunityDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
