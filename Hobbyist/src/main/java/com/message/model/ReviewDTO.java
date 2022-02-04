@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class ReviewDTO {
-	private int rev_num;
-	private String rev_nick;
-	private String rev_name;//학원 이름
-	private String rev_pw;//일반 비밀번호와 다른 비밀번호
-	private String rev_content;
-	private int rev_score;
-	private String rev_date;
+	private int r_num;
+	private String r_nick;
+	private String r_name;//학원 이름
+	private String r_pw;//일반 비밀번호와 다른 비밀번호
+	private String r_content;
+	private int r_score;
+	private String r_date;
 }
