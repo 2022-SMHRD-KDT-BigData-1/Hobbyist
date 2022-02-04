@@ -15,8 +15,9 @@ public class CommunityDTO {
 	private int c_seq;
 	private String c_title;
 	private String c_writer;
+	private String c_pw;
 	private String c_view;
 	private String c_date;
 	private String c_content;
-
+	
 }
