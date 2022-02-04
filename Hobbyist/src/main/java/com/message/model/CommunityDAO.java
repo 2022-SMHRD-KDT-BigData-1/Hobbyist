@@ -58,7 +58,7 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "select c_seq, c_title, c_writer, c_view, c_content from community where c_email";
+		sql = "select c_seq, c_title, c_writer, c_view, c_content from community";
 
 		try {
 			psmt = conn.prepareStatement(sql);
