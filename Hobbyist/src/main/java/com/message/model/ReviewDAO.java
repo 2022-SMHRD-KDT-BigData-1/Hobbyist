@@ -51,17 +51,17 @@ public class ReviewDAO {
 		public int revUpload(ReviewDTO review) {
 			connect();
 			
-			sql="insert into review values(?,?,?,?,?,?)";
+			sql="insert into review (m_nick, A_classname, Re_pw, Re_content, Re_date, Re_score)values(?,?,?,?,?,?)";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
-				psmt.setString(1, review.getR_nick());
-				psmt.setString(2, review.getR_name());
-				psmt.setString(3, review.getR_pw()); 
-				psmt.setString(4, review.getR_content()); 
-				psmt.setString(5, review.getR_date()); 
-				psmt.setInt(6, review.getR_score()); 
+				psmt.setString(1, review.getM_nick());
+				psmt.setString(2, review.getA_classname());
+				psmt.setString(3, review.getRe_pw()); 
+				psmt.setString(4, review.getRe_content()); 
+				psmt.setString(5, review.getRe_date()); 
+				psmt.setInt(6, review.getRe_score()); 
 		
 				cnt = psmt.executeUpdate();
 				
@@ -74,13 +74,9 @@ public class ReviewDAO {
 	}
 		public int revDelete(String r_nick, String r_pw) {
 			connect();
-<<<<<<< HEAD
-			sql="delete from review where r_nick=? and r_pw=?";
-=======
 			
 			sql="delete r_pw, r_nick, r_name, r_content, r_date, r_score from review where r_nick=? and r_pw=?";
 			
->>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/RealHobbyist.git
 			try {
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, r_nick);
