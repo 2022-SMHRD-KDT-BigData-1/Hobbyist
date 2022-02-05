@@ -84,12 +84,18 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "insert into community values(?,?)";
+		sql = "insert into community values(?,?,?,?,?,?)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, message.getC_title());
-			psmt.setString(2, message.getC_content());
+			
+			psmt.setInt(1, message.getC_seq());
+			psmt.setString(2, message.getC_writer());
+			psmt.setString(3, message.getC_title());
+			psmt.setString(4, message.getC_content());
+			psmt.setString(5, message.getC_date());
+			psmt.setInt(6, 1);
+			
 
 			cnt = psmt.executeUpdate();
 
@@ -99,7 +105,7 @@ public class CommunityDAO {
 			close();
 		}
 
-		return cnt;
+		return -1;
 
 	}
 
@@ -108,7 +114,7 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "update community set c_title=?, c_content=?, where c_writer=? and c_pw=? ";
+		sql = "update community set c_title=?, c_content=? where c_writer=? and c_pw=? ";
 
 		try {
 			psmt = conn.prepareStatement(sql);
