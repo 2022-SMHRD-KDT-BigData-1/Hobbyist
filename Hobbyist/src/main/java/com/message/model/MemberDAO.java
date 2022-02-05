@@ -137,12 +137,12 @@ public class MemberDAO {
 		return cnt;
 	}
 	// 수강정보 / 수강내역 / 위시리스트
-	public ArrayList<MemberDTO> memberSelectAll() {
-		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
+	public ArrayList<AcademyDTO> classSelectAll() {
+		ArrayList<AcademyDTO> list = new ArrayList<AcademyDTO>();
 		connect();
 		try {
 
-			String sql = "select m_email, m_tel, m_address from member";
+			String sql = "select a_id, a_name, a_tel, a_address from academy where ";
 
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();

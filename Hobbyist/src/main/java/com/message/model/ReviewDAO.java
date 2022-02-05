@@ -30,7 +30,6 @@ public class ReviewDAO {
 		} catch (SQLException e) {		
 			e.printStackTrace();
 		}
-		
 	}
 	
 	//연결 종료 기능
@@ -63,7 +62,6 @@ public class ReviewDAO {
 				psmt.setString(4, review.getR_content()); 
 				psmt.setString(5, review.getR_date()); 
 				psmt.setInt(6, review.getR_score()); 
-			
 		
 				cnt = psmt.executeUpdate();
 				
@@ -73,14 +71,10 @@ public class ReviewDAO {
 				close();
 			}
 			return cnt;
-		
-		
 	}
 		public int revDelete(String r_nick, String r_pw) {
 			connect();
-			
 			sql="delete from review where r_nick=? and r_pw=?";
-			
 			try {
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, r_nick);
@@ -92,7 +86,6 @@ public class ReviewDAO {
 			}finally {
 				close();
 			}
-			
 			return cnt;
 		}
 		public int revUpdate(ReviewDTO reviewDTO) {
