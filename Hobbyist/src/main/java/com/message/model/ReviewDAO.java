@@ -51,17 +51,16 @@ public class ReviewDAO {
 		public int revUpload(ReviewDTO review) {
 			connect();
 			
-			sql="insert into review (m_nick, A_classname, Re_pw, Re_content, Re_date, Re_score)values(?,?,?,?,?,?)";
+			sql="insert into review (A_classname, Re_pw, Re_content, Re_date, Re_score)values(?,?,?,?,?)";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
-				psmt.setString(1, review.getM_nick());
-				psmt.setString(2, review.getA_classname());
-				psmt.setString(3, review.getRe_pw()); 
-				psmt.setString(4, review.getRe_content()); 
-				psmt.setString(5, review.getRe_date()); 
-				psmt.setInt(6, review.getRe_score()); 
+				psmt.setString(1, review.getA_classname());
+				psmt.setString(2, review.getRe_pw()); 
+				psmt.setString(3, review.getRe_content()); 
+				psmt.setString(4, review.getRe_date()); 
+				psmt.setInt(5, review.getRe_score()); 
 		
 				cnt = psmt.executeUpdate();
 				
@@ -75,7 +74,7 @@ public class ReviewDAO {
 		public int revDelete(String r_nick, String r_pw) {
 			connect();
 			
-			sql="delete r_pw, r_nick, r_name, r_content, r_date, r_score from review where r_nick=? and r_pw=?";
+			sql="delete re_seq, re_pw, re_content, re_date, re_score from review where m_nick=? and r_pw=?";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
@@ -94,17 +93,13 @@ public class ReviewDAO {
 			
 			connect();
 			
-			sql="update review set r_pw=?, r_nick=?, r_name=?, r_content=?, r_date=?, r_score=? where r_nick=? and r_pw=?";
+			sql="update review set re_content=?, re_date=?, re_score=? where m_nick=? and re_pw=?";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
-				psmt.setString(1, reviewDTO.getR_pw());
-				psmt.setString(2, reviewDTO.getR_nick());
-				psmt.setString(3, reviewDTO.getR_name());
-				psmt.setString(4, reviewDTO.getR_content());
-				psmt.setString(5, reviewDTO.getR_date());
-				psmt.setInt(6, reviewDTO.getR_score());
+				psmt.setString(1, reviewDTO.getRe_pw());
+				psmt.setString(2, reviewDTO.getM_nick());
 				
 				
 				cnt=psmt.executeUpdate();
@@ -123,7 +118,7 @@ public class ReviewDAO {
 			
 			connect();
 			
-			sql="select r_num, r_nick, r_name, r_pw, r_content, r_score, r_date from review ";
+			sql="select m_nick, a_classname, re_content, re_score, re_date from review ";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
@@ -133,8 +128,9 @@ public class ReviewDAO {
 				
 				
 				while(rs.next()) {
-			
-					list.add(new ReviewDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
+					int r = 0;
+					list.add(new ReviewDTO(r, rs.getString(1), rs.getString(2), null, rs.getString(3), rs.getInt(4), rs.getString(5)));
+					r++;
 				}
 				
 			} catch (SQLException e) {
