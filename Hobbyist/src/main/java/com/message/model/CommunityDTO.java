@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class CommunityDTO {
-	private int c_seq; //시퀀스
-	private String c_title; //제목
-	private String c_writer; //작성자(이메일)
-	private String c_pw; //
+	private int c_seq;
+	private String m_nick;
+	private String c_title;
+	private String c_writer;
+	private String c_pw;
 	private String c_view;
 	private String c_date;
-	private String c_content;
+
+
 }

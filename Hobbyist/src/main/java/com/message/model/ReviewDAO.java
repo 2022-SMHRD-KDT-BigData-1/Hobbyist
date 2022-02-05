@@ -15,6 +15,7 @@ public class ReviewDAO {
 	private int cnt;
 	private String sql;
 	
+	// 수강정보 / 수강내역 / 위시리스트
 	public void connect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -29,7 +30,6 @@ public class ReviewDAO {
 		} catch (SQLException e) {		
 			e.printStackTrace();
 		}
-		
 	}
 	
 	//연결 종료 기능
@@ -62,7 +62,6 @@ public class ReviewDAO {
 				psmt.setString(4, review.getR_content()); 
 				psmt.setString(5, review.getR_date()); 
 				psmt.setInt(6, review.getR_score()); 
-			
 		
 				cnt = psmt.executeUpdate();
 				
@@ -72,14 +71,10 @@ public class ReviewDAO {
 				close();
 			}
 			return cnt;
-		
-		
 	}
 		public int revDelete(String r_nick, String r_pw) {
 			connect();
-			
-			sql="delete r_pw, r_nick, r_name, r_content, r_date, r_score from review where r_nick=? and r_pw=?";
-			
+			sql="delete from review where r_nick=? and r_pw=?";
 			try {
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, r_nick);
@@ -91,14 +86,13 @@ public class ReviewDAO {
 			}finally {
 				close();
 			}
-			
 			return cnt;
 		}
 		public int revUpdate(ReviewDTO reviewDTO) {
 			
 			connect();
 			
-			sql="update review set r_pw=?, r_nick=?, r_name=?, r_content=?, r_date=?, r_score=? where r_nick=? and r_pw=?";
+			sql="update review set r_pw=?, r_nick=?, r_name=?, r_content=?, r_date=?, r_score=?";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
