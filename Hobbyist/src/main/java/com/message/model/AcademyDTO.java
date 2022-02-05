@@ -13,8 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 //모든 필드변수를 초기화하는 생성자를 생성해줌.
 //변수, 생성자, getter/setter, toString() 정의
+
+
 public class AcademyDTO {
 	private int a_seq;
+	private String a_id;
 	private String a_name;
 	private String a_day;
 	private String a_address;

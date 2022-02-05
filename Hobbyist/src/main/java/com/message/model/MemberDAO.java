@@ -53,7 +53,7 @@ public class MemberDAO {
 	public int memberJoin(MemberDTO member) {
 		connect();
 		
-		sql="insert into member values(?,?,?,?,?,?,?,?)";
+		sql="insert into member values(?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -66,7 +66,7 @@ public class MemberDAO {
 			psmt.setString(6, member.getM_tel());
 			psmt.setString(7, member.getM_address());
 			psmt.setString(8, member.getM_hashtag());
-			
+			psmt.setString(9, null);
 			
 			cnt = psmt.executeUpdate();
 			
@@ -93,7 +93,7 @@ public class MemberDAO {
 			
 			if(rs.next()) {//rs.next는 회원가입된 정보가 DB에 있는지 확인
 				
-				member = new MemberDTO(email, pw, rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+				member = new MemberDTO(email, pw, rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9));
 				
 				
 			}
@@ -111,7 +111,7 @@ public class MemberDAO {
 		
 		connect();
 		
-		sql="update member set m_pw=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_hashtag=? where m_email=?";
+		sql="update member set m_pw=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_hashtag=?, m_a_id=? where m_email=?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -123,6 +123,7 @@ public class MemberDAO {
 			psmt.setString(5, memberDTO.getM_tel());
 			psmt.setString(6, memberDTO.getM_address());
 			psmt.setString(7, memberDTO.getM_hashtag());
+			psmt.setString(8, memberDTO.getM_a_id());
 			
 			cnt=psmt.executeUpdate();
 			
@@ -135,13 +136,13 @@ public class MemberDAO {
 		
 		return cnt;
 	}
-	
+	// 수강정보 / 수강내역 / 위시리스트
 	public ArrayList<MemberDTO> memberSelectAll() {
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		connect();
 		try {
 
-			String sql = "select m_email, m_nick, m_age, m_gender, m_tel, m_address, m_hashtag from member";
+			String sql = "select m_email, m_tel, m_address from member";
 
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
@@ -149,14 +150,10 @@ public class MemberDAO {
 			while (rs.next()) {
 				//rs 객체 내에 저장된 회원정보들 접근 -> Member 객체 생성 -> list에 저장
 				String m_email = rs.getString(1);
-				String m_nick = rs.getString(2);
-				String m_age = rs.getString(3);
-				String m_gender = rs.getString(4);
-				String m_tel = rs.getString(5);
-				String m_address = rs.getString(6);
-				String m_hashtag = rs.getString(7);
+				String m_tel = rs.getString(2);
+				String m_address = rs.getString(3);
 				if(!m_email.equals("admin")) {
-					list.add(new MemberDTO(m_email, m_nick, m_age, m_gender, m_tel, m_address, m_tel, m_hashtag));
+					list.add(new MemberDTO(m_email,null, m_tel, m_address));
 				}
 				
 			}
@@ -169,4 +166,6 @@ public class MemberDAO {
 		}
 		return list;
 	}
+	
+
 }

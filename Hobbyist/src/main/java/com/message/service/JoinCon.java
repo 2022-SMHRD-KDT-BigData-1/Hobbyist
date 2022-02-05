@@ -27,12 +27,18 @@ public class JoinCon implements iCommand {
 		String nick = request.getParameter("m_nick");
 		String tel = request.getParameter("m_tel");
 		String address = request.getParameter("m_address");
+		String age= request.getParameter("m_age");
+		String gender = request.getParameter("m_gender");
+		String m_hashtag = request.getParameter("m_hashtag");
+		String m_a_id = request.getParameter("m_a_id");
 		
 		MemberDAO dao = new MemberDAO();
 		
 		
+		
+		
 		RequestDispatcher dispatcher;
-		int cnt = dao.memberJoin(new MemberDTO(email, pw, nick, tel, address, nick, tel, address));
+		int cnt = dao.memberJoin(new MemberDTO(email, pw, nick, tel, address, age, gender, m_hashtag, m_a_id));
 		
 		System.out.println(cnt);
 		

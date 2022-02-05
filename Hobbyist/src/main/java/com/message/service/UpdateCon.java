@@ -31,13 +31,18 @@ public class UpdateCon extends HttpServlet {
 		String nick = request.getParameter("nick");
 		String tel = request.getParameter("tel");
 		String address = request.getParameter("address");
+		String age= request.getParameter("m_age");
+		String gender = request.getParameter("m_gender");
+		String m_hashtag = request.getParameter("m_hashtag");
+		String m_a_id = request.getParameter("m_a_id");
+		
 		
 		MemberDAO dao = new MemberDAO();
-		int cnt = dao.memberUpdate(new MemberDTO(email, pw, nick, tel, address, nick, tel, address));
+		int cnt = dao.memberUpdate(new MemberDTO(email, pw, nick, tel, address, age, gender, m_hashtag, m_a_id));
 		
 		if(cnt>0) {
 			
-			session.setAttribute("member", new MemberDTO(email, pw, nick, tel, address, nick, tel, address));
+			session.setAttribute("member", new MemberDTO(email, pw, nick, tel, address, age, gender, m_hashtag, m_a_id));
 			response.sendRedirect("main.jsp");
 			
 		}else {

@@ -15,6 +15,10 @@ import lombok.NoArgsConstructor;
 //변수, 생성자, getter/setter, toString() 정의
 
 public class MemberDTO {
+	public MemberDTO(String m_email2, Object object, String m_tel2, String m_address2) {
+		// TODO Auto-generated constructor stub
+	}
+	
 	private String m_email;
 	private String m_pw;
 	private String m_nick;
@@ -23,6 +27,7 @@ public class MemberDTO {
 	private String m_age;
 	private String m_gender;
 	private String m_hashtag;
+	private String m_a_id;
 	
 	
 	

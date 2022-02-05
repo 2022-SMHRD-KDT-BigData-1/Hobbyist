@@ -58,7 +58,7 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "select c_seq, c_title, c_writer, c_view, c_content from community";
+		sql = "select c_seq, c_title, c_writer, c_view, c_content from community where c_email";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -141,7 +141,6 @@ public class CommunityDAO {
 			cnt = psmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
