@@ -60,12 +60,12 @@ public class MemberDAO {
 			
 			psmt.setString(1, member.getM_email());
 			psmt.setString(2, member.getM_pw());
-			psmt.setString(3, member.getM_nick()); 
-			psmt.setString(4, member.getM_age());
-			psmt.setString(5, member.getM_gender());
-			psmt.setString(6, member.getM_tel());
-			psmt.setString(7, member.getM_address());
-			psmt.setString(8, member.getM_hashtag());
+			psmt.setString(3, member.getM_name()); 
+			psmt.setString(4, member.getM_nick());
+			psmt.setString(5, member.getM_tel());
+			psmt.setString(6, member.getM_address());
+			psmt.setString(7, member.getM_age());
+			psmt.setString(8, member.getM_gender());
 			psmt.setString(9, null);
 			
 			cnt = psmt.executeUpdate();
@@ -94,8 +94,6 @@ public class MemberDAO {
 			if(rs.next()) {//rs.next는 회원가입된 정보가 DB에 있는지 확인
 				
 				member = new MemberDTO(email, pw, rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9));
-				
-				
 			}
 			
 		} catch (SQLException e) {		
@@ -103,7 +101,6 @@ public class MemberDAO {
 		}finally {
 			close();
 		}
-		
 		return member;
 	}
 
@@ -117,13 +114,13 @@ public class MemberDAO {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, memberDTO.getM_pw());
-			psmt.setString(2, memberDTO.getM_nick());
-			psmt.setString(3, memberDTO.getM_age());
-			psmt.setString(4, memberDTO.getM_gender());
-			psmt.setString(5, memberDTO.getM_tel());
-			psmt.setString(6, memberDTO.getM_address());
-			psmt.setString(7, memberDTO.getM_hashtag());
-			psmt.setString(8, memberDTO.getM_a_id());
+			psmt.setString(2, memberDTO.getM_name());
+			psmt.setString(3, memberDTO.getM_nick());
+			psmt.setString(4, memberDTO.getM_tel());
+			psmt.setString(5, memberDTO.getM_address());
+			psmt.setString(6, memberDTO.getM_age());
+			psmt.setString(7, memberDTO.getM_gender());
+			psmt.setString(8, memberDTO.getA_id());
 			
 			cnt=psmt.executeUpdate();
 			
@@ -133,7 +130,6 @@ public class MemberDAO {
 		}finally {
 			close();
 		}
-		
 		return cnt;
 	}
 	// 수강정보 / 수강내역 / 위시리스트
@@ -142,30 +138,25 @@ public class MemberDAO {
 		connect();
 		try {
 
-			String sql = "select a_id, a_name, a_tel, a_address from academy where ";
+			String sql = "select a_id, a_classname, a_tel, a_address from academy where ";
 
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
 				//rs 객체 내에 저장된 회원정보들 접근 -> Member 객체 생성 -> list에 저장
-				String m_email = rs.getString(1);
-				String m_tel = rs.getString(2);
-				String m_address = rs.getString(3);
-				if(!m_email.equals("admin")) {
-					list.add(new MemberDTO(m_email,null, m_tel, m_address));
-				}
+				String a_id = rs.getString(1);
+				String a_classname = rs.getString(2);
+				String a_tel = rs.getString(3);
+				String a_address = rs.getString(4);
 				
+				list.add(new AcademyDTO(a_id,a_classname, a_tel, a_address));
 			}
-
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 		return list;
 	}
-	
-
 }

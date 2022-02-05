@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 
 
 public class AcademyDTO {
+	public AcademyDTO(String a_id2, String a_classname2, String a_tel2, String a_address2) {
+	
+	}
 	private int a_seq;
 	private String a_id; // 학원코드
 	private String a_classname;// 학원명
