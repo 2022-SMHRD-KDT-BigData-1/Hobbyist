@@ -18,6 +18,6 @@ public class RecommendDTO {
 	private String re_day;//수강 요일
 	private String re_address;//학원 위치
 	private String re_time;//
-	private String a_category;
-	private String a_m_category;
+	private String a_L_category; //대분류
+	private String a_S_category; // 소분류
 }
