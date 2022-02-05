@@ -18,20 +18,13 @@ import lombok.NoArgsConstructor;
 public class AcademyDTO {
 	private int a_seq;
 	private String a_id; // 학원코드
-	private String a_name;// 학원명
-	private String a_day;
+	private String a_classname;// 학원명
 	private String a_address;
 	private String a_tel;
+	private String a_day;
 	private String a_time;
-	private String a_email;
+	private String a_position;
 	private int a_category;// 대분류
 	private int a_m_category;// 소분류
-	/*
-	 * hashtag의 종류
-	 * 1. 활동적인
-	 * 2. 조용한
-	 * 3. 섬세한
-	 * 4. 예술적인
-	 * 5. 
-	 * */
+	private int a_up;// 추천수
 }

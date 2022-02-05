@@ -13,11 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommunityDTO {
 	private int c_seq;
-	private String c_title;
-	private String c_writer;
+	private String m_nick;
 	private String c_pw;
-	private String c_view;
-	private String c_date;
+	private String c_title;
 	private String c_content;
-	
+	private String c_date;
+	private int c_view;
 }
