@@ -15,7 +15,6 @@ public class ReviewDAO {
 	private int cnt;
 	private String sql;
 	
-	// 수강정보 / 수강내역 / 위시리스트
 	public void connect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -79,7 +78,7 @@ public class ReviewDAO {
 		public int revDelete(String r_nick, String r_pw) {
 			connect();
 			
-			sql="delete from review where r_nick=? and r_pw=?";
+			sql="delete r_pw, r_nick, r_name, r_content, r_date, r_score from review where r_nick=? and r_pw=?";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
@@ -99,7 +98,7 @@ public class ReviewDAO {
 			
 			connect();
 			
-			sql="update review set r_pw=?, r_nick=?, r_name=?, r_content=?, r_date=?, r_score=?";
+			sql="update review set r_pw=?, r_nick=?, r_name=?, r_content=?, r_date=?, r_score=? where r_nick=? and r_pw=?";
 			
 			try {
 				psmt = conn.prepareStatement(sql);

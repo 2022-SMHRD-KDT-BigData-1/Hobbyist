@@ -26,8 +26,7 @@ public class MemberDTO {
 	private String m_address;
 	private String m_age;
 	private String m_gender;
-	private String m_hashtag;
-	private String m_a_id;
+	private String a_id;
 	
 	
 	
