@@ -24,13 +24,13 @@ public class JoinCon implements iCommand {
 		//아이디, 패스워드, 닉네임을 변수에 저장
 		String email = request.getParameter("m_email");
 		String pw = request.getParameter("m_pw");
+		String name = request.getParameter("m_name");
 		String nick = request.getParameter("m_nick");
 		String tel = request.getParameter("m_tel");
-		String address = request.getParameter("m_address");
-		String age= request.getParameter("m_age");
+		String address= request.getParameter("m_address");
+		String age = request.getParameter("m_age");
 		String gender = request.getParameter("m_gender");
-		String m_hashtag = request.getParameter("m_hashtag");
-		String m_a_id = request.getParameter("m_a_id");
+		String a_id = request.getParameter("a_id");
 		
 		MemberDAO dao = new MemberDAO();
 		
@@ -38,7 +38,7 @@ public class JoinCon implements iCommand {
 		
 		
 		RequestDispatcher dispatcher;
-		int cnt = dao.memberJoin(new MemberDTO(email, pw, nick, tel, address, age, gender, m_hashtag, m_a_id));
+		int cnt = dao.memberJoin(new MemberDTO(email, pw, name, nick, tel, address, age, gender, a_id));
 		
 		System.out.println(cnt);
 		

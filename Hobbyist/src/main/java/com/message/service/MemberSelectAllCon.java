@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.message.model.AcademyDTO;
 import com.message.model.MemberDAO;
 import com.message.model.MemberDTO;
 import com.message.model.MessageDAO;
@@ -26,7 +27,7 @@ public class MemberSelectAllCon extends HttpServlet {
 		
 		MemberDAO dao = new MemberDAO();
 		
-		ArrayList<MemberDTO> members=  dao.classSelectAll();
+		ArrayList<AcademyDTO> members=  dao.classSelectAll();
 		//members라는 객체정보를 select.jsp로 전달하기 위해 forward방식 활용
 		//redirect방식은 텍스트 데이터만 전달 가능하기 때문
 		request.setAttribute("members", members);
