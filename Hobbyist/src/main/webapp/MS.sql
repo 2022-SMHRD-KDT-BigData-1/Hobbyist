@@ -1,4 +1,4 @@
-create table Academy(
+create table academy(
 	a_seq number(5),
 	a_id varchar(20) not null,
 	a_name varchar(20) not null,
@@ -6,8 +6,9 @@ create table Academy(
 	a_address varchar(20) not null,
 	a_tel varchar(20) not null,
 	a_time varchar(20) not null,
-	a_L_category Number(5),
+	a_category Number(5),
 	a_m_category Number(5),
+	
 	constraint academy_pk primary key(a_id)
 );
 
