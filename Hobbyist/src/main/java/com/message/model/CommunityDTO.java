@@ -19,7 +19,6 @@ public class CommunityDTO {
 	private String c_pw;
 	private int c_view;
 	private String c_date;
-
-
+	
 }
 

@@ -58,9 +58,9 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "select C.c_seq, M.m_nick, C.c_title, C.c_content, c_view C, c_date C"
-				+ "from community C, member M"
-				+ "where M.m_nick = C.m_nick"
+		sql = "select C.c_seq, M.m_nick, C.c_title, C.c_content, C.c_view, C.c_date"
+				+ "from community inner join member"
+				+ "on M.m_nick = C.m_nick"
 				+ "order by c_seq(desc)";
 
 		try {
@@ -121,8 +121,9 @@ public class CommunityDAO {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, nick.getM_nick());
-			psmt.setString(2, board.getC_title());
-			psmt.setString(3, board.getC_content());
+			psmt.setString(2, board.getC_pw());
+			psmt.setString(3, board.getC_title());
+			psmt.setString(4, board.getC_content());
 
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {

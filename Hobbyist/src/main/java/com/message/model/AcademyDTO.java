@@ -27,7 +27,7 @@ public class AcademyDTO {
 	private String a_day;
 	private String a_time;
 	private String a_position;
-	private int a_category;// 대분류
+	private int a_L_category;// 대분류
 	private int a_m_category;// 소분류
 	private int a_up;// 추천수
 }
