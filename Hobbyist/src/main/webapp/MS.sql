@@ -1,4 +1,3 @@
-
 create table Academy(
 	a_seq number(5),
 	a_id varchar(20) not null,
@@ -32,15 +31,3 @@ create table Member(
 
 insert into MEMBER values('mmmm','1234','닉네임','20','남자','651651-351','광주','강한')
 select * from member
-
-
-
-
-
-
-
-
-
-
-
-
