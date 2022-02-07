@@ -113,16 +113,20 @@ public class ReviewDAO {
 			
 			return cnt;
 		}
-		public ArrayList<ReviewDTO> revSelect() {
+		public ArrayList<ReviewDTO> revSelect(String a_classname) {
 			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
 			
 			connect();
 			
-			sql="select m_nick, a_classname, re_content, re_score, re_date from review ";
+			sql="select m.m_nick, a.a_classname, r.re_content, r.re_score, r.re_date"
+					+ "from member m, review r, academy a"
+					+ "where m.m_nick = r.m_nick"
+					+ "and a.a_classname = r.a_classname"
+					+ "and a.a_classname = ? ";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
-			
+				psmt.setString(1, a_classname);
 				
 				rs=psmt.executeQuery();
 				

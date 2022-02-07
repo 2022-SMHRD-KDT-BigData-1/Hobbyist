@@ -19,6 +19,6 @@ public class ReviewDTO {
 	private String re_content;
 	private int re_score;
 	private String re_date;
-
+	private String a_id;
 
 }
