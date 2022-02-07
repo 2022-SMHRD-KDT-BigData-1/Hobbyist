@@ -23,6 +23,13 @@
 	</build>
 	<!-- 필요한 라이브러리에 대한 태그를 추가하는 영역 -->
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-servlet-api -->
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-servlet-api</artifactId>
+		    <version>8.5.61</version>
+		</dependency>
+	
 		<!-- JDBC연결하는 라이브러리 태그 -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
