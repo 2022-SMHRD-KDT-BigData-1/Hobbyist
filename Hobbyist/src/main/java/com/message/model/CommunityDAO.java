@@ -58,7 +58,10 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "select c_seq, c_title, c_writer, c_view, c_content from community where c_email";
+		sql = "select C.c_seq, M.m_nick, C.c_title, C.c_content, c_view C, c_date C"
+				+ "from community C, member M"
+				+ "where M.m_nick = C.m_nick"
+				+ "order by c_seq(desc)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -66,9 +69,10 @@ public class CommunityDAO {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), null, rs.getString(4),
-						rs.getString(5), rs.getString(6)));
+				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), null,
+						rs.getInt(5), rs.getString(6)));
 			}
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,68 +84,66 @@ public class CommunityDAO {
 	}
 
 	// 커뮤니티 글 쓰기
-	public int commUpload(CommunityDTO message) {
+	public int commUpload(CommunityDTO board, MemberDTO nick) {
 
 		connect();
 
-		sql = "insert into community values(?,?,?,?,?,?)";
-
+		sql = "insert into community values(num_seq.nextval,?,?,?,0,sysdate)";
+		
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setInt(1, message.getC_seq());
-			psmt.setString(2, message.getC_writer());
-			psmt.setString(3, message.getC_title());
-			psmt.setString(4, message.getC_content());
-			psmt.setString(5, message.getC_date());
-			psmt.setInt(6, 1);
+			psmt.setString(1, nick.getM_nick());
+			psmt.setString(2, board.getC_title());
+			psmt.setString(3, board.getC_content());
 			
-
 			cnt = psmt.executeUpdate();
-
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 
-		return -1;
-
-	}
-
-	// 커뮤니티 글 수정
-	public int commUpdate(CommunityDTO communityDTO) {
-
-		connect();
-
-		sql = "update community set c_title=?, c_content=? where c_writer=? and c_pw=? ";
-
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, communityDTO.getC_title());
-			psmt.setString(2, communityDTO.getC_content());
-
-			cnt = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		return cnt;
 
 	}
 
-	// 커뮤니티 글 삭제
-	public int commDelete(String email, String pw) {
+	// 커뮤니티 글 수정
+	public int commUpdate(CommunityDTO board, MemberDTO nick) {
 
 		connect();
 
-		sql = "delete from community where c_writer=? and c_pw=?";
+		sql = "update community set c_title=?, c_content=? where m_nick=? and c_pw=?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, email);
+			
+			psmt.setString(1, nick.getM_nick());
+			psmt.setString(2, board.getC_title());
+			psmt.setString(3, board.getC_content());
+
+			cnt = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	
+
+	// 커뮤니티 글 삭제
+	public int commDelete(String nick, String pw) {
+
+		connect();
+
+		sql = "delete from community where m_nick=? and c_pw=?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
 			psmt.setString(2, pw);
 
 			cnt = psmt.executeUpdate();
