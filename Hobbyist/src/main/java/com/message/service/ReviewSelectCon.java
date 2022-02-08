@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
+import com.message.model.AcademyDTO;
 import com.message.model.ReviewDAO;
 import com.message.model.ReviewDTO;
 
@@ -20,18 +23,20 @@ public class ReviewSelectCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		String a_classname = request.getParameter("a_classname"); // << 차후 수정 
+		String a_id = request.getParameter("a_id"); // << 인풋으로 가져온다면 
 		
-		
+		/* HttpSession session = request.getSession();
+		AcademyDTO academy = (AcademyDTO) session.getAttribute("academy"); // 세션으로 가져온다면
+		*/
+		Integer int_null = null;
+		ReviewDTO review = new ReviewDTO(int_null,null,null,null,null,int_null,null,a_id);
 		ReviewDAO dao = new ReviewDAO();
 		
-		ArrayList<ReviewDTO> reviews =  dao.revSelect(a_classname);
-		request.setAttribute("review", reviews);
+		ArrayList<ReviewDTO> reviews =  dao.revSelect(review);
+		request.setAttribute("reviewSelect", reviews);
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher("리뷰페이지.jsp"); // < 차후 수정 
 		dispatcher.forward(request, response);
-		
-		
 		
 		
 	}

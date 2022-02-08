@@ -10,39 +10,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.model.CommunityDAO;
-import com.message.model.CommunityDTO;
+import com.message.model.CommentDAO;
+import com.message.model.CommentDTO;
 
-@WebServlet("/CommunityDeleteCon")
-public class CommunityDeleteCon extends HttpServlet {
+
+@WebServlet("/CommentDeleteCon")
+public class CommentDeleteCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
-		CommunityDTO list = (CommunityDTO) session.getAttribute("list");
+		CommentDTO list = (CommentDTO) session.getAttribute("list");
 
 		String num = request.getParameter("num");
 		String nick = list.getM_nick();
 
-		CommunityDAO dao = new CommunityDAO();
+		CommentDAO dao = new CommentDAO();
 
-		int cnt = dao.commDelete(nick, num);
+		int cnt = dao.commentDelete(nick, num);
 
 		if (cnt > 0) {
-			System.out.println("게시글 삭제 성공!");
+			System.out.println("댓글 삭제 성공!");
 			response.sendRedirect("main.jsp");
 		} else {
-			System.out.println("게시글 삭제 실패..");
+			System.out.println("댓글 삭제 실패..");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
-			out.print("alert('게시글 전송 실패..');");
-			out.print("location.href='community.jsp';");
+			out.print("alert('댓글 전송 실패..');");
+			out.print("location.href='comment.jsp';");
 			out.print("</script>");
 		}
 
+	}
+		
 	}
 
 }

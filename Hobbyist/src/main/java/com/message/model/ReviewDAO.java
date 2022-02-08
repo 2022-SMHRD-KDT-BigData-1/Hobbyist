@@ -59,16 +59,17 @@ public class ReviewDAO {
 		public int revUpload(ReviewDTO review) {
 			connect();
 			
-			sql="insert into review (A_classname, Re_pw, Re_content, Re_date, Re_score)values(?,?,?,?,?)";
+			sql="insert into review values(Seq.NEXTVAL,?,?,?,?,?,sysdate,?)";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
-				psmt.setString(1, review.getA_classname());
-				psmt.setString(2, review.getRe_pw()); 
-				psmt.setString(3, review.getRe_content()); 
-				psmt.setString(4, review.getRe_date()); 
+				psmt.setString(1, review.getRe_nick());
+				psmt.setString(2, review.getRe_classname());
+				psmt.setString(3, review.getRe_pw()); 
+				psmt.setString(4, review.getRe_content()); 
 				psmt.setInt(5, review.getRe_score()); 
+				psmt.setString(6, review.getRe_id()); 
 		
 				cnt = psmt.executeUpdate();
 				
@@ -79,15 +80,16 @@ public class ReviewDAO {
 			}
 			return cnt;
 	}
-		public int revDelete(String r_nick, String r_pw) {
+		public int revDelete(ReviewDTO review) {
 			connect();
 			
-			sql="delete re_seq, re_pw, re_content, re_date, re_score from review where m_nick=? and r_pw=?";
+			sql="delete from review where re_nick=? and re_pw=? and re_id = ?";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
-				psmt.setString(1, r_nick);
-				psmt.setString(2, r_pw);
+				psmt.setString(1, review.getRe_nick());
+				psmt.setString(2, review.getRe_pw());
+				psmt.setString(3, review.getRe_id());
 				
 				cnt=psmt.executeUpdate();
 			} catch (SQLException e) {
@@ -101,13 +103,16 @@ public class ReviewDAO {
 			
 			connect();
 			
-			sql="update review set re_content=?, re_date=?, re_score=? where m_nick=? and re_pw=?";
+			sql="update review set re_content=?, re_date = sysdate, re_score=? where re_nick=? and re_pw=? and re_id";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
-				psmt.setString(1, reviewDTO.getRe_pw());
-				psmt.setString(2, reviewDTO.getM_nick());
+				psmt.setString(1, reviewDTO.getRe_content());
+				psmt.setInt(2, reviewDTO.getRe_score());
+				psmt.setString(3, reviewDTO.getRe_pw());
+				psmt.setString(4, reviewDTO.getRe_nick());
+				psmt.setString(5, reviewDTO.getRe_id());
 				
 				
 				cnt=psmt.executeUpdate();
@@ -121,28 +126,22 @@ public class ReviewDAO {
 			
 			return cnt;
 		}
-		public ArrayList<ReviewDTO> revSelect(String a_classname) {
+		public ArrayList<ReviewDTO> revSelect(ReviewDTO review) {
 			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
 			
 			connect();
 			
-			sql="select m.m_nick, a.a_classname, r.re_content, r.re_score, r.re_date"
-					+ "from member m, review r, academy a"
-					+ "where m.m_nick = r.m_nick"
-					+ "and a.a_classname = r.a_classname"
-					+ "and a.a_classname = ? ";
+			sql="select * from review where re_id = ?";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
-				psmt.setString(1, a_classname);
+				psmt.setString(1, review.getRe_id());
 				
 				rs=psmt.executeQuery();
 				
 				
 				while(rs.next()) {
-					int r = 0;
-					list.add(new ReviewDTO(r, rs.getString(1), rs.getString(2), null, rs.getString(3), rs.getInt(4), rs.getString(5)));
-					r++;
+					list.add(new ReviewDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
 				}
 				
 			} catch (SQLException e) {
