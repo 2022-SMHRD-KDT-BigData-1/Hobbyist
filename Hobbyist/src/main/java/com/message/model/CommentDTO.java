@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class CommentDTO {
-	private int com_seq;
-	private int c_seq;
-	private String m_nick;
-	private String com_content;
+	private int com_seq; //댓글 번호
+	private int c_seq; //게시글 번호
+	private String m_nick; 
+	private String com_content; //댓글 내용
 	private String com_date;
-	private String com_pw;
+	private String com_pw; //댓글 수정 삭제 PW
 }

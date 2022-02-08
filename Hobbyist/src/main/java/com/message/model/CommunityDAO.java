@@ -84,7 +84,7 @@ public class CommunityDAO {
 	}
 
 	// 커뮤니티 글 쓰기
-	public int commUpload(CommunityDTO board, MemberDTO nick) {
+	public int commUpload(CommunityDTO board, MemberDTO member) {
 
 		connect();
 
@@ -93,7 +93,7 @@ public class CommunityDAO {
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, nick.getM_nick());
+			psmt.setString(1, member.getM_nick());
 			psmt.setString(2, board.getC_title());
 			psmt.setString(3, board.getC_content());
 			
@@ -120,10 +120,12 @@ public class CommunityDAO {
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, nick.getM_nick());
-			psmt.setString(2, board.getC_pw());
-			psmt.setString(3, board.getC_title());
-			psmt.setString(4, board.getC_content());
+			
+			psmt.setString(1, board.getC_title());
+			psmt.setString(2, board.getC_content());
+			psmt.setString(3, nick.getM_nick());
+			psmt.setString(4, board.getC_pw());
+
 
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
