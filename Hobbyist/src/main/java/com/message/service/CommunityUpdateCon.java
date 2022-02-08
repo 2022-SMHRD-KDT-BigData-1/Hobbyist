@@ -21,7 +21,7 @@ public class CommunityUpdateCon extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-
+		
 		HttpSession session = request.getSession();
 		CommunityDTO community = (CommunityDTO) session.getAttribute("community");
 		String nick = community.getM_nick();
