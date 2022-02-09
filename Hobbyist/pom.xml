@@ -7,6 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<build>
+	<pluginManagement>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -19,7 +20,22 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.3</version>
 			</plugin>
+				<plugin>
+		    <groupId>org.apache.tomcat.maven</groupId>
+		    <artifactId>tomcat7-maven-plugin</artifactId>
+		    <version>2.2</version>
+		    <configuration>
+		        <server>github</server>
+		        <path>/${project.build.finalName}</path>
+		        <url>${my.url}</url>
+		        <username>${my.username}</username>
+		        <password>${my.password}</password>
+		        <update>true</update>
+		    </configuration>
+	    	</plugin>
 		</plugins>
+	    </pluginManagement>
+		
 	</build>
 	<!-- 필요한 라이브러리에 대한 태그를 추가하는 영역 -->
 	<dependencies>
@@ -57,7 +73,13 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-servlet-api -->
+	     <dependency>
+		 <groupId>org.apache.tomcat</groupId>
+		 <artifactId>tomcat-servlet-api</artifactId>
+		 <version>8.5.38</version>
+		</dependency>
+		
 	</dependencies>
 
 </project>
