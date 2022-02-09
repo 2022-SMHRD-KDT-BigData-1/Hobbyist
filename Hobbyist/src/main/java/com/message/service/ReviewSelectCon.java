@@ -23,13 +23,13 @@ public class ReviewSelectCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		String a_id = request.getParameter("a_id"); // << 인풋으로 가져온다면 
+		String re_id = request.getParameter("re_id"); // << 인풋으로 가져온다면 
 		
 		/* HttpSession session = request.getSession();
 		AcademyDTO academy = (AcademyDTO) session.getAttribute("academy"); // 세션으로 가져온다면
 		*/
 		Integer int_null = null;
-		ReviewDTO review = new ReviewDTO(int_null,null,null,null,null,int_null,null,a_id);
+		ReviewDTO review = new ReviewDTO(int_null,null,null,null,null,int_null,null,re_id);
 		ReviewDAO dao = new ReviewDAO();
 		
 		ArrayList<ReviewDTO> reviews =  dao.revSelect(review);
