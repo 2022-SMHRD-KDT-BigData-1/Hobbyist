@@ -12,12 +12,11 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class RecommendDTO {
-	private String m_email;
-	private String m_address;//집 주소
-	private String res_area;//위치
-	private String a_L_category; //대분류
-	private String a_S_category; // 소분류
-	private String a_day;//운영 요일
-	private String a_time;//운영 시간
-
+	private String a_id; 
+	private String a_name;
+	private String a_address;
+	private String a_note;
+	private String a_L_category;
+	private String a_m_category;
+	private String a_city;
 }
