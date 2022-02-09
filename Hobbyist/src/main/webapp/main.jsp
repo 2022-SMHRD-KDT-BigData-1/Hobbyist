@@ -3,9 +3,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <!DOCTYPE html>
-
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
   <head>
     <title>Hobbyist</title>
@@ -30,7 +33,7 @@
           <!-- Header -->
           <header id="header">
             <a href="index.html" class="logo"
-              ><h1><strong>Hobbyist</strong></h1></a
+              ><h1><strong>Hobbyis</strong></h1></a
             >
             <ul class="icons">
               <li>
@@ -61,7 +64,7 @@
                             <div class="textbox">
                                 <h3>Hobbyist</h3>
                             </div>
-                            <img src="./images/yoga.jpg">
+                            <img src="/images/yoga.jpg">
                         </a>
                     </li>
                     <li class="slideitem">
@@ -70,7 +73,7 @@
                             <div class="textbox">
                               <h3>Hobbyist</h3>
                             </div>
-                            <img src="./images/brushes.jpg">
+                            <img src="/images/brushes.jpg">
                         </a>
                     </li>
                     <li class="slideitem">
@@ -79,7 +82,7 @@
                             <div class="textbox">
                               <h3>Hobbyist</h3>
                             </div>
-                            <img src="./images/knit.jpg">
+                            <img src="/images/knit.jpg">
                         </a>
                     </li class="slideitem">
         
@@ -180,38 +183,38 @@
             <div class="posts">
               <article>
                 <a href="#" class="image"
-                  ><img src="images/pic01.jpg" alt=""
+                  ><img src="images/guitar.jpg" alt=""
                 /></a>
-                <h3>미술 음악</h3>
+                <h3>음악 악기</h3>
                 <ul class="actions">
-                  <li><a href="#" class="button">미술</a></li>
-                  <li><a href="#" class="button">컴퓨터아트</a></li>
+                  <li><a href="#" class="button">기타</a></li>
+                  <li><a href="#" class="button">베이스</a></li>
+                  <li><a href="#" class="button">드럼</a></li>
                   <li><a href="#" class="button">피아노</a></li>
-                  <li><a href="#" class="button">기타 / 드럼</a></li>
                 </ul>
               </article>
               <article>
                 <a href="#" class="image"
-                  ><img src="images/pic02.jpg" alt=""
+                  ><img src="images/makeup.jpg" alt=""
                 /></a>
-                <h3>뷰티</h3>
+                <h3>뷰티 아트</h3>
                 <ul class="actions">
                   <li><a href="#" class="button">메이크업</a></li>
-                  <li><a href="#" class="button">헤어</a></li>
-                  <li><a href="#" class="button">네일</a></li>
-                  <li><a href="#" class="button">특수분장</a></li>
+                  <li><a href="#" class="button">헤어 네일</a></li>
+                  <li><a href="#" class="button">미술</a></li>
+                  <li><a href="#" class="button">컴퓨터아트</a></li>
                 </ul>
               </article>
               <article>
                 <a href="#" class="image"
-                  ><img src="images/pic04.jpg" alt=""
+                  ><img src="images/pottery.jpg" alt=""
                 /></a>
-                <h3></h3>
+                <h3>제작 공예</h3>
                 <ul class="actions">
-                  <li><a href="#" class="button">복싱</a></li>
-                  <li><a href="#" class="button">태권도</a></li>
-                  <li><a href="#" class="button">주짓수</a></li>
-                  <li><a href="#" class="button">수영</a></li>
+                  <li><a href="#" class="button">도예</a></li>
+                  <li><a href="#" class="button">자수</a></li>
+                  <li><a href="#" class="button">뜨개질</a></li>
+                  <li><a href="#" class="button">금속/가죽</a></li>
                 </ul>
               </article>
             </div>
