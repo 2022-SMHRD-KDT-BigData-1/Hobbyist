@@ -33,7 +33,7 @@
           <!-- Header -->
           <header id="header">
             <a href="index.html" class="logo"
-              ><h1><strong>Hobbyis</strong></h1></a
+              ><h1><strong>Hobbyist</strong></h1></a
             >
             <ul class="icons">
               <li>
@@ -64,7 +64,7 @@
                             <div class="textbox">
                                 <h3>Hobbyist</h3>
                             </div>
-                            <img src="/images/yoga.jpg">
+                            <img src="./images/yoga.jpg">
                         </a>
                     </li>
                     <li class="slideitem">
@@ -73,7 +73,7 @@
                             <div class="textbox">
                               <h3>Hobbyist</h3>
                             </div>
-                            <img src="/images/brushes.jpg">
+                            <img src="./images/brushes.jpg">
                         </a>
                     </li>
                     <li class="slideitem">
@@ -82,7 +82,7 @@
                             <div class="textbox">
                               <h3>Hobbyist</h3>
                             </div>
-                            <img src="/images/knit.jpg">
+                            <img src="./images/knit.jpg">
                         </a>
                     </li class="slideitem">
         
@@ -140,7 +140,7 @@
             <div class="posts">
               <article>
                 <a href="#" class="image"
-                  ><img src="images/fitness.jpg" alt=""
+                  ><img src="./images/fitness.jpg" alt=""
                 /></a>
                 <h3>운동</h3>
                 <ul class="actions">
@@ -152,7 +152,7 @@
               </article>
               <article>
                 <a href="#" class="image"
-                  ><img src="images/ballet.jpg" alt=""
+                  ><img src="./images/ballet.jpg" alt=""
                 /></a>
                 <h3>무용</h3>
                 <ul class="actions">
@@ -164,7 +164,7 @@
               </article>
               <article>
                 <a href="#" class="image"
-                  ><img src="images/boxing.jpg" alt=""
+                  ><img src="./images/boxing.jpg" alt=""
                 /></a>
                 <h3>스포츠 무술</h3>
                 <ul class="actions">
@@ -183,7 +183,7 @@
             <div class="posts">
               <article>
                 <a href="#" class="image"
-                  ><img src="images/guitar.jpg" alt=""
+                  ><img src="./images/guitar.jpg" alt=""
                 /></a>
                 <h3>음악 악기</h3>
                 <ul class="actions">
@@ -195,7 +195,7 @@
               </article>
               <article>
                 <a href="#" class="image"
-                  ><img src="images/makeup.jpg" alt=""
+                  ><img src="./images/makeup.jpg" alt=""
                 /></a>
                 <h3>뷰티 아트</h3>
                 <ul class="actions">
@@ -207,7 +207,7 @@
               </article>
               <article>
                 <a href="#" class="image"
-                  ><img src="images/pottery.jpg" alt=""
+                  ><img src="./images/pottery.jpg" alt=""
                 /></a>
                 <h3>제작 공예</h3>
                 <ul class="actions">
