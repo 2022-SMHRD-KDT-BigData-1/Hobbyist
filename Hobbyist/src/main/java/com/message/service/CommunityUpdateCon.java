@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.message.model.CommunityDAO;
 import com.message.model.CommunityDTO;
 
-@WebServlet("/CommunityUploadCon")
+@WebServlet("/CommunityUpdateCon")
 public class CommunityUpdateCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

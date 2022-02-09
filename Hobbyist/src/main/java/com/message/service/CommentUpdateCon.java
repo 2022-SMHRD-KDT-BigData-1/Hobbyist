@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.message.model.CommentDAO;
 import com.message.model.CommentDTO;
 
-@WebServlet("/CommentDeleteCon")
+@WebServlet("/CommentUpdateCon")
 public class CommentUpdateCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
