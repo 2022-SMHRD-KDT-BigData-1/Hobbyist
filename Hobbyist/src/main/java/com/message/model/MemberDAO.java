@@ -66,7 +66,7 @@ public class MemberDAO {
 			psmt.setString(6, member.getM_address());
 			psmt.setString(7, member.getM_age());
 			psmt.setString(8, member.getM_gender());
-			psmt.setString(9, null);
+			psmt.setString(9, member.getA_id());
 			
 			cnt = psmt.executeUpdate();
 			
@@ -82,7 +82,7 @@ public class MemberDAO {
 		connect();
 		
 		MemberDTO member = null;
-		sql = "select m_nick from member where m_email = ? and m_pw = ?";
+		sql = "select * from member where m_email = ? and m_pw = ?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -93,7 +93,7 @@ public class MemberDAO {
 			
 			if(rs.next()) {//rs.next는 회원가입된 정보가 DB에 있는지 확인
 				
-				member = new MemberDTO(email, pw, rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9));
+				member = new MemberDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9));
 			}
 			
 		} catch (SQLException e) {		

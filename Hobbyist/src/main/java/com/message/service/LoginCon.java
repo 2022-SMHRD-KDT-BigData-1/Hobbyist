@@ -32,7 +32,7 @@ public class LoginCon implements iCommand {
 			//세션생성
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
-			response.sendRedirect("main_jstl.jsp");
+			response.sendRedirect("main.jsp");
 		}else {
 			//로그인 실패 알림창 띄운 후 main.jsp로 이동하기
 			System.out.println("실패..");

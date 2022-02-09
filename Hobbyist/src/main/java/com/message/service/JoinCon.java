@@ -22,15 +22,15 @@ public class JoinCon implements iCommand {
 		request.setCharacterEncoding("utf-8");
 		
 		//아이디, 패스워드, 닉네임을 변수에 저장
-		String email = request.getParameter("m_email");
-		String pw = request.getParameter("m_pw");
-		String name = request.getParameter("m_name");
-		String nick = request.getParameter("m_nick");
-		String tel = request.getParameter("m_tel");
-		String address= request.getParameter("m_address");
-		String age = request.getParameter("m_age");
-		String gender = request.getParameter("m_gender");
-		String a_id = request.getParameter("a_id");
+		String email = request.getParameter("email");
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String nick = request.getParameter("nick");
+		String tel = request.getParameter("tel");
+		String address= request.getParameter("address");
+		String age = request.getParameter("age");
+		String gender = request.getParameter("gender");
+		String m_a_id = request.getParameter("m_a_id");
 		
 		MemberDAO dao = new MemberDAO();
 		
@@ -38,7 +38,7 @@ public class JoinCon implements iCommand {
 		
 		
 		RequestDispatcher dispatcher;
-		int cnt = dao.memberJoin(new MemberDTO(email, pw, name, nick, tel, address, age, gender, a_id));
+		int cnt = dao.memberJoin(new MemberDTO(email, pw, name, nick, tel, address, age, gender, m_a_id));
 		
 		System.out.println(cnt);
 		
