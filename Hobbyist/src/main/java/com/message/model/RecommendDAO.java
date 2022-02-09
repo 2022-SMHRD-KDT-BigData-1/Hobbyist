@@ -5,20 +5,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class RecommendDAO {
-	/*
-	 * rec_Select(추천받는 리스트)
-	 * 
-	 * 
-	 * */
 	private Connection conn;
 	private PreparedStatement psmt;
 	private ResultSet rs;
 	private int cnt;
 	private String sql;
 	
-	// 수강정보 / 수강내역 / 위시리스트
 	public void connect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -36,7 +31,6 @@ public class RecommendDAO {
 		
 	}
 	
-	//연결 종료 기능
 	public void close() {
 		try {
 			if(rs !=null) {
@@ -52,4 +46,34 @@ public class RecommendDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<RecommendDTO>recSelect(RecommendDTO Recommend) {
+		ArrayList<RecommendDTO> list = new ArrayList<RecommendDTO>();
+		
+		connect();
+		
+		sql="select * from Recommend where a_L_category = ? and a_m_category = ? and a_city = ?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, Recommend.getA_L_category());
+			psmt.setString(2, Recommend.getA_m_category());
+			psmt.setString(3, Recommend.getA_city());
+			
+			rs=psmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				list.add(new RecommendDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return list;
+	}
+	
 }
