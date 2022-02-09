@@ -1339,20 +1339,32 @@ ul.actions {
     ul.actions.fit.stacked {
       width: 100%; }
 
+
 /* Icons */
 ul.icons {
   cursor: default;
   list-style: none;
-  padding-left: 0; }
-  ul.icons li {
-    display: inline-block;
-    padding: 0 1em 0 0; }
-    ul.icons li:last-child {
-      padding-right: 0; }
-    ul.icons li .icon {
-      color: inherit; }
-      ul.icons li .icon:before {
-        font-size: 1.25em; }
+  padding-left: 0;
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
+}
+ul.icons li {
+  display: inline-block;
+  padding: 0 1em 0 0;
+  bottom: 10px;
+}
+ul.icons li:last-child {
+  padding-right: 0;
+  text-decoration: none;
+}
+ul.icons li .icon {
+  color: inherit;
+}
+ul.icons li .icon:before {
+  font-size: 2em;
+}
+
 
 /* Contact */
 ul.contact {
@@ -2271,3 +2283,11 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+
+    /************************************************/
+
+span.label {
+  color: #f45c5c;
+  font-weight: bold;
+}
+    
