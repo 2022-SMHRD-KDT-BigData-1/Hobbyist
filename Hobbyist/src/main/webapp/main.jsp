@@ -36,6 +36,10 @@
 	font-family: "SUIT-Medium";
 	margin-right: 2em;
 }
+
+
+
+
 </style>
 </head>
 <body class="is-preload">
@@ -50,9 +54,9 @@
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="#"><span class="label">Login</span></a></li>
-						<li><a href="#"><span class="label">Join</span></a></li>
-						<li><a href="#"><span class="label">MyPage</span></a></li>
+						<li><a href="#"><span class="label">로그인</span></a></li>
+						<li><a href="#"><span class="label">회원가입</span></a></li>
+						<li><a href="#"><span class="label">마이페이지</span></a></li>
 					</ul>
 				</header>
 
