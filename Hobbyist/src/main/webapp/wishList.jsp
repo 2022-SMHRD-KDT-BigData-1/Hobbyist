@@ -93,9 +93,9 @@
               </div>
               <div class="col-sm-7">
                 <h4>map</h4>
-                <div>
+                <div id="map">
                   <img src="images/sample_map.jpg.png" />
-                 
+			
                 </div>
               </div>
             </div>
