@@ -1,5 +1,19 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
+@font-face {
+  font-family: "GowunBatang-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SUIT-Medium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 /*
 	Editorial by HTML5 UP
 	html5up.net | @ajlkn
@@ -2466,3 +2480,17 @@ span.label {
   > label {
   background: #999;
 }
+
+#main > div > section > header h2 {
+  font-family: "SUIT-Medium";
+}
+
+#main > div > section > div > article h3 {
+  font-family: "SUIT-Medium";
+}
+
+#main > div > section > div > article a {
+  font-family: "SUIT-Medium";
+  margin-right: 2em;
+}
+
