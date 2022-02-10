@@ -51,17 +51,16 @@ public class CommunityDAO {
 		}
 	}
 
-	// 커뮤니티 글 목록
+	// 커뮤니티 글 목록 전체조회
 	public ArrayList<CommunityDTO> commSelect() {
 
 		ArrayList<CommunityDTO> list = new ArrayList<CommunityDTO>();
 
 		connect();
 
-		sql = "select C.c_seq, M.m_nick, C.c_title, C.c_content, C.c_view, C.c_date"
-				+ "from community inner join member"
-				+ "on M.m_nick = C.m_nick"
-				+ "order by c_seq(desc)";
+		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date"
+				+ " from community"
+				+ " order by c_seq desc";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -69,8 +68,8 @@ public class CommunityDAO {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), null,
-						rs.getInt(5), rs.getString(6)));
+				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getInt(6), rs.getString(7)));
 			}
 			
 
