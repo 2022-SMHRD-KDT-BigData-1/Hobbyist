@@ -132,33 +132,5 @@ public class MemberDAO {
 		}
 		return cnt;
 	}
-	// 수강정보 / 수강내역 / 위시리스트
-	public ArrayList<AcademyDTO> classSelectAll() {
-		ArrayList<AcademyDTO> list = new ArrayList<AcademyDTO>();
-		connect();
-		try {
-
-			String sql = "select a_id, a_classname, a_tel, a_address "
-					+ "from academy "
-					+ "where ";
-
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-
-			while (rs.next()) {
-				//rs 객체 내에 저장된 회원정보들 접근 -> Member 객체 생성 -> list에 저장
-				String a_id = rs.getString(1);
-				String a_classname = rs.getString(2);
-				String a_tel = rs.getString(3);
-				String a_address = rs.getString(4);
-				
-				list.add(new AcademyDTO(a_id,a_classname, a_tel, a_address));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return list;
-	}
+	
 }

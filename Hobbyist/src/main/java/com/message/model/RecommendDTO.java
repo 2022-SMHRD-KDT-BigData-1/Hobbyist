@@ -15,8 +15,8 @@ public class RecommendDTO {
 	private String a_id; 
 	private String a_name;
 	private String a_address;
-	private String a_note;
 	private String a_L_category;
 	private String a_m_category;
+	private String a_note;
 	private String a_city;
 }

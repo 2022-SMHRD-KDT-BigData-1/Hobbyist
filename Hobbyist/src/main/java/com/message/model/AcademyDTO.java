@@ -16,17 +16,11 @@ import lombok.NoArgsConstructor;
 
 
 public class AcademyDTO {
-	public AcademyDTO(String a_id2, String a_classname2, String a_tel2, String a_address2) {
-	
-	}
-	private String a_id; // 학원코드
-	private String a_classname;// 학원명
+	private String a_id; 
+	private String a_name;
 	private String a_address;
-	private String a_tel;
-	private String a_day;
-	private String a_time;
-	private String a_position;
-	private int a_L_category;// 대분류
-	private int a_m_category;// 소분류
-	private int a_up;// 추천수
+	private String a_L_category;
+	private String a_m_category;
+	private String a_note;
+	private String a_city;
 }
