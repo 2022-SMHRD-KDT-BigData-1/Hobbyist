@@ -47,12 +47,11 @@ public class RecommendDAO {
 		}
 	}
 	
-	public ArrayList<RecommendDTO>recSelect(RecommendDTO Recommend) {
-		ArrayList<RecommendDTO> list = new ArrayList<RecommendDTO>();
+	public ArrayList<AcademyDTO>recSelect(AcademyDTO Recommend) {
+		ArrayList<AcademyDTO> list = new ArrayList<AcademyDTO>();
 		
 		connect();
-		
-		sql="select * from Recommend where a_L_category = ? and a_m_category = ? and a_city = ?";
+		sql="select * from academy where a_L_category = ? and a_m_category = ? and a_city = ?";
 		
 		try {
 			psmt=conn.prepareStatement(sql);
@@ -64,7 +63,7 @@ public class RecommendDAO {
 			
 			
 			while(rs.next()) {
-				list.add(new RecommendDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+				list.add(new AcademyDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
 			}
 			
 		} catch (SQLException e) {
