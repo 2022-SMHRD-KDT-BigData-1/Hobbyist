@@ -15,23 +15,89 @@
 	</style>
 	<body style="text-align: center;">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Menu -->
-					<nav id="Update">	
-						<ul class="actions vertical">
-							<li><h5>회원정보수정</h5></li>
-								<form action="UpdateCon" method="post">
-									<li>접속한 Email : ${member.m_email }</li>
-									<%-- <li>접속한 Email : <%=member.getM_email() %></li> --%>
-									<li><input type="password" name="pw" placeholder="PW를 입력하세요" style="width: 500px; margin: 0 auto;"></li>
-									<li><input type="text" name="tel" placeholder="전화번호를 입력하세요" style="width: 500px; margin: 0 auto;"></li>
-									<li><input type="text" name="address" placeholder="집주소를 입력하세요" style="width: 500px; margin: 0 auto;"></li>
-									<li><input type="submit" value="UPDATE" class="button fit" style="width: 500px; margin: 0 auto;"></li>
-								</form>
-						</ul>
-					</nav>			
-			</div>
+		 <form action="JoinCon.do" method="get">
+      <fieldset>
+        <legend align="center"><h3>Hobbyist JOIN</h3></legend>
+        <table align="center">
+          <tr>
+            <td align="center">
+              <strong>접속한 이메일</strong>
+            </td>
+            <td>
+              ${member.m_email }
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>비밀번호</strong>
+            </td>
+            <td>
+              <input type="password" name="pw" placeholder="비밀번호 입력" />
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>이름</strong>
+            </td>
+            <td>
+              <input type="text" name="name" placeholder="ex) 김지은" />
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>닉네임</strong>
+            </td>
+            <td>
+              <input type="text" name="nick" placeholder="ex) 바보" />
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>주소</strong>
+            </td>
+            <td>
+              <input type="text" name="address" placeholder="ex) 동구" />
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>나이</strong>
+            </td>
+            <td>
+              <input type="text" name="age" placeholder="25" />
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>성별</strong>
+            </td>
+            <td>
+              <input type="radio" id="man" name="gender" value="남자" />
+              <label for="man">남자</label>
+              <input type="radio" id="woman" name="gender" value="여자" />
+              <label for="woman">여자</label>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <strong>학원코드</strong>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="a_id"
+                placeholder="다니고 있는 학원코드"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <input type="submit" value="JOIN" />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
