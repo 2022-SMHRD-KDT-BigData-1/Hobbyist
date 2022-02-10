@@ -138,7 +138,9 @@ public class MemberDAO {
 		connect();
 		try {
 
-			String sql = "select a_id, a_classname, a_tel, a_address from academy where ";
+			String sql = "select a_id, a_classname, a_tel, a_address "
+					+ "from academy "
+					+ "where ";
 
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
