@@ -95,23 +95,7 @@
                 <h4>map</h4>
                 <div>
                   <img src="images/sample_map.jpg.png" />
-                  <script
-                    type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"
-                  ></script>
-
-                  <script>
-                    var container = document.getElementById("map");
-                    var options = {
-                      center: new kakao.maps.LatLng(
-                        35.15062349964835,
-                        126.91592863607318
-                      ),
-                      level: 3,
-                    };
-
-                    var map = new kakao.maps.Map(container, options);
-                  </script>
+                 
                 </div>
               </div>
             </div>
