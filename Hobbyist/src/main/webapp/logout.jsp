@@ -9,7 +9,7 @@
 </head>
 <body>
 	<c:remove var="member" scope="session"/>
-	<c:redirect url="main_jstl.jsp"/>
+	<c:redirect url="main.jsp"/>
 	<%-- <%
 		session.invalidate();
 		response.sendRedirect("main.jsp");
