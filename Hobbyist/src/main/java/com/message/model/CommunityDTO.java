@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 //기본 생성자를 생성해줌.
 
 @AllArgsConstructor
+
 public class CommunityDTO {
 	private int c_seq;
 	private String m_nick;
@@ -19,6 +20,9 @@ public class CommunityDTO {
 	private String c_pw;
 	private int c_view;
 	private String c_date;
-	
 }
+
+
+
+
 

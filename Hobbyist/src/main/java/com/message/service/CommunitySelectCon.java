@@ -22,9 +22,7 @@ public class CommunitySelectCon extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); 
 		
 		CommunityDAO dao = new CommunityDAO();
-		
-		
-		
+
 		ArrayList<CommunityDTO> list=  dao.commSelect();
 		request.setAttribute("list", list);
 		
