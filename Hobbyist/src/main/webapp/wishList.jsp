@@ -10,35 +10,32 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-<head>
-<title>Hobbyist</title>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<link
-	href="https://fonts.googleapis.com/
+  <head>
+    <title>Hobbyist</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/
     icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined"
-	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css"
-	rel="stylesheet">
-<style>
-#main>div>section>header h2 {
-	font-family: "SUIT-Medium";
-}
-
-#main>div>section>div>article h3 {
-	font-family: "SUIT-Medium";
-}
-
-#main>div>section>div>article a {
-	font-family: "SUIT-Medium";
-	margin-right: 2em;
-}
-
-</style>
-</head>
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <style type="text/css">
+      a {
+        text-decoration: none;
+        color: #f45c5c;
+      }
+    </style>
+  </head>
   <body class="is-preload">
     <!-- Wrapper -->
     <div id="wrapper">
@@ -64,7 +61,6 @@
           </header>
 
           <!-- Banner -->
-          <br />
 
           <!-- Section -->
 
@@ -72,30 +68,51 @@
             <h3>Wishlist</h3>
             <div class="row">
               <div class="col-sm-3">
-                <h4>title</h4>
+                <h4>Info</h4>
                 <div><img src="images/sample_wishlist.jpg" /></div>
                 <div>
-                  <ul>
-                    <li>Dolor etiam magna etiam.</li>
-                    <li>Sagittis lorem eleifend.</li>
-                    <li>Felis dolore viverra.</li>
-                  </ul>
-                </div>
-                <h4>info</h4>
-                <div>
                   <ul class="alt">
-                    <li>Dolor etiam magna etiam.</li>
-                    <li>Sagittis lorem eleifend.</li>
-                    <li>Felis feugiat viverra.</li>
+                    <li><strong>모던필라테스</strong></li>
+                    <li>광주광역시 남구 봉선동</li>
+                    <li>062-672-9030</li>
+                    <li>광주 남구 용대로74번길 11-1</li>
                     <li><a href="#" class="button primary small">Call</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-sm-7">
+
+              <div class="col-sm-9">
                 <h4>map</h4>
-                <div id="map">
-                  <img src="images/sample_map.jpg.png" />
-			
+                <div class="map">
+                  <!-- <img src="images/sample_map.jpg.png" /> -->
+                  <!-- * 카카오맵 - 지도퍼가기 -->
+                  <!-- 1. 지도 노드 -->
+                  <div class="kakao_map">
+                    <div
+                      id="daumRoughmapContainer1644542523530"
+                      class="root_daum_roughmap root_daum_roughmap_landing"
+                    ></div>
+                  </div>
+
+                  <!--
+	2. 설치 스크립트
+	* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+-->
+                  <script
+                    charset="UTF-8"
+                    class="daum_roughmap_loader_script"
+                    src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"
+                  ></script>
+
+                  <!-- 3. 실행 스크립트 -->
+                  <script charset="UTF-8">
+                    new daum.roughmap.Lander({
+                      timestamp: "1644542523530",
+                      key: "2948y",
+                      mapWidth: "1000",
+                      mapHeight: "520",
+                    }).render();
+                  </script>
                 </div>
               </div>
             </div>
@@ -133,7 +150,7 @@
             <p></p>
             <ul class="contact">
               <li>
-                <a href="#">information@untitled.tld</a>
+                <a href="#">smhrd@smhrd.co.kr</a>
               </li>
               <li>(000) 000-0000</li>
               <li>
@@ -165,3 +182,4 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
