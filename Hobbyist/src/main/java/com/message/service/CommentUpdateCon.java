@@ -25,8 +25,9 @@ public class CommentUpdateCon extends HttpServlet {
 		HttpSession session = request.getSession();
 		CommentDTO comment = (CommentDTO) session.getAttribute("comment");
 		String nick = comment.getM_nick();
-
+		
 		String content = request.getParameter("content");
+
 
 		CommentDAO dao = new CommentDAO();
 		int cnt = dao.commentUpdate(new CommentDTO(0, 0, nick, content, null, null), null, null);

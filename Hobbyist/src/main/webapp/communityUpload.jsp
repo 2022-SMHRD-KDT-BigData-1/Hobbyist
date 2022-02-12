@@ -32,7 +32,7 @@
 						<li><a href="#"><span class="label">MyPage</span></a></li>
 					</ul>
 				</header>
-				<form action="CommunityUpdateCon.do" method="get">
+				<form action="CommunityUploadCon" method="get">
 					<table style="padding-top: 50px" align=center width=700 border=0
 						cellpadding=2>
 						<tr>
@@ -44,28 +44,26 @@
 								<table class="boardtable">
 									<tr>
 										<td>제목</td>
-										<td><input type=text name=title size=60></td>
+										<td colspan="3"><input type=text name=title placeholder="제목을 입력하세요"></td>
+									</tr>
+
+									<tr>
+										<td>닉네임</td>
+										<td><input type=text name=nick placeholder="닉네임을 입력하세요"></td>
+										<td>비밀번호</td>
+										<td><input type=password name=pw placeholder="비밀번호를 입력하세요"></td>
 									</tr>
 
 									<tr>
 										<td>내용</td>
-										<td><textarea name=content cols=85 rows=15></textarea></td>
-									</tr>
-
-									<tr>
-										<td>비밀번호</td>
-										<td><input type=password name=pw size=10 maxlength=10></td>
-									</tr>
-
-									<tr>
-										<td>파일첨부</td>
-										<td align="left"><input type=file name=file></td>
+										<td colspan="3"><textarea name=content cols=85 rows=15
+												placeholder="내용을 입력하세요"></textarea></td>
 									</tr>
 
 								</table>
 
 								<center>
-									<input type="submit" value="작성" size="16">
+									<input type="submit" value="작성">
 								</center>
 							</td>
 						</tr>

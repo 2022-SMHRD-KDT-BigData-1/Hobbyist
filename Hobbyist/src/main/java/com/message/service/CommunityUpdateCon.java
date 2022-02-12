@@ -28,6 +28,9 @@ public class CommunityUpdateCon extends HttpServlet {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String pw = request.getParameter("pw");
+		String file = request.getParameter("file");
+		
 
 		CommunityDAO dao = new CommunityDAO();
 		int cnt = dao.commUpdate(new CommunityDTO(0, nick, title, content, null, 0, null), null);
