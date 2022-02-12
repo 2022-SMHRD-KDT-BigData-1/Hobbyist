@@ -1,10 +1,12 @@
-<%@page import="com.message.model.CommunityDAO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.message.model.CommunityDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.message.model.CommunityDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +21,13 @@
 <link
 	href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css"
 	rel="stylesheet">
+<title>Insert title here</title>
 </head>
-<body class="is-preload">
-
+<body>
 	<%
-		// CommunityDTO community = (CommunityDTO) session.getAttribute("community");
-	
-		CommunityDAO dao = new CommunityDAO();
-		ArrayList<CommunityDTO> communitylist = dao.commSelect();
-		
+	CommunityDTO community = (CommunityDTO) session.getAttribute("community");
+	CommunityDAO dao = new CommunityDAO();
+	ArrayList<CommunityDTO> communitylist = dao.commOneSelect(community.getC_seq());
 	%>
 	<div id="wrapper">
 		<!-- Main -->
@@ -45,48 +45,60 @@
 					</ul>
 				</header>
 
-				<h2 align=center>게시판</h2>
-				<table align=center>
-					<thead align="center">
-						<tr>
-							<td width="50" align="center">번호</td>
-							<td width="500" align="center">제목</td>
-							<td width="100" align="center">작성자</td>
-							<td width="200" align="center">날짜</td>
-							<td width="80" align="center">조회수</td>
-						</tr>
-					</thead>
-
-					<tbody>					
-					<%
-						for(int i = 0; i<communitylist.size(); i++){
-							out.print("<tr>");
-							out.print("<td width='50' align='center'>"+communitylist.get(i).getC_seq()+"</td>");							
-							out.print("<td width='500' align='center'><a href='communityPost.jsp?num="+ (i) +"'>"+communitylist.get(i).getC_title()+"</a></td>");
-							out.print("<td width='100' align='center'>"+communitylist.get(i).getM_nick()+"</td>");
-							out.print("<td width='200' align='center'>"+communitylist.get(i).getC_date()+"</td>");
-							out.print("<td width='80' align='center'>"+communitylist.get(i).getC_view()+"</td>");
-							out.print("</tr>");
-						}
-					%>
-					</tbody>
-					
-					<tr>
-						<form action="search.do" method="get">
-							<td></td>
-							<td colspan="2"><input type="text" name="search"></td>
-							<td colspan="1"><button type="submit">검색</button></td>
-						</form>
-						
-						<td colspan="1"><a href="communityUpload.jsp" class="button" align="center">글쓰기</a></td>
+				<table>
+				
+				<% for(int i = 0; i < communitylist.size(); i++){%>
+					<tr align=center>
+						<td>글제목</td>
+						<td colspan="3">
+							<%
+							out.print(communitylist.get(i).getC_title());
+							%>
+						</td>
 					</tr>
+					<tr align=center>
+						<td>작성자</td>
+						<td>
+							<%
+							out.print(communitylist.get(i).getM_nick());
+							%>
+						</td>
+						<td>작성일자</td>
+						<td>
+							<%
+							out.print(communitylist.get(i).getC_date());
+							%>
+						</td>
+					</tr>
+					<tr align=center>
+						<td>내용</td>
+						<td colspan="3">
+							<%
+							out.print(communitylist.get(i).getC_content());
+							%>
+						</td>
+					</tr>
+				<% } %>
+					
+					
 				</table>
+
+
+				<div>
+					<form action="CommunityUpdateCon" method="get">
+						<button type="submit">글 수정</button>
+					</form>
+
+					<form action="CommunityDeleteCon" method="get">
+						<button type="submit">글 삭제</button>
+					</form>
+				</div>
+
+
+
 
 				<!-- Banner -->
 				<br>
-
-
-
 			</div>
 		</div>
 
@@ -140,12 +152,6 @@
 		</div>
 	</div>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
 
 </body>
 </html>

@@ -58,8 +58,7 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date"
-				+ " from community"
+		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date" + " from community"
 				+ " order by c_seq desc";
 
 		try {
@@ -68,10 +67,9 @@ public class CommunityDAO {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getInt(6), rs.getString(7)));
+				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getInt(6), rs.getString(7)));
 			}
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,32 +79,112 @@ public class CommunityDAO {
 
 		return list;
 	}
+	
+	
+	//페이지 처리 메소드
+	public boolean nextPage(int pageNumber) {
+		String sql = "select * from community where c_ceq < ? and bbsAvailable = 1";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
 
-	// 커뮤니티 글 쓰기
-	public int commUpload(CommunityDTO board, MemberDTO member) {
+	// 게시판 게시글 눌렀을때 게시글 보여주는 메소드
+	public ArrayList<CommunityDTO> commOneSelect(int seq) {
+
+		ArrayList<CommunityDTO> list = new ArrayList<CommunityDTO>();
 
 		connect();
 
-		sql = "insert into community values(num_seq.nextval,?,?,?,0,sysdate)";
-		
+		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date from community where c_seq=?";
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, member.getM_nick());
-			psmt.setString(2, board.getC_title());
-			psmt.setString(3, board.getC_content());
-			
-			cnt = psmt.executeUpdate();
-			
-			
+			psmt.setInt(1, seq);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getInt(6), rs.getString(7)));
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
+		return list;
+	}
 
+//	public ArrayList<Integer> commOneSelect() {
+//
+//		ArrayList<Integer> seq = new ArrayList<Integer>();
+//		
+//		connect();
+//
+//		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date"
+//				+ " from community"
+//				+ " order by c_seq desc";
+//
+//		try {
+//			psmt = conn.prepareStatement(sql);
+//
+//			rs = psmt.executeQuery();
+//
+//			while(rs.next()) {
+//				seq.add(rs.getInt(1));
+//			}
+//			
+//			
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close();
+//		}
+//		return seq;
+//	}
+
+	// 커뮤니티 글 쓰기
+	public int commUpload(CommunityDTO board) {
+
+		connect();
+		System.out.println(board.getM_nick());
+		System.out.println(board.getC_title());
+		System.out.println(board.getC_content());
+		System.out.println(board.getC_pw());
+		sql = "insert into community values(c_seq.nextval,?,?,?,sysdate,?,0)";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, board.getM_nick());
+			psmt.setString(2, board.getC_title());
+			psmt.setString(3, board.getC_content());
+			psmt.setString(4, board.getC_pw());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return cnt;
-
 	}
 
 	// 커뮤니티 글 수정
@@ -118,13 +196,11 @@ public class CommunityDAO {
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			
-			
+
 			psmt.setString(1, board.getC_title());
 			psmt.setString(2, board.getC_content());
 			psmt.setString(3, nick.getM_nick());
 			psmt.setString(4, board.getC_pw());
-
 
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -133,8 +209,6 @@ public class CommunityDAO {
 		}
 		return cnt;
 	}
-	
-	
 
 	// 커뮤니티 글 삭제
 	public int commDelete(String nick, String pw) {

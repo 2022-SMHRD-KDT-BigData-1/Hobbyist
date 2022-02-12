@@ -19,17 +19,15 @@ public class CommunitySelectCon extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8"); 
-		
-		CommunityDAO dao = new CommunityDAO();
-
-		ArrayList<CommunityDTO> list=  dao.commSelect();
-		request.setAttribute("list", list);
-		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("community.jsp");
-		dispatcher.forward(request, response);
-		
-		
+//		request.setCharacterEncoding("UTF-8"); 
+//		
+//		CommunityDAO dao = new CommunityDAO();
+//
+//		ArrayList<CommunityDTO> list=  dao.commSelect();
+//		request.setAttribute("list", list);
+//		
+//		RequestDispatcher dispatcher=request.getRequestDispatcher("communityPost.jsp");
+//		dispatcher.forward(request, response);
 		
 	}
 

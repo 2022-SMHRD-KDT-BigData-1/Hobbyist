@@ -21,21 +21,21 @@ public class CommunityUploadCon extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-
+		
+		
 		String nick = request.getParameter("nick");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String pw = request.getParameter("pw");
-		String date = request.getParameter("date");
 
 		CommunityDAO dao = new CommunityDAO();
 
-		int cnt = dao.commUpload(new CommunityDTO(0, nick, title, content, pw, 0, date), null);
+		int cnt = dao.commUpload(new CommunityDTO(0, nick, title, content, pw, 0, null));
 		
 		
 		if (cnt > 0) {
 			System.out.println("게시글 전송 성공!");
-			response.sendRedirect("main.jsp");
+			response.sendRedirect("community.jsp");
 		} else {
 			System.out.println("게시글 전송 실패..");
 			response.setContentType("text/html; charset=UTF-8");
@@ -45,7 +45,6 @@ public class CommunityUploadCon extends HttpServlet {
 			out.print("location.href='community.jsp';");
 			out.print("</script>");
 		}
-
 	}
 
 }
