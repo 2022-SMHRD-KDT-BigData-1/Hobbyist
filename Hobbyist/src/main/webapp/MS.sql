@@ -11,7 +11,8 @@ create table academy(
 	
 	constraint academy_pk primary key(a_id)
 );
-
+insert into History values(1,'학원','목 금', '북구', '010-4684-131','08:00-10:00')
+select * from HISTORY
 
 insert into ACADEMY values(1,'학원',date,'광주','651-1651','51시',2,3)
 select * from academy
