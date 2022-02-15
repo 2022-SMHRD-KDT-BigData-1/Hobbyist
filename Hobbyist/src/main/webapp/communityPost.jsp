@@ -1,3 +1,5 @@
+<%@page import="com.message.model.CommentDTO"%>
+<%@page import="com.message.model.CommentDAO"%>
 <%@page import="com.message.model.CommunityDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.message.model.CommunityDAO"%>
@@ -25,9 +27,17 @@
 </head>
 <body>
 	<%
-	CommunityDTO community = (CommunityDTO) session.getAttribute("community");
+	
+	//community 선언 메소드
+	//CommunityDTO community = (CommunityDTO) session.getAttribute("community");
 	CommunityDAO dao = new CommunityDAO();
-	ArrayList<CommunityDTO> communitylist = dao.commOneSelect(community.getC_seq());
+	//CommunityDTO communitylist = dao.commOneSelect(community.getC_seq());
+	ArrayList<CommunityDTO> communitylist = dao.commSelect();
+	
+	
+	//comment 선언 메소드
+	CommentDAO c_dao = new CommentDAO();	
+	ArrayList<CommentDTO> commentlist = c_dao.commentSelect();
 	%>
 	<div id="wrapper">
 		<!-- Main -->
@@ -46,13 +56,11 @@
 				</header>
 
 				<table>
-				
-				<% for(int i = 0; i < communitylist.size(); i++){%>
 					<tr align=center>
 						<td>글제목</td>
 						<td colspan="3">
 							<%
-							out.print(communitylist.get(i).getC_title());
+							out.print(communitylist.get(0).getC_title());
 							%>
 						</td>
 					</tr>
@@ -60,39 +68,75 @@
 						<td>작성자</td>
 						<td>
 							<%
-							out.print(communitylist.get(i).getM_nick());
+							out.print(communitylist.get(0).getM_nick());
 							%>
 						</td>
 						<td>작성일자</td>
 						<td>
 							<%
-							out.print(communitylist.get(i).getC_date());
+							out.print(communitylist.get(0).getC_date());
 							%>
 						</td>
 					</tr>
-					<tr align=center>
+					<tr align=center rowspan="10">
 						<td>내용</td>
 						<td colspan="3">
 							<%
-							out.print(communitylist.get(i).getC_content());
+							out.print(communitylist.get(0).getC_content());
 							%>
 						</td>
 					</tr>
-				<% } %>
-					
-					
+					<tr align=right>
+						<td colspan="4">
+								<button type="submit">글 수정</button>
+								<button type="submit">글 삭제</button>
+						</td>
+					</tr>
+				</table>
+
+				<!-- 댓글 조회 -->
+				<table align=center>
+					<thead align="center">
+						<tr>
+							<td align="center" colspan="3">댓글</td>
+						</tr>
+					</thead>
+
+					<tbody>
+						<%
+						for (int i = 0; i < commentlist.size(); i++) {
+							out.print("<tr>");
+							out.print("<td width='200' align='center'>" + commentlist.get(i).getM_nick() + "</td>");
+							out.print("<td width='1000'>" + commentlist.get(i).getCom_content() + "</td>");
+							out.print("<td width='200' align='center'>" + commentlist.get(i).getCom_date() + "</td>");
+							out.print("</tr>");
+						}
+						%>
+					</tbody>
 				</table>
 
 
-				<div>
-					<form action="CommunityUpdateCon" method="get">
-						<button type="submit">글 수정</button>
-					</form>
+				<!-- 댓글 작성-->
+				<form action="communityPost.jsp" method="get">
+					<table>
+						<tr align=center>
+							<td>닉네임</td>
+							<td><input type=text name=nick placeholder="닉네임을 입력하세요"></td>
+							<td>비밀번호</td>
+							<td><input type=password name=pw placeholder="비밀번호를 입력하세요"></td>
+						</tr>
+						<tr align=center>
+							<td>내용</td>
+							<td colspan="3"><textarea name=content cols=85 rows=5
+									placeholder="내용을 입력하세요"></textarea></td>
+						</tr>
+					</table>
+					<center>
+						<input type="submit" value="작성">
+					</center>
+				</form>
 
-					<form action="CommunityDeleteCon" method="get">
-						<button type="submit">글 삭제</button>
-					</form>
-				</div>
+
 
 
 
