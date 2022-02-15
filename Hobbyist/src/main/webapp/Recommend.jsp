@@ -1,3 +1,4 @@
+<%@page import="com.message.model.RecommendDAO"%>
 <%@page import="com.message.model.MessageDTO"%>
 <%@page import="com.message.model.MessageDAO"%>
 <%@page import="com.message.model.MemberDTO"%>
@@ -8,9 +9,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	request.setCharacterEncoding("utf-8");
-	ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) request.getAttribute("recommend");
+	ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
 	MemberDTO member = (MemberDTO) session.getAttribute("member");
 	
+	int pageSize = 8; // 한 페이지에 출력할 레코드 수
+
+	// 페이지 링크를 클릭한 번호 / 현재 페이지
+	String pageNum = request.getParameter("pageNum");
+	if (pageNum == null){ // 클릭한게 없으면 1번 페이지
+		pageNum = "1";
+	}
+	// 연산을 하기 위한 pageNum 형변환 / 현재 페이지
+	int currentPage = Integer.parseInt(pageNum);
+
+	// 해당 페이지에서 시작할 레코드 / 마지막 레코드
+	int startRow = (currentPage - 1) * pageSize;
+	
+	int count = 0;
+	count = (Integer) session.getAttribute("count");
+	
+	int endRow = currentPage * pageSize;
+	if(currentPage > count / pageSize ){
+	endRow = (currentPage -1) * pageSize + (count % pageSize);
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -70,7 +91,7 @@
 	#recMap{
 		margin : 0 auto;
 		padding : 0 auto;
-		width : 520px;
+		width : 50%;
 		height : 750px;
 		box-sizing:border-box;
 		border : 2px solid #3d4449;
@@ -79,7 +100,7 @@
 	#rec{
 		margin : 0 auto;
 		padding : 0 auto;
-		width : 780px;
+		width : 50%;
 		height : 750px;
 		border : 2px solid #3d4449;
 		box-sizing:border-box;
@@ -88,18 +109,17 @@
 	#rec > .recView {
 		margin : 0 auto;
 		padding : 0 auto;
-		width : 780px;
-		height : 177px;
-		border : 1px solid #3d4449;
 		box-sizing:border-box;
 	}
-	#rec > #recMore {
+	#rec > .recView td{
 		margin : 0 auto;
-		padding : 0 auto;
-		width : 780px;
-		height : 72px;
+		padding : 1px;
 		box-sizing:border-box;
-		text-align : center;
+	}
+	#rec > .recView #pagebox{
+		margin : 0 auto;
+		position : relative;
+		bottom : 0;
 	}
 </style>
 </head>
@@ -137,25 +157,18 @@
 			
 			<div class = "category_wraper">		
 			<span>대분류</span>
-			<input type = "text" list = "a_L_category" class = "category" name = "a_L_category">
-			<datalist id = "a_L_category">
-				<option value="운동 / 스포츠"></option>
-		        <option value="음악 / 연주"></option>
-		        <option value="드로잉 / 아트"></option>
-		        <option value="쿠킹 / 베이킹"></option>
-		        <option value="무용 / 댄스"></option>
+			<input type = "text" list = "a_L_category1" class = "category" name = "a_L_category1">
+			<datalist id = "a_L_category1">
+				<option value="테스트1"></option>
 			</datalist>
 			</div>
 			
 			<div class = "category_wraper">
 			<span>소분류</span>
-			<input type = "text" list = "a_m_category" class = "category" name = "a_m_category">
-			<datalist id = "a_m_category">
-				<option value="헬스"></option>
-		        <option value="필라테스"></option>
-		        <option value="요가"></option>
-		        <option value="클라이밍"></option>
-		        <option value="크로스핏"></option>
+			<input type = "text" list = "a_m_category1" class = "category" name = "a_m_category1">
+			<datalist id = "a_m_category1">
+				<option value="테스트1-1"></option>
+				<option value="테스트1-2"></option>
 			</datalist>
 			</div>
 			<div class = "category_wraper">
@@ -166,36 +179,72 @@
 			<div id = "recWrapper">
 				<div id = "rec">
 					<div class = "recView">
-						<%
-							if(recommend != null){
-								
-							
-						%>
-						<%= recommend.get(1).getA_name() %>
-						<%
-							}else{
-								%>
-								<%= "값 없음 " %>
-								<%
-							}
-						%>
+					<table border = "1px">
+					<%	
+						if(recommend != null){
 						
-					</div>
-					<div class = "recView">
-					<h1>추천2</h1>
-					</div>
-					<div class = "recView">
-					<h1>추천3</h1>
-					</div>
-					<div class = "recView">
-					<h1>추천4</h1>
-					</div>
-					<div id = "recMore">
-						<span>1 | 2 | 3 | 4 | 5 …</span>
+							for(int i = startRow; i < endRow; i++){
+					%>	
+						<tr>
+							<td>
+							<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
+							<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
+							<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+							</td>
+						</tr>
+						
+						
+					<%				
+							}
+					%>		
+						<tr id = "pagebox">
+							<td>
+					<%
+							if(count > 0){
+								// 총 페이지의 수
+								int pageCount = count / pageSize + (count%pageSize == 0 ? 0 : 1);
+								// 한 페이지에 보여줄 페이지 블럭(링크) 수
+								int pageBlock = 10;
+								// 한 페이지에 보여줄 시작 및 끝 번호(예 : 1, 2, 3 ~ 10 / 11, 12, 13 ~ 20)
+								int startPage = ((currentPage-1)/pageBlock)*pageBlock+1;
+								int endPage = startPage + pageBlock - 1;
+								
+								// 마지막 페이지가 총 페이지 수 보다 크면 endPage를 pageCount로 할당
+								if(endPage > pageCount){
+									endPage = pageCount;
+								}
+								
+								if(startPage > pageBlock){ // 페이지 블록수보다 startPage가 클경우 이전 링크 생성
+						%>
+									<a href="Recommend.jsp?pageNum=<%=startPage - 10%>">[이전]</a>	
+						<%			
+								}
+							for(int i=startPage; i <= endPage; i++){ // 페이지 블록 번호
+								if(i == currentPage){ // 현재 페이지에는 링크를 설정하지 않음
+					%>
+									[<%=i %>]
+					<%									
+								}else{ // 현재 페이지가 아닌 경우 링크 설정
+					%>
+									<a href="Recommend.jsp?pageNum=<%=i%>">[<%=i %>]</a>
+					<%	
+								}
+							} // for end
+							
+							if(endPage < pageCount){ // 현재 블록의 마지막 페이지보다 페이지 전체 블록수가 클경우 다음 링크 생성
+					%>
+								<a href="Recommend.jsp?pageNum=<%=startPage + 10 %>">[다음]</a>
+					<%		
+								}
+							}
+						}
+					%>
+							</td>
+						</tr>
+						</table>
 					</div>
 				</div>
 				<div id = "recMap">
-					
 					<h2>여기는 지도</h2>
 				</div>
 			</div>

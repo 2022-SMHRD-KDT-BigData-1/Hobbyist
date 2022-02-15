@@ -74,5 +74,31 @@ public class RecommendDAO {
 		
 		return list;
 	}
+	public int getCount(AcademyDTO Recommend) {
+		int count = 0;
+		connect();
+		sql="select count(*) from academy where a_L_category = ? and a_m_category = ? and a_city = ?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setString(1, Recommend.getA_L_category());
+			psmt.setString(2, Recommend.getA_m_category());
+			psmt.setString(3, Recommend.getA_city());
+			rs=psmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		System.out.println(count+"dao");
+		
+		return count; // 총 레코드 수 리턴
+	}
+	
 	
 }
