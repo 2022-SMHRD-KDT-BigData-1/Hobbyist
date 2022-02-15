@@ -26,11 +26,15 @@
 	int startRow = (currentPage - 1) * pageSize;
 	
 	int count = 0;
-	count = (Integer) session.getAttribute("count");
+	new ArrayList <Double>();
+	if(recommend != null){
+			count = (Integer) session.getAttribute("count");
+	}
+	ArrayList <Double> scoreAvg = (ArrayList <Double>) session.getAttribute("scoreAvg");
 	
 	int endRow = currentPage * pageSize;
 	if(currentPage > count / pageSize ){
-	endRow = (currentPage -1) * pageSize + (count % pageSize);
+		endRow = (currentPage -1) * pageSize + (count % pageSize);
 }
 %>
 <!DOCTYPE html>
@@ -121,6 +125,20 @@
 		position : relative;
 		bottom : 0;
 	}
+	#recInfo{
+		float : left;
+	}
+	#recReviewWish{
+		box-sizing : border-box;
+		float : right;
+		margin : 0 auto;
+		padding : 1px;
+	}
+	#star{
+		width : 20px;
+		margin-top : 2px;
+		margin-right : 2px;
+	}
 </style>
 </head>
 <body>
@@ -187,9 +205,29 @@
 					%>	
 						<tr>
 							<td>
-							<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
-							<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
-							<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+								<div id = "recInfo">
+									<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
+									<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
+									<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+								</div>
+								<div id = "recReviewWish">
+									<img alt="star" src="./images/star.png" id = "star">
+									<span> 평점 : 
+									<%
+										if(scoreAvg.get(i).isNaN()){
+											%>
+											<%= 0 %> 점
+											<%
+										}else{
+											System.out.println(scoreAvg.get(i));
+									%>
+									
+									<%= ((double)((int)(scoreAvg.get(i)*10)))/10 %> 점
+									<%
+										}
+									%>
+									 </span>
+								</div>
 							</td>
 						</tr>
 						
