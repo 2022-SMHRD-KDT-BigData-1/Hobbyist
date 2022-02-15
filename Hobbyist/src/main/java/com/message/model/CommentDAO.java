@@ -49,16 +49,14 @@ public class CommentDAO {
 		}
 	}
 
-	// ´ñ±Û Á¶È¸
+	// ´ñ±Û ÀüÃ¼ Á¶È¸
 	public ArrayList<CommentDTO> commentSelect() {
 
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
 
 		connect();
 
-		sql = "select Com.com_seq, M.m_nick, C.c_title, Com.com_content, Com.c_date, Com.com_pw"
-				+ "from comment Com, community C, member M" + "where Com.c_seq = C.c_seq" + "and C.m_nick = M.m_nick"
-				+ "order by com_seq(desc)";
+		sql = "select * from \"comment\" order by com_seq desc";
 
 		try {
 			psmt = conn.prepareStatement(sql);
