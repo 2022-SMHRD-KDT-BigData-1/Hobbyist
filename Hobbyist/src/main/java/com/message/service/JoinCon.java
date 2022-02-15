@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.message.model.MemberDAO;
 import com.message.model.MemberDTO;
@@ -30,22 +31,24 @@ public class JoinCon implements iCommand {
 		String address= request.getParameter("address");
 		String age = request.getParameter("age");
 		String gender = request.getParameter("gender");
-		String m_a_id = request.getParameter("m_a_id");
+		String a_id = request.getParameter("a_id");
 		
 		MemberDAO dao = new MemberDAO();
 		
 		
 		
-		
+		MemberDTO dto= new MemberDTO(email, pw, name, nick, tel, address, age, gender,a_id);
 		RequestDispatcher dispatcher;
-		int cnt = dao.memberJoin(new MemberDTO(email, pw, name, nick, tel, address, age, gender, m_a_id));
+		int cnt = dao.memberJoin(new MemberDTO(email, pw, name, nick, tel, address, age, gender,a_id));
 		
 		System.out.println(cnt);
 		
 		if(cnt>0) {
 			//포워드 방식으로 페이지 이동
-			request.setAttribute("success_data", email);
-			dispatcher=request.getRequestDispatcher("join_success.jsp");
+			request.setAttribute("success_data", dto);
+			
+			
+			dispatcher=request.getRequestDispatcher("main_success.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			System.out.println("실패..");

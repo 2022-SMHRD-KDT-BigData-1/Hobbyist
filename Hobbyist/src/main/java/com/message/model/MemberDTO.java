@@ -28,7 +28,4 @@ public class MemberDTO {
 	private String m_age;
 	private String m_gender;
 	private String a_id;
-	
-	
-	
 }

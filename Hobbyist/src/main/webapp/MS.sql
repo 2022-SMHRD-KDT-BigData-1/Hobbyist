@@ -22,6 +22,7 @@ select * from HISTORY
 
 select * from ACADEMY
 
+select * from member
 
 insert into ACADEMY values(70,'학원70','광주광역시 테스트주소','테스트1','테스트1-1','테스트 노트','남구');
 insert into ACADEMY values(71,'학원71','광주광역시 테스트주소','테스트1','테스트1-1','테스트 노트','남구');

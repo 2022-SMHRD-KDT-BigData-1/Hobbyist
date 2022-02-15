@@ -1,8 +1,10 @@
 
+<%@page import="com.message.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%	MemberDTO member = (MemberDTO) session.getAttribute("success_data");%>
+<!-- 회원가입시 오류 발생.... 내일 질문 -->
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -43,6 +45,8 @@
 </style>
 </head>
 
+<%MemberDTO x = (MemberDTO) request.getAttribute("success_data"); %>
+
 <body class="is-preload">
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -55,8 +59,8 @@
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="Login.jsp"><span class="label">로그인</span></a></li>
-						<li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+						<li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+						<li><a href="manage.jsp"><span class="label">마이페이지</span></a></li>
 					</ul>
 				</header>
 
@@ -247,10 +251,9 @@
 					</header>
 					<p></p>
 					<ul class="contact">
-						<li><a href="#">information@untitled.tld</a></li>
-						<li>(000) 000-0000</li>
-						<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-						</li>
+						<li><a href="manage.jsp"><%=x.getM_email() %></a></li>
+						<li><%=x.getM_tel() %></li>
+						<li><%=x.getM_address() %></li> 
 					</ul>
 				</section>
 

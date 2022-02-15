@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -62,7 +63,7 @@
 							<li class = "js_li">회원가입을 축하합니다.</li> 
 							<li class = "js_li">Hobbyist의 새로운 이메일은 ${requestScope.success_data}입니다.</li>
 						</ul>
-							<button onclick='location.href="main.jsp"' >시작하기</button>
+							<button onclick='location.href="main_success.jsp"' >시작하기</button>
 							
 					</div>
 	</body>
