@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class ReviewDTO {
 	private int re_seq;
 	private String re_nick;
+	private String re_id;
 	private String re_classname;//학원 이름
 	private String re_pw;//일반 비밀번호와 다른 비밀번호
-	private String re_content;
 	private int re_score;
+	private String re_content;
 	private String re_date;
-	private String re_id;
 
 }

@@ -154,6 +154,7 @@ public class ReviewDAO {
 		}
 >>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/Hobbyist.git
 
+<<<<<<< HEAD
    public void connect() {
       try {
          Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -290,3 +291,41 @@ public class ReviewDAO {
    }
 
 }
+=======
+		public ArrayList<Double> avgScore(ArrayList<AcademyDTO> score) {
+			ArrayList<Integer> scoreList = new ArrayList<Integer>();
+			ArrayList<Double> scoreAVG = new ArrayList<Double>();
+			double scoreResult = 0;
+				
+			for(int i = 0 ; i < score.size(); i++) {
+			connect();
+			
+			sql="select re_score from review where re_id = ?";
+			
+			try {
+				psmt=conn.prepareStatement(sql);
+				psmt.setString(1, score.get(i).getA_id());
+				rs=psmt.executeQuery();
+				
+				scoreList.clear();
+				while(rs.next()) {
+					scoreList.add(rs.getInt(1));
+				}
+				
+				scoreResult = 0;
+				for(int j = 0 ; j < scoreList.size(); j ++) {
+					scoreResult += scoreList.get(j);
+				}
+				scoreAVG.add(scoreResult/scoreList.size()); 
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			}
+			return scoreAVG;
+		}
+
+}
+>>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/Hobbyist.git
