@@ -3,8 +3,8 @@
 <%@page import="com.message.model.CommunityDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +23,12 @@
 <body class="is-preload">
 
 	<%
-		// CommunityDTO community = (CommunityDTO) session.getAttribute("community");
-	
-		CommunityDAO dao = new CommunityDAO();
-		ArrayList<CommunityDTO> communitylist = dao.commSelect();
-		
+	//CommunityDTO community = (CommunityDTO) session.getAttribute("community");
+	CommunityDAO dao = new CommunityDAO();
+	ArrayList<CommunityDTO> communitylist = dao.commSelect();
 	%>
+
+
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
@@ -57,31 +57,34 @@
 						</tr>
 					</thead>
 
-					<tbody>					
-					<%
-						for(int i = 0; i<communitylist.size(); i++){
+					<tbody>
+						<%
+						for (int i = 0; i < communitylist.size(); i++) {
 							out.print("<tr>");
-							out.print("<td width='50' align='center'>"+communitylist.get(i).getC_seq()+"</td>");							
-							out.print("<td width='500' align='center'><a href='communityPost.jsp?num="+ (i) +"'>"+communitylist.get(i).getC_title()+"</a></td>");
-							out.print("<td width='100' align='center'>"+communitylist.get(i).getM_nick()+"</td>");
-							out.print("<td width='200' align='center'>"+communitylist.get(i).getC_date()+"</td>");
-							out.print("<td width='80' align='center'>"+communitylist.get(i).getC_view()+"</td>");
+							out.print("<td width='50' align='center'>" + communitylist.get(i).getC_seq() + "</td>");
+							out.print("<td width='500' align='center'><a href='communityPost.jsp?num=" + (i) + "'>"
+							+ communitylist.get(i).getC_title() + "</a></td>");
+							out.print("<td width='100' align='center'>" + communitylist.get(i).getM_nick() + "</td>");
+							out.print("<td width='200' align='center'>" + communitylist.get(i).getC_date() + "</td>");
+							out.print("<td width='80' align='center'>" + communitylist.get(i).getC_view() + "</td>");
 							out.print("</tr>");
 						}
-					%>
+						%>
 					</tbody>
-					
+
 					<tr>
 						<form action="search.do" method="get">
 							<td></td>
 							<td colspan="2"><input type="text" name="search"></td>
 							<td colspan="1"><button type="submit">검색</button></td>
 						</form>
-						
-						<td colspan="1"><a href="communityUpload.jsp" class="button" align="center">글쓰기</a></td>
+
+						<td colspan="1"><a href="communityUpload.jsp" class="button"
+							align="center">글쓰기</a></td>
 					</tr>
 				</table>
-
+				
+				<a href="communityUpload.jsp" class="button" >글쓰기</a>
 				<!-- Banner -->
 				<br>
 

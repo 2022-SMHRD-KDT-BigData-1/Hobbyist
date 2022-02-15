@@ -22,26 +22,25 @@ public class CommunityPostCon extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String email = request.getParameter("e-mail");
-		String pw = request.getParameter("pw");
+		int seq = Integer.parseInt(request.getParameter("seq"));
 		
 		CommunityDAO dao = new CommunityDAO();
 		
-		CommunityDTO post = dao.commOneSelect();
+		CommunityDTO post = dao.commOneSelect(seq);
 		
-		if(member != null) {
-			System.out.println("로그인 성공!");
+		if(post != null) {
+			System.out.println("게시글 진입 성공!");
 			HttpSession session = request.getSession();
-			session.setAttribute("member", member);
-			response.sendRedirect("main_jstl.jsp");
+			session.setAttribute("post", post);
+			response.sendRedirect("communityPost.jsp");
 		} else {
-			System.out.println("로그인 실패..");
+			System.out.println("게시글 진입 실패..");
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
-			out.print("alert('로그인 실패..');");
-			out.print("location.href='main_jstl.jsp';");
+			out.print("alert('제시글 진입 실패..');");
+			out.print("community.jsp';");
 			out.print("</script>");
 			
 		}

@@ -78,6 +78,93 @@ public class CommunityDAO {
 
 		return list;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	//페이지 처리 메소드
+	public boolean nextPage(int pageNumber) {
+		String sql = "select * from community where c_ceq < ? and bbsAvailable = 1";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+
+	// 게시판 게시글 눌렀을때 게시글 보여주는 메소드
+	public CommunityDTO commOneSelect(int seq) {
+		connect();
+		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date from community where c_seq=?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, seq);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				CommunityDTO community = new CommunityDTO();
+				community.setC_seq(rs.getInt(1));
+				community.setM_nick(rs.getString(2));
+				community.setC_title(rs.getString(3));
+				community.setC_content(rs.getString(4));
+				community.setC_pw(rs.getString(5));
+				community.setC_view(rs.getInt(6));
+				community.setC_date(rs.getString(7));
+				return community;
+			} else {
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return null;
+	}
+
+//	public ArrayList<Integer> commOneSelect() {
+//
+//		ArrayList<Integer> seq = new ArrayList<Integer>();
+//		
+//		connect();
+//
+//		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date"
+//				+ " from community"
+//				+ " order by c_seq desc";
+//
+//		try {
+//			psmt = conn.prepareStatement(sql);
+//
+//			rs = psmt.executeQuery();
+//
+//			while(rs.next()) {
+//				seq.add(rs.getInt(1));
+//			}
+//			
+//			
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close();
+//		}
+//		return seq;
+//	}
+>>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/Hobbyist.git
 
 	// 커뮤니티 글 쓰기
 	public int commUpload(CommunityDTO message) {
