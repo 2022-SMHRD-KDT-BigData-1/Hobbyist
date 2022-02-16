@@ -38,6 +38,7 @@
 	//comment 선언 메소드
 	CommentDAO c_dao = new CommentDAO();	
 	ArrayList<CommentDTO> commentlist = c_dao.commentSelect();
+	
 	%>
 	<div id="wrapper">
 		<!-- Main -->
