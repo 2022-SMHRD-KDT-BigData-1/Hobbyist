@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -147,7 +149,7 @@
         <!-- <input type="submit" value="확인"> -->
         <p></p>
         </label>
-
+		
         <label>
         <!-- <span>PW</span> -->
         <p style="text-align: left; font-size:12px; color:#666">password </p>
@@ -163,7 +165,7 @@
     <hr>
     <p class="find">
        
-        <p><a href="join.html" >회원가입</a></p>
+        <p><a href="JoinCon.do" >회원가입</a></p>
     </p>
     </div>
     <div>

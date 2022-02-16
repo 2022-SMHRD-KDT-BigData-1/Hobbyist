@@ -1,8 +1,10 @@
 
+<%@page import="com.message.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%	MemberDTO member = (MemberDTO) session.getAttribute("success_data");%>
+<!-- 회원가입시 오류 발생.... 내일 질문 -->
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -21,11 +23,8 @@
     icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined"
 	rel="stylesheet" />
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous" />
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+	href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css"
+	rel="stylesheet">
 <style>
 #main>div>section>header h2 {
 	font-family: "SUIT-Medium";
@@ -40,25 +39,13 @@
 	margin-right: 2em;
 }
 
-a {
-	text-decoration: none;
-	color: #f45c5c;
-}
 
-#map_search {
-	font-size: 11px;
-	float: left;
-}
 
-#main_map {
-	background-color: #f56a6a;
-	border-radius: 0.25em;
-	border: 0px;
-	outline: none;
-	float: right;
-}
+
 </style>
 </head>
+
+<%MemberDTO x = (MemberDTO) request.getAttribute("success_data"); %>
 
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -66,15 +53,14 @@ a {
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
-
 				<!-- Header -->
 				<header id="header">
 					<a href="index.html" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="Login.jsp"><span class="label">로그인</span></a></li>
-						<li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+						<li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+						<li><a href="manage.jsp"><span class="label">마이페이지</span></a></li>
 					</ul>
 				</header>
 
@@ -135,40 +121,20 @@ a {
 
 				</div>
 
-				<section>
-					<header class="major">
-						<h2>우리 동네에서 찾기</h2>
-					</header>
-					<div class="main_map_search">
-						<input id="map_search" type="text" placeholder="Search" />
-						<button href="#" id="main_map"></button>
-					</div>
-					<div class="col-sm-10">
 
-						<div class="map">
-							<!-- <img src="images/sample_map.jpg.png" /> -->
-							<!-- * 카카오맵 - 지도퍼가기 -->
-							<!-- 1. 지도 노드 -->
-							<div class="kakao_map">
-								<div id="daumRoughmapContainer1644542523530"
-									class="root_daum_roughmap root_daum_roughmap_landing"></div>
-							</div>
+				<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"></script>
 
-							<script charset="UTF-8" class="daum_roughmap_loader_script"
-								src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+				<script>
+					var container = document.getElementById("map");
+					var options = {
+						center : new kakao.maps.LatLng(35.15062349964835,
+								126.91592863607318),
+						level : 3,
+					};
 
-							<!-- 3. 실행 스크립트 -->
-							<script charset="UTF-8">
-								new daum.roughmap.Lander({
-									timestamp : "1644542523530",
-									key : "2948y",
-									mapWidth : "1200",
-									mapHeight : "620",
-								}).render();
-							</script>
-						</div>
-					</div>
-				</section>
+					var map = new kakao.maps.Map(container, options);
+				</script>
 
 				<!-- Section -->
 				<section>
@@ -177,37 +143,36 @@ a {
 					</header>
 					<div class="posts">
 						<article>
-							<a href="#" class="image"><img src="images/fitness.jpg"
-								alt="" /></a>
+							<a href="#" class="image"><img
+								src="./images/fitness.jpg" alt="" /></a>
 							<h3>운동</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">헬스</a></li>
-								<li><a href="#" class="button primary small">요가</a></li>
-								<li><a href="#" class="button primary small">필라테스</a></li>
-								<li><a href="#" class="button primary small">클라이밍</a></li>
-								<li><a href="#" class="button primary small">크로스핏</a></li>
-								<li><a href="#" class="button primary small">플라잉요가</a></li>
+								<li><a href="#" class="button">헬스</a></li>
+								<li><a href="#" class="button">요가</a></li>
+								<li><a href="#" class="button">필라테스</a></li>
+								<li><a href="#" class="button">클라이밍</a></li>
 							</ul>
 						</article>
 						<article>
-							<a href="#" class="image"><img src="images/ballet.jpg" alt="" /></a>
+							<a href="#" class="image"><img
+								src="./images/ballet.jpg" alt="" /></a>
 							<h3>무용</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">발레</a></li>
-								<li><a href="#" class="button primary small">방송 댄스</a></li>
-								<li><a href="#" class="button primary small">댄스스포츠</a></li>
-								<li><a href="#" class="button primary small">폴댄스</a></li>
+								<li><a href="#" class="button">발레</a></li>
+								<li><a href="#" class="button">방송 댄스</a></li>
+								<li><a href="#" class="button">댄스스포츠</a></li>
+								<li><a href="#" class="button">폴댄스</a></li>
 							</ul>
 						</article>
 						<article>
-							<a href="#" class="image"><img src="images/boxing.jpg" alt="" /></a>
+							<a href="#" class="image"><img
+								src="./images/boxing.jpg" alt="" /></a>
 							<h3>스포츠 무술</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">복싱</a></li>
-								<li><a href="#" class="button primary small">태권도</a></li>
-								<li><a href="#" class="button primary small">주짓수</a></li>
-								<li><a href="#" class="button primary small">수영</a></li>
-								<li><a href="#" class="button primary small">테니스</a></li>
+								<li><a href="#" class="button">복싱</a></li>
+								<li><a href="#" class="button">태권도</a></li>
+								<li><a href="#" class="button">주짓수</a></li>
+								<li><a href="#" class="button">수영</a></li>
 							</ul>
 						</article>
 					</div>
@@ -218,50 +183,42 @@ a {
 					</header>
 					<div class="posts">
 						<article>
-							<a href="#" class="image"><img src="images/guitar.jpg" alt="" /></a>
+							<a href="#" class="image"><img
+								src="./images/guitar.jpg" alt="" /></a>
 							<h3>음악 악기</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">기타</a></li>
-								<li><a href="#" class="button primary small">베이스</a></li>
-								<li><a href="#" class="button primary small">드럼</a></li>
-								<li><a href="#" class="button primary small">피아노</a></li>
-								<li><a href="#" class="button primary small">보컬</a></li>
+								<li><a href="#" class="button">기타</a></li>
+								<li><a href="#" class="button">베이스</a></li>
+								<li><a href="#" class="button">드럼</a></li>
+								<li><a href="#" class="button">피아노</a></li>
 							</ul>
 						</article>
 						<article>
-							<a href="#" class="image"><img src="images/makeup.jpg" alt="" /></a>
+							<a href="#" class="image"><img
+								src="./images/makeup.jpg" alt="" /></a>
 							<h3>뷰티 아트</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">메이크업</a></li>
-								<li><a href="#" class="button primary small">헤어</a></li>
-								<li><a href="#" class="button primary small">네일</a></li>
-								<li><a href="#" class="button primary small">미술</a></li>
-								<li><a href="#" class="button primary small">컴퓨터아트</a></li>
-								<li><a href="#" class="button primary small">애니메이션</a></li>
-								<li><a href="#" class="button primary small">웹툰</a></li>
+								<li><a href="#" class="button">메이크업</a></li>
+								<li><a href="#" class="button">헤어 네일</a></li>
+								<li><a href="#" class="button">미술</a></li>
+								<li><a href="#" class="button">컴퓨터아트</a></li>
 							</ul>
 						</article>
 						<article>
-							<a href="#" class="image"><img src="images/pottery.jpg"
-								alt="" /></a>
-							<h3>요리 공예</h3>
+							<a href="#" class="image"><img
+								src="./images/pottery.jpg" alt="" /></a>
+							<h3>제작 공예</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">요리</a></li>
-								<li><a href="#" class="button primary small">바리스타</a></li>
-								<li><a href="#" class="button primary small">베이킹</a></li>
-								<li><a href="#" class="button primary small">도예</a></li>
-								<li><a href="#" class="button primary small">자수</a></li>
-								<li><a href="#" class="button primary small">뜨개질</a></li>
-								<li><a href="#" class="button primary small">금속</a></li>
-								<li><a href="#" class="button primary small">가죽</a></li>
-								<li><a href="#" class="button primary small">플라워</a></li>
+								<li><a href="#" class="button">도예</a></li>
+								<li><a href="#" class="button">자수</a></li>
+								<li><a href="#" class="button">뜨개질</a></li>
+								<li><a href="#" class="button">금속/가죽</a></li>
 							</ul>
 						</article>
 					</div>
 				</section>
 			</div>
 		</div>
-
 
 		<!-- Sidebar -->
 		<div id="sidebar">
@@ -294,10 +251,9 @@ a {
 					</header>
 					<p></p>
 					<ul class="contact">
-						<li><a href="#">smhrd@smhrd.co.kr</a></li>
-						<li>(000) 000-0000</li>
-						<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-						</li>
+						<li><a href="manage.jsp"><%=x.getM_email() %></a></li>
+						<li><%=x.getM_tel() %></li>
+						<li><%=x.getM_address() %></li> 
 					</ul>
 				</section>
 
@@ -324,5 +280,4 @@ a {
 	<script src="assets/js/main.js"></script>
 </body>
 </html>
-
 

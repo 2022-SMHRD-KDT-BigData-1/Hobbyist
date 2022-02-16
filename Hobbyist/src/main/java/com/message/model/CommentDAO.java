@@ -56,7 +56,7 @@ public class CommentDAO {
 
 		connect();
 
-		sql = "select * from \"comment\" order by com_seq desc";
+		sql = "select * from c_comment order by com_seq desc";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -75,6 +75,7 @@ public class CommentDAO {
 		}
 		return list;
 	}
+	
 
 	// ´ñ±Û Ãß°¡
 	public int commentUpload(CommentDTO comment, CommunityDTO board, MemberDTO member) {
