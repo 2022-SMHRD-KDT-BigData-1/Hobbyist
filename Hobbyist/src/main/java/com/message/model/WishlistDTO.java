@@ -16,11 +16,7 @@ import lombok.NoArgsConstructor;
 
 public class WishlistDTO {
 	private int w_seq;
-	private String m_email;
-	private String a_name;
-	private String a_city;
-	private String a_address;
-	private String w_tel;
-	
-
+	private int w_wish;
+	private String w_email;
+	private String a_id;
 }

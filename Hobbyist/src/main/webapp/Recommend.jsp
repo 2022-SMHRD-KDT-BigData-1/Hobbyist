@@ -26,7 +26,7 @@
 	int startRow = (currentPage - 1) * pageSize;
 	
 	int count = 0;
-	new ArrayList <Double>();
+	
 	if(recommend != null){
 			count = (Integer) session.getAttribute("count");
 	}
@@ -59,17 +59,19 @@
 		height : 65px;
 		box-sizing:border-box;
 		margin-top : 20px;
-		border : 2px solid #3d4449;
+		border : 2px solid #f45c5c;
+		border-radius: 5px 5px 5px 5px;
+		padding-top : 10px;
 		padding-left : 10px;
 	}
 	.category_wraper{
+		position : relative;
 		float : left;
-		margin : 10px;
-		height : 65px;
+		height : 50px;
 }
 	.category_wraper > span{
 		font-family: "SUIT-Medium";
-		color : #000;
+		color : #f45c5c;
 		font-weight : bold;
 		float : left;
 		margin : 10px;
@@ -77,12 +79,26 @@
 		
 }
 	.category_wraper > input.category{
+		box-sizing : border-box;
 		width : 250px;
 		height : 40px;
 		font-family: "SUIT-Medium";
-		color : #000;
+		color : #f45c5c;
 		font-weight : bold;
 		margin-left : 50px ;
+	}
+	.category_wraper > button{
+		box-sizing : border-box;
+		font-family: "SUIT-Medium";
+		width : 100%;
+		height : 80%;
+		margin-left : 20px;
+		background-color : #f45c5c;
+		opacity: 0.9;
+	}
+	.category_wraper > button > span{
+		font-size : 20px;
+		color : #fff;
 	}
 	#recWrapper{
 		margin : 0 auto;
@@ -91,24 +107,25 @@
 		height : 750px;
 		box-sizing:border-box;
 		margin-top : 20px;
+		border : 2px solid #f45c5c;
+		border-radius: 5px 5px 5px 5px;
 	}
 	#recMap{
 		margin : 0 auto;
 		padding : 0 auto;
 		width : 50%;
-		height : 750px;
+		height : 745px;
 		box-sizing:border-box;
-		border : 2px solid #3d4449;
 		float : right;
 	}
 	#rec{
 		margin : 0 auto;
 		padding : 0 auto;
 		width : 50%;
-		height : 750px;
-		border : 2px solid #3d4449;
+		height : 747px;
 		box-sizing:border-box;
 		float : left;
+		border-right : 2px solid #f45c5c;
 	}
 	#rec > .recView {
 		margin : 0 auto;
@@ -125,6 +142,10 @@
 		position : relative;
 		bottom : 0;
 	}
+	#rec > .recView #pagebox td{
+		margin : 0 auto;
+		text-align : center;
+	}
 	#recInfo{
 		float : left;
 	}
@@ -138,6 +159,32 @@
 		width : 20px;
 		margin-top : 2px;
 		margin-right : 2px;
+	}
+	#acaImg{
+		position : relative;
+		width : 25%;
+		box-sizing : border-box;
+		overflow : hidden;
+		float : left;
+		margin-right : 10px;
+	}
+	#acaImg > img{
+		width : 100%;
+		height : 80px;
+		float : left;
+		opacity: 0.8;
+	}
+	#acaImg > #imgMemo{
+		font-family: "SUIT-Medium";
+		color : #fff;
+		font-weight : bold;
+		position: absolute;
+		top : 50%;
+		left : 50%;
+		transform: translate(-50%,-50%);
+		margin : 0 auto;
+		font-size : 20px;
+		width : 70%;
 	}
 </style>
 </head>
@@ -190,14 +237,14 @@
 			</datalist>
 			</div>
 			<div class = "category_wraper">
-				<button type = "submit">검색</button>
+				<button type = "submit"><span id="recSearch">검색</span></button>
 			</div>
 			</form>
 			</div>
 			<div id = "recWrapper">
 				<div id = "rec">
 					<div class = "recView">
-					<table border = "1px">
+					<table>
 					<%	
 						if(recommend != null){
 						
@@ -205,6 +252,10 @@
 					%>	
 						<tr>
 							<td>
+								<div id = "acaImg">
+									<img alt="이미지 준비중" src="./images/defaultImg.jpg">
+									<p id = "imgMemo">이미지 준비중</p>
+								</div>
 								<div id = "recInfo">
 									<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
 									<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
@@ -283,8 +334,9 @@
 					</div>
 				</div>
 				<div id = "recMap">
-					<h2>여기는 지도</h2>
+						
 				</div>
+				
 			</div>
 			
 			
@@ -356,5 +408,18 @@
 			</div>
 		</div>
 	</div>
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"></script>
+				<script>
+					var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
+					    mapOption = {
+					        center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
+					        level: 3, // 지도의 확대 레벨
+					        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+					    }; 
+			
+					// 지도를 생성한다 
+					var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+				</script>
 </body>
 </html>
