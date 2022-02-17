@@ -29,7 +29,19 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <style type="text/css">
+    <style>
+      #main > div > section > header h2 {
+        font-family: "SUIT-Medium";
+      }
+
+      #main > div > section > div > article h3 {
+        font-family: "SUIT-Medium";
+      }
+
+      #main > div > section > div > article a {
+        font-family: "SUIT-Medium";
+        margin-right: 2em;
+      }
       a {
         text-decoration: none;
         color: #f45c5c;
@@ -64,56 +76,27 @@
 
           <!-- Section -->
 
-          <section class="wishlist">
-            <h3>Wishlist</h3>
-            <div class="row">
-              <div class="col-sm-3">
-                <h4>Info</h4>
-                <div><img src="images/sample_wishlist.jpg" /></div>
-                <div>
-                  <ul class="alt">
-                    <li><strong>모던필라테스</strong></li> <!-- a_name -->
-                    <li>광주광역시 남구 봉선동</li> <!-- 구/동 -->
-                    <li>062-672-9030</li><!--  -->
-                    <li>광주 남구 용대로74번길 11-1</li>
-                    <li><a href="#" class="button primary small">Call</a></li>
-                  </ul>
-                </div>
-              </div>
+          <section>
+            <div class="col-sm-12">
+              <h2>map</h2>
+              <div class="map_wrap">
+                <!-- 지도를 표시할 div 입니다 -->
+                <div id="map" style="width: 100%; height: 600px"></div>
 
-              <div class="col-sm-9">
-                <h4>map</h4>
-                <div class="map">
-                  <!-- <img src="images/sample_map.jpg.png" /> -->
-                  <!-- * 카카오맵 - 지도퍼가기 -->
-                  <!-- 1. 지도 노드 -->
-                  <div class="kakao_map">
-                    <div
-                      id="daumRoughmapContainer1644542523530"
-                      class="root_daum_roughmap root_daum_roughmap_landing"
-                    ></div>
-                  </div>
+                <script
+                  type="text/javascript"
+                  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"
+                ></script>
+                <script>
+                  var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+                    mapOption = {
+                      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                      level: 3, // 지도의 확대 레벨
+                    };
 
-                  <!--
-	2. 설치 스크립트
-	* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
--->
-                  <script
-                    charset="UTF-8"
-                    class="daum_roughmap_loader_script"
-                    src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"
-                  ></script>
-
-                  <!-- 3. 실행 스크립트 -->
-                  <script charset="UTF-8">
-                    new daum.roughmap.Lander({
-                      timestamp: "1644542523530",
-                      key: "2948y",
-                      mapWidth: "1000",
-                      mapHeight: "520",
-                    }).render();
-                  </script>
-                </div>
+                  // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+                  var map = new kakao.maps.Map(mapContainer, mapOption);
+                </script>
               </div>
             </div>
           </section>
@@ -182,4 +165,3 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
-
