@@ -46,7 +46,7 @@ public class RecommendSelectCon extends HttpServlet {
 		ArrayList<Double> scoreAvg = dao2.avgScore(recommend);
 		
 		int count = 0;
-		count = dao.getCount(Recommend); 
+		count = dao.getCount(Recommend);  
 		System.out.println(count);
 		
 		
