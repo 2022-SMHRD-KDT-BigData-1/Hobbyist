@@ -50,6 +50,8 @@ public class CommentDAO {
 	}
 
 	// ´ñ±Û ÀüÃ¼ Á¶È¸
+	
+
 	public ArrayList<CommentDTO> commentSelect() {
 
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
@@ -67,15 +69,18 @@ public class CommentDAO {
 				list.add(new CommentDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6)));
 			}
+			System.out.println(list.size() + "1");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
+
+		System.out.println(list.size());
 		return list;
 	}
-	
+	 
 
 	// ´ñ±Û Ãß°¡
 	public int commentUpload(CommentDTO comment, CommunityDTO board, MemberDTO member) {
@@ -86,7 +91,7 @@ public class CommentDAO {
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			
+
 			psmt.setInt(1, board.getC_seq());
 			psmt.setString(2, member.getM_nick());
 			psmt.setString(3, comment.getCom_content());
@@ -103,8 +108,7 @@ public class CommentDAO {
 		return cnt;
 
 	}
-	
-	
+
 	// ´ñ±Û ¼öÁ¤
 	public int commentUpdate(CommentDTO comment, CommunityDTO board, MemberDTO nick) {
 
@@ -114,12 +118,11 @@ public class CommentDAO {
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			
+
 			psmt.setString(1, comment.getCom_content());
 			psmt.setInt(2, board.getC_seq());
 			psmt.setString(3, nick.getM_nick());
 			psmt.setString(4, comment.getCom_pw());
-			
 
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -128,8 +131,8 @@ public class CommentDAO {
 		}
 		return cnt;
 	}
-	
-	//´ñ±Û »èÁ¦
+
+	// ´ñ±Û »èÁ¦
 	public int commentDelete(String nick, String pw) {
 
 		connect();
@@ -150,9 +153,7 @@ public class CommentDAO {
 		}
 
 		return cnt;
-		
+
 	}
-	
-	
 
 }

@@ -58,8 +58,13 @@ public class CommunityDAO {
 
 		connect();
 
-		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date" + " from community"
-				+ " order by c_seq desc";
+		/*
+		 * sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date" +
+		 * " from community" + " order by c_seq desc";
+		 */
+		
+		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date from community order by c_seq desc";
+				
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -82,22 +87,22 @@ public class CommunityDAO {
 	
 	
 	//其捞瘤 贸府 皋家靛
-	public boolean nextPage(int pageNumber) {
-		String sql = "select * from community where c_ceq < ? and bbsAvailable = 1";
-		try {
-			PreparedStatement psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, getNext() - (pageNumber - 1) * 10);
-			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
-				return true;
-			}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+//	public boolean nextPage(int pageNumber) {
+//		String sql = "select * from community where c_ceq < ? and bbsAvailable = 1";
+//		try {
+//			PreparedStatement psmt = conn.prepareStatement(sql);
+//			psmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+//			rs = psmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				return true;
+//			}
+//			
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
 	
 	
 	

@@ -1,3 +1,5 @@
+
+<%@page import="com.message.model.test2"%>
 <%@page import="com.message.model.CommentDTO"%>
 <%@page import="com.message.model.CommentDAO"%>
 <%@page import="com.message.model.CommunityDTO"%>
@@ -27,17 +29,19 @@
 </head>
 <body>
 	<%
-	
 	//community 선언 메소드
 	//CommunityDTO community = (CommunityDTO) session.getAttribute("community");
 	CommunityDAO dao = new CommunityDAO();
 	//CommunityDTO communitylist = dao.commOneSelect(community.getC_seq());
-	ArrayList<CommunityDTO> communitylist = dao.commSelect();
 	
-	
+	ArrayList<CommunityDTO> communitylist = dao.commOneSelect(num);
+	%>
+
+	<%
 	//comment 선언 메소드
-	CommentDAO c_dao = new CommentDAO();	
-	ArrayList<CommentDTO> commentlist = c_dao.commentSelect();
+	CommentDAO cdao = new CommentDAO();
+	ArrayList<CommentDTO> commentlist = cdao.commentSelect();
+	
 	
 	%>
 	<div id="wrapper">
@@ -55,45 +59,50 @@
 						<li><a href="#"><span class="label">MyPage</span></a></li>
 					</ul>
 				</header>
-
-				<table>
-					<tr align=center>
-						<td>글제목</td>
-						<td colspan="3">
-							<%
-							out.print(communitylist.get(0).getC_title());
-							%>
-						</td>
-					</tr>
-					<tr align=center>
-						<td>작성자</td>
-						<td>
-							<%
-							out.print(communitylist.get(0).getM_nick());
-							%>
-						</td>
-						<td>작성일자</td>
-						<td>
-							<%
-							out.print(communitylist.get(0).getC_date());
-							%>
-						</td>
-					</tr>
-					<tr align=center rowspan="10">
-						<td>내용</td>
-						<td colspan="3">
-							<%
-							out.print(communitylist.get(0).getC_content());
-							%>
-						</td>
-					</tr>
-					<tr align=right>
-						<td colspan="4">
+				<form action="">
+					<% for(int i = 0; i<communitylist.size(); i++){%>
+					<table>
+						<tr align=center>
+							<td>글제목</td>
+							<td colspan="3">
+								<%
+								out.print(communitylist.get(i).getC_title());
+								%>
+							</td>
+						</tr>
+						<tr align=center>
+							<td>작성자</td>
+							<td>
+								<%
+								out.print(communitylist.get(i).getM_nick());
+								%>
+							</td>
+							<td>작성일자</td>
+							<td>
+								<%
+								out.print(communitylist.get(i).getC_date());
+								%>
+							</td>
+						</tr>
+						<tr align=center rowspan="10">
+							<td>내용</td>
+							<td colspan="3">
+								<%
+								out.print(communitylist.get(i).getC_content());
+								%>
+							</td>
+						</tr>
+						<tr align=right>
+							<td colspan="4">
 								<button type="submit">글 수정</button>
 								<button type="submit">글 삭제</button>
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+					</table>
+					<% } %>
+
+				</form>
+
 
 				<!-- 댓글 조회 -->
 				<table align=center>
