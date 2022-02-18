@@ -1,3 +1,5 @@
+<%@page import="com.message.model.WishlistDAO"%>
+<%@page import="com.message.model.WishlistDTO"%>
 <%@page import="com.message.model.RecommendDAO"%>
 <%@page import="com.message.model.MessageDTO"%>
 <%@page import="com.message.model.MessageDAO"%>
@@ -31,6 +33,7 @@
 			count = (Integer) session.getAttribute("count");
 	}
 	ArrayList <Double> scoreAvg = (ArrayList <Double>) session.getAttribute("scoreAvg");
+	ArrayList <WishlistDTO> wishCheck = (ArrayList <WishlistDTO>) session.getAttribute("wish");
 	
 	int endRow = currentPage * pageSize;
 	if(currentPage > count / pageSize ){
@@ -186,6 +189,33 @@
 		font-size : 20px;
 		width : 70%;
 	}
+		#wishInput{
+			width: 30px;
+			 float : right;
+		}
+		#wishInput > form > #h0{
+            box-sizing: content-box;
+            width: 30px;
+            margin: 0 auto;
+            padding: 0;
+            border: 0;
+            box-shadow : none;
+            background-color:transparent;
+        }
+		#wishInput > form > #h1{
+            box-sizing: content-box;
+            width: 30px;
+            margin: 0 auto;
+            padding: 0;
+            border: 0;
+            box-shadow : none;
+            background-color:transparent;
+        }
+        #wishInput .heart{
+            width: 30px;
+            margin: 0 auto;
+            padding: 0 auto;
+        }
 </style>
 </head>
 <body>
@@ -199,7 +229,7 @@
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="#"><span class="label">Login</span></a></li>
+						<li><a href="Login.jsp"><span class="label">Login</span></a></li>
 						<li><a href="#"><span class="label">Join</span></a></li>
 						<li><a href="#"><span class="label">MyPage</span></a></li>
 					</ul>
@@ -260,6 +290,24 @@
 									<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
 									<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
 									<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+								</div>
+								<div id = "wishInput">
+									<form action="WishListInputCon" method="post">
+										<%if(wishCheck !=null){
+											if(wishCheck.get(i) != null){
+												if(wishCheck.get(i).getW_wish()>0){
+										%>
+										<button type="submit" id="h1"><img src="./images/heart1.png" alt="heart" class="heart"></button>
+								        <% }}else{ %>
+								        <button type="submit" id="h0" name="a_idToWish" value="<%= 
+								        	recommend.get(i).getA_id()
+								        %>">
+								        <img src="./images/heart0.png" alt="heart" class="heart"></button>
+								        <% 
+								        }
+											}
+								        %>
+   									 </form>
 								</div>
 								<div id = "recReviewWish">
 									<img alt="star" src="./images/star.png" id = "star">

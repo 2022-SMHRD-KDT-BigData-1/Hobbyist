@@ -52,31 +52,82 @@ public class WishlistDAO {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<WishlistDTO> WishListSelectAll(String m_email) {
-		ArrayList<WishlistDTO> list = new ArrayList<WishlistDTO>();
+	
+
+	public int wishCreate(WishlistDTO wishCreate) {
+		
 		connect();
+		sql = "insert into wishlist values(num_seq.nextval, 1, ?, ?)";
+
 		try {
-
-			String sql = "select w_seq, a_name, a_city, a_address, a_tel where m_email=?";
-			// 학원 id가 ?인 학생들의 이메일, 닉네임 등 개인정보 출력
-
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, m_email);
-			rs = psmt.executeQuery();
+			
+			psmt.setString(1, wishCreate.getW_email());
+			psmt.setString(2, wishCreate.getA_id());
 
-			while (rs.next()) {
-				String w_seq  = rs.getString(1);
-				String a_name = rs.getString(2);
-				String a_city = rs.getString(3);
-				String a_address = rs.getString(4);
-				String a_tel = rs.getString(5);
-			}
+			cnt = psmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
+
+		return cnt;
+		
+	}
+	
+	public ArrayList<WishlistDTO>select() { // 폐기 보류 
+		ArrayList<WishlistDTO> list = new ArrayList<WishlistDTO>();
+		
+		connect();
+		sql="select * from academy where a_L_category = ? and a_m_category = ? and a_city = ?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			rs=psmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				list.add(new WishlistDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4)));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
 		return list;
 	}
 
+	public ArrayList<WishlistDTO> recoWishSelect(ArrayList<AcademyDTO> wish, String email) {
+		ArrayList<WishlistDTO> list = new ArrayList<WishlistDTO>();
+			
+		for(int i = 0 ; i < wish.size(); i++) {
+		connect();
+		
+		sql="select * from wishlist where a_id = ? and w_email = ?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, wish.get(i).getA_id());
+			psmt.setString(2, email);
+			rs=psmt.executeQuery();
+			
+			if(rs.next()) {
+				list.add(new WishlistDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),rs.getString(4)));
+			}else {
+				list.add(null);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		}
+		return list;
+	}
 }
