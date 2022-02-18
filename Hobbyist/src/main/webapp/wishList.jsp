@@ -274,15 +274,14 @@ a {
 
 						<div class="col-sm-7">
 							<h4>map</h4>
-							
-							
-							 <p style="margin-top: -12px">
-      <em class="link">
-        <a href="/web/documentation/#CategoryCode" target="_blank"
-          >카테고리 코드목록을 보시려면 여기를 클릭하세요!</a
-        >
-      </em>
-    </p>
+
+
+							<p style="margin-top: -12px">
+								<em class="link"> <a
+									href="/web/documentation/#CategoryCode" target="_blank">카테고리
+										코드목록을 보시려면 여기를 클릭하세요!</a>
+								</em>
+							</p>
 							<!-- 지도를 표시할 div 입니다 -->
 							<div id="map" style="width: 100%; height: 580px;"></div>
 
