@@ -62,12 +62,19 @@
 						for (int i = 0; i < communitylist.size(); i++) {
 							out.print("<tr>");
 							out.print("<td width='50' align='center'>" + communitylist.get(i).getC_seq() + "</td>");
-							out.print("<td width='500' align='center'><a href='communityPost.jsp?num=" + (i) + "'>"
-							+ communitylist.get(i).getC_title() + "</a></td>");
-							out.print("<td width='100' align='center'>" + communitylist.get(i).getM_nick() + "</td>");
-							out.print("<td width='200' align='center'>" + communitylist.get(i).getC_date() + "</td>");
-							out.print("<td width='80' align='center'>" + communitylist.get(i).getC_view() + "</td>");
-							out.print("</tr>");
+						%>
+
+						<td width='500' align='center'>
+							<form action='CommunityPostCon' method='get'>
+								<button><% communitylist.get(i).getC_title(); %></button>
+							</form>
+						</td>
+
+						<%
+						out.print("<td width='100' align='center'>" + communitylist.get(i).getM_nick() + "</td>");
+						out.print("<td width='200' align='center'>" + communitylist.get(i).getC_date() + "</td>");
+						out.print("<td width='80' align='center'>" + communitylist.get(i).getC_view() + "</td>");
+						out.print("</tr>");
 						}
 						%>
 					</tbody>
@@ -83,8 +90,8 @@
 							align="center">글쓰기</a></td>
 					</tr>
 				</table>
-				
-				<a href="communityUpload.jsp" class="button" >글쓰기</a>
+
+				<a href="communityUpload.jsp" class="button">글쓰기</a>
 				<!-- Banner -->
 				<br>
 
