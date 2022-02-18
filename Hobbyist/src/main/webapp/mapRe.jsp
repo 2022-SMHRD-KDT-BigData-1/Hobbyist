@@ -1,5 +1,3 @@
-<%@page import="com.message.model.WishlistDAO"%>
-<%@page import="com.message.model.WishlistDTO"%>
 <%@page import="com.message.model.RecommendDAO"%>
 <%@page import="com.message.model.MessageDTO"%>
 <%@page import="com.message.model.MessageDAO"%>
@@ -33,7 +31,6 @@
 			count = (Integer) session.getAttribute("count");
 	}
 	ArrayList <Double> scoreAvg = (ArrayList <Double>) session.getAttribute("scoreAvg");
-	ArrayList <WishlistDTO> wishCheck = (ArrayList <WishlistDTO>) session.getAttribute("wish");
 	
 	int endRow = currentPage * pageSize;
 	if(currentPage > count / pageSize ){
@@ -189,33 +186,6 @@
 		font-size : 20px;
 		width : 70%;
 	}
-		#wishInput{
-			width: 30px;
-			 float : right;
-		}
-		#wishInput > form > #h0{
-            box-sizing: content-box;
-            width: 30px;
-            margin: 0 auto;
-            padding: 0;
-            border: 0;
-            box-shadow : none;
-            background-color:transparent;
-        }
-		#wishInput > form > #h1{
-            box-sizing: content-box;
-            width: 30px;
-            margin: 0 auto;
-            padding: 0;
-            border: 0;
-            box-shadow : none;
-            background-color:transparent;
-        }
-        #wishInput .heart{
-            width: 30px;
-            margin: 0 auto;
-            padding: 0 auto;
-        }
 </style>
 </head>
 <body>
@@ -229,7 +199,7 @@
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="Login.jsp"><span class="label">Login</span></a></li>
+						<li><a href="#"><span class="label">Login</span></a></li>
 						<li><a href="#"><span class="label">Join</span></a></li>
 						<li><a href="#"><span class="label">MyPage</span></a></li>
 					</ul>
@@ -290,24 +260,6 @@
 									<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
 									<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
 									<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
-								</div>
-								<div id = "wishInput">
-									<form action="WishListInputCon" method="post">
-										<%if(wishCheck !=null){
-											if(wishCheck.get(i) != null){
-												if(wishCheck.get(i).getW_wish()>0){
-										%>
-										<button type="submit" id="h1"><img src="./images/heart1.png" alt="heart" class="heart"></button>
-								        <% }}else{ %>
-								        <button type="submit" id="h0" name="a_idToWish" value="<%= 
-								        	recommend.get(i).getA_id()
-								        %>">
-								        <img src="./images/heart0.png" alt="heart" class="heart"></button>
-								        <% 
-								        }
-											}
-								        %>
-   									 </form>
 								</div>
 								<div id = "recReviewWish">
 									<img alt="star" src="./images/star.png" id = "star">
@@ -382,29 +334,71 @@
 					</div>
 				</div>
 				<div id = "recMap">
-						
+					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a"></script>
+						<script>
+							var container = document.getElementById('recMap'); //지도를 담을 영역의 DOM 레퍼런스
+							var options = { //지도를 생성할 때 필요한 기본 옵션
+								center: new kakao.maps.LatLng(35.14988626727629, 126.91982125182754), //지도의 중심좌표.
+								level: 4 //지도의 레벨(확대, 축소 정도)
+							};
+	
+							var map = new kakao.maps.Map(container, options); //지도생성 및 객체 리턴ㅛ
+							
+							if (navigator.geolocation) {
+							    
+							    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+							    navigator.geolocation.getCurrentPosition(function(position) {
+							        
+							        var lat = position.coords.latitude, // 위도
+							            lon = position.coords.longitude; // 경도
+							        
+							        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+							            message = '<div style="padding:5px;">현재 위치입니다.</div>'; // 인포윈도우에 표시될 내용입니다
+							        
+							        // 마커와 인포윈도우를 표시합니다
+							        displayMarker(locPosition, message);
+							            
+							      });
+							    
+							} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+							    
+							    var locPosition = new kakao.maps.LatLng(35.14988626727629, 126.91982125182754),    
+							        message = 'geolocation을 사용할수 없어요..'
+							        
+							    displayMarker(locPosition, message);
+							}
+
+							// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+							function displayMarker(locPosition, message) {
+
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({  
+							        map: map, 
+							        position: locPosition
+							    }); 
+							    
+							    var iwContent = message, // 인포윈도우에 표시할 내용
+							        iwRemoveable = true;
+
+							    // 인포윈도우를 생성합니다
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content : iwContent,
+							        removable : iwRemoveable
+							    });
+							    
+							    // 인포윈도우를 마커위에 표시합니다 
+							    infowindow.open(map, marker);
+							    
+							    // 지도 중심좌표를 접속위치로 변경합니다
+							    map.setCenter(locPosition);      
+							}    
+							/*  */
+						</script>	
 				</div>
 				
 			</div>
 			
-			
-			
-			
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		<!-- Sidebar -->
@@ -456,18 +450,6 @@
 			</div>
 		</div>
 	</div>
-		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"></script>
-				<script>
-					var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
-					    mapOption = {
-					        center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-					        level: 3, // 지도의 확대 레벨
-					        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-					    }; 
-			
-					// 지도를 생성한다 
-					var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-				</script>
+		
 </body>
 </html>

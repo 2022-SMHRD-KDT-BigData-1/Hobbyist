@@ -136,6 +136,7 @@ a {
 				</div>
 
 				<section>
+					<a href="Recommend.jsp">광주광역시에서 찾기</a>
 					<header class="major">
 						<h2>우리 동네에서 찾기</h2>
 					</header>

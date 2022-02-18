@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.message.model.AcademyDTO;
+import com.message.model.MemberDTO;
 import com.message.model.RecommendDAO;
 import com.message.model.RecommendDTO;
 import com.message.model.ReviewDAO;
 import com.message.model.ReviewDTO;
+import com.message.model.WishlistDAO;
+import com.message.model.WishlistDTO;
 
 @WebServlet("/RecommendSelectCon")
 public class RecommendSelectCon extends HttpServlet {
@@ -28,6 +31,7 @@ public class RecommendSelectCon extends HttpServlet {
 			session.removeAttribute("recommend");
 			session.removeAttribute("count");
 			session.removeAttribute("scoreAvg");
+			session.removeAttribute("wish");
 		}
 		
 		
@@ -35,21 +39,27 @@ public class RecommendSelectCon extends HttpServlet {
 		String a_L_category = request.getParameter("a_L_category1"); 
 		String a_m_category = request.getParameter("a_m_category1"); 
 		String a_city = request.getParameter("city"); 
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		
+		
 		
 		AcademyDTO Recommend = new AcademyDTO(null,null,null,a_L_category, a_m_category, null, a_city);
 		RecommendDAO dao = new RecommendDAO();
 		ReviewDAO dao2 = new ReviewDAO();
+		WishlistDAO dao3 = new WishlistDAO();
 		
 		
 		
 		ArrayList<AcademyDTO> recommend =  dao.recSelect(Recommend);
 		ArrayList<Double> scoreAvg = dao2.avgScore(recommend);
+		if(session.getAttribute("member") != null) {
+			String email = member.getM_email();
+			ArrayList<WishlistDTO> wish = dao3.recoWishSelect(recommend, email);
+			session.setAttribute("wish", wish);
+		}
 		
 		int count = 0;
 		count = dao.getCount(Recommend);  
-		System.out.println(count);
-		
-		
 		
 		session.setAttribute("recommend", recommend);
 		session.setAttribute("count", count);
