@@ -6,18 +6,34 @@
 	<head>
 		<title>Forty by HTML5 UP</title>
 		<meta charset="utf-8" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <title>UPDATE</title>
 		
 	</head>
 	<style>
+	.btn > button{	
+		box-sizing : border-box;
+		font-family: "SUIT-Medium";
+		width : 10em;
+		height : 80%;
+		margin-left : 20px;
+		background-color : #f45c5c;
+		opacity: 0.9;
+	}
+	button > span{
+		font-size : 20px;
+		color : #fff;
+	}
 	
 	</style>
 	<body style="text-align: center;">
 
-		 <form action="JoinCon.do" method="get">
+		 <form action="UpdateCon.do" method="get">
       <fieldset>
-        <legend align="center"><h3>Hobbyist JOIN</h3></legend>
+        <legend align="center"><h3>Hobbyist Update</h3></legend>
         <table align="center">
           <tr>
             <td align="center">
@@ -71,7 +87,7 @@
             <td align="center">
               <strong>성별</strong>
             </td>
-            <td>
+            <td align="left">
               <input type="radio" id="man" name="gender" value="남자" />
               <label for="man">남자</label>
               <input type="radio" id="woman" name="gender" value="여자" />
@@ -90,12 +106,10 @@
               />
             </td>
           </tr>
-          <tr>
-            <td colspan="2" align="center">
-              <input type="submit" value="JOIN" />
-            </td>
-          </tr>
         </table>
+        <div class="btn">
+        	<button type = "submit"><span id="update">UPDATE</span></button>
+        </div>
       </fieldset>
     </form>
 		<!-- Scripts -->

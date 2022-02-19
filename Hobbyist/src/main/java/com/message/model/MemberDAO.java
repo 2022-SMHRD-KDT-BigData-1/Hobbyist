@@ -108,7 +108,7 @@ public class MemberDAO {
 		
 		connect();
 		
-		sql="update member set m_pw=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_hashtag=?, m_a_id=? where m_email=?";
+		sql="update member set m_pw=?, m_name=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_a_id=? where m_email=?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -116,10 +116,10 @@ public class MemberDAO {
 			psmt.setString(1, memberDTO.getM_pw());
 			psmt.setString(2, memberDTO.getM_name());
 			psmt.setString(3, memberDTO.getM_nick());
-			psmt.setString(4, memberDTO.getM_tel());
-			psmt.setString(5, memberDTO.getM_address());
-			psmt.setString(6, memberDTO.getM_age());
-			psmt.setString(7, memberDTO.getM_gender());
+			psmt.setString(4, memberDTO.getM_age());
+			psmt.setString(5, memberDTO.getM_gender());
+			psmt.setString(6, memberDTO.getM_tel());
+			psmt.setString(7, memberDTO.getM_address());
 			psmt.setString(8, memberDTO.getA_id());
 			
 			cnt=psmt.executeUpdate();

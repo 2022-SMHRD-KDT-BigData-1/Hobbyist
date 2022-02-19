@@ -60,7 +60,7 @@
                 <a href="#"><span class="label">메인페이지</span></a>
               </li>
               <li>
-                <a href="#"><span class="label">개인정보수정</span></a>
+                <a href="update.jsp"><span class="label">개인정보수정</span></a>
               </li>
             </ul>
           </header>
