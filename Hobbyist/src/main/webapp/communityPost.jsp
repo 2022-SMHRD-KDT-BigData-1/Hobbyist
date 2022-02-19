@@ -34,7 +34,8 @@
 	CommunityDAO dao = new CommunityDAO();
 	//CommunityDTO communitylist = dao.commOneSelect(community.getC_seq());
 	
-	ArrayList<CommunityDTO> communitylist = dao.commOneSelect(num);
+	ArrayList<CommunityDTO> communitylist = dao.commSelect();
+	
 	%>
 
 	<%
@@ -66,7 +67,7 @@
 							<td>글제목</td>
 							<td colspan="3">
 								<%
-								out.print(communitylist.get(i).getC_title());
+								out.print(communitylist.get(0).getC_title());
 								%>
 							</td>
 						</tr>
@@ -74,13 +75,13 @@
 							<td>작성자</td>
 							<td>
 								<%
-								out.print(communitylist.get(i).getM_nick());
+								out.print(communitylist.get(0).getM_nick());
 								%>
 							</td>
 							<td>작성일자</td>
 							<td>
 								<%
-								out.print(communitylist.get(i).getC_date());
+								out.print(communitylist.get(0).getC_date());
 								%>
 							</td>
 						</tr>
@@ -88,7 +89,7 @@
 							<td>내용</td>
 							<td colspan="3">
 								<%
-								out.print(communitylist.get(i).getC_content());
+								out.print(communitylist.get(0).getC_content());
 								%>
 							</td>
 						</tr>
