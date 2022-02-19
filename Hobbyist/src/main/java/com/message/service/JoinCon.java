@@ -48,7 +48,7 @@ public class JoinCon implements iCommand {
 			request.setAttribute("success_data", dto);
 			
 			
-			dispatcher=request.getRequestDispatcher("main_success.jsp");
+			dispatcher=request.getRequestDispatcher("join_success.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			System.out.println("½ÇÆÐ..");

@@ -130,4 +130,25 @@ public class WishlistDAO {
 		}
 		return list;
 	}
+
+	public int wishDelete(WishlistDTO wishDelete) {
+		connect();
+		sql = "delete from wishlist where w_email = ? and a_id = ?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, wishDelete.getW_email());
+			psmt.setString(2, wishDelete.getA_id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return cnt;
+	}
 }

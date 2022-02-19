@@ -16,8 +16,8 @@ import com.message.model.MemberDTO;
 import com.message.model.WishlistDAO;
 import com.message.model.WishlistDTO;
 
-@WebServlet("/WishListInputCon")
-public class WishListInputCon extends HttpServlet {
+@WebServlet("/WishlistRecoDelCon")
+public class WishlistRecoDelCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,30 +26,22 @@ public class WishListInputCon extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		
-		
-		String a_id = request.getParameter("a_idToWish"); 
+		String a_id = request.getParameter("wishDelete"); 
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
-		WishlistDTO wishCreate = new WishlistDTO(0, 0, member.getM_email(), a_id);
+		WishlistDTO wishDelete = new WishlistDTO(0, 0, member.getM_email(), a_id);
 		WishlistDAO dao = new WishlistDAO();
 		
-		int cnt = dao.wishCreate(wishCreate);
+		int cnt = dao.wishDelete(wishDelete);
 		
 		if(cnt > 0) {
-			System.out.println("위시리스트 등록 성공");
-//			if(session.getAttribute("member") != null) {
-//				session.removeAttribute("wish");
-//				ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
-//				String email = member.getM_email();
-//				ArrayList<WishlistDTO> wish = dao.recoWishSelect(recommend, email);
-//				session.setAttribute("wish", wish);
-//			}
+			System.out.println("위시리스트 삭제 성공");
 			ArrayList <WishlistDTO> wish = (ArrayList <WishlistDTO>) session.getAttribute("wish");
 			session.removeAttribute("wish");
 			ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
 			for(int i = 0; i<wish.size();i++) {
 					if(recommend.get(i).getA_id().equals(a_id)) {
 						wish.remove(i);
-						wish.add(i, new WishlistDTO(0,1,null,null));
+						wish.add(i, null);
 						session.setAttribute("wish", wish);
 						break;
 					}
@@ -57,15 +49,26 @@ public class WishListInputCon extends HttpServlet {
 				String pageNum = (String) session.getAttribute("pageNum");
 				response.sendRedirect("Recommend.jsp?pageNum=" + pageNum);
 			}else {
-				System.out.println("위시리스트 등록 실패");
+				System.out.println("위시리스트 삭제 실패");
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
-				out.print("alert('위시리스트 등록 실패');");
+				out.print("alert('위시리스트 삭제 실패');");
 				out.print("location.href='Recommend.jsp';");
 				out.print("</script>");
 			}
-			
-		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
-
+}
