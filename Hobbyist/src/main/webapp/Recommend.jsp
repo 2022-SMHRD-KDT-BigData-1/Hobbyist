@@ -21,6 +21,9 @@
 	if (pageNum == null){ // 클릭한게 없으면 1번 페이지
 		pageNum = "1";
 	}
+	session.removeAttribute("pageNum");
+	session.setAttribute("pageNum", pageNum);
+	
 	// 연산을 하기 위한 pageNum 형변환 / 현재 페이지
 	int currentPage = Integer.parseInt(pageNum);
 
@@ -46,6 +49,7 @@
 <meta charset="UTF-8">
 <title>Hobbyist</title>
 <link rel="stylesheet" href="assets/css/main.css" />
+
 <link
 	href="https://fonts.googleapis.com/
     icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined"
@@ -55,6 +59,8 @@
 	rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 <style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 	#category_wrapper_wrapper{
 		margin : 0 auto;
 		padding : 0px auto;
@@ -151,6 +157,7 @@
 	}
 	#recInfo{
 		float : left;
+		
 	}
 	#recReviewWish{
 		box-sizing : border-box;
@@ -216,6 +223,30 @@
             margin: 0 auto;
             padding: 0 auto;
         }
+        #reviewButton {
+	        font-family: 'Noto Sans KR', sans-serif;
+        	box-shadow : none;
+            background-color:transparent;
+            margin : 0 auto; 
+            padding : 0 auto;
+            font-color : #666;
+        }
+        #popUp{
+        	width : 100%; 
+        	top : 20px;
+        	position : absolute;
+        	z-index : 1;
+        	background:transparent;
+        	display : none;
+        }
+        #popUp > article{
+        	width : 700px;
+        	height : 500px;
+        	position : relative;
+        	z-index : 2;
+        	background-color : #fff;
+        	 margin : auto;
+        }
 </style>
 </head>
 <body>
@@ -274,6 +305,11 @@
 			<div id = "recWrapper">
 				<div id = "rec">
 					<div class = "recView">
+					<div id = "popUp">
+						<article>
+							<h1>TEST</h1>
+						</article>
+					</div>
 					<table>
 					<%	
 						if(recommend != null){
@@ -292,26 +328,32 @@
 									<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
 								</div>
 								<div id = "wishInput">
-									<form action="WishListInputCon" method="post">
+									
 										<%if(wishCheck !=null){
 											if(wishCheck.get(i) != null){
 												if(wishCheck.get(i).getW_wish()>0){
 										%>
-										<button type="submit" id="h1"><img src="./images/heart1.png" alt="heart" class="heart"></button>
+										<form action="WishlistRecoDelCon" method="post">
+										<button type="submit" id="h1" name ="wishDelete" value = "<%= 
+								        	recommend.get(i).getA_id()
+								        %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
+										</form>
 								        <% }}else{ %>
+								        <form action="WishListInputCon" method="post">
 								        <button type="submit" id="h0" name="a_idToWish" value="<%= 
 								        	recommend.get(i).getA_id()
 								        %>">
-								        <img src="./images/heart0.png" alt="heart" class="heart"></button>
+								        <img src="./images/heart0.png" alt="heart0" class="heart"></button>
+								        </form>
 								        <% 
 								        }
 											}
 								        %>
-   									 </form>
+   									 
 								</div>
 								<div id = "recReviewWish">
 									<img alt="star" src="./images/star.png" id = "star">
-									<span> 평점 : 
+									<strong> 평점 : 
 									<%
 										if(scoreAvg.get(i).isNaN()){
 											%>
@@ -325,11 +367,14 @@
 									<%
 										}
 									%>
-									 </span>
+									<br>
+									 </strong>
+									<button type="button" id = "reviewButton">
+									리뷰 : [ 0 ]
+									</button>
 								</div>
 							</td>
 						</tr>
-						
 						
 					<%				
 							}
