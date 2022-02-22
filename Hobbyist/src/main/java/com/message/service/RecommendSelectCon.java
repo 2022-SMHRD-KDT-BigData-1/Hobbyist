@@ -54,7 +54,6 @@ public class RecommendSelectCon extends HttpServlet {
 		ArrayList<AcademyDTO> recommend =  dao.recSelect(Recommend);
 		ArrayList<ReviewDTO> Review = dao2.reviewSelect(recommend);
 		ArrayList<Double> avgScore = dao2.avgScore(recommend);
-		System.out.println(avgScore.get(0)+"con까지는 잘옴");
 		if(session.getAttribute("member") != null) {
 			String email = member.getM_email();
 			ArrayList<WishlistDTO> wish = dao3.recoWishSelect(recommend, email);

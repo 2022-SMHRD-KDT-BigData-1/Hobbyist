@@ -300,6 +300,7 @@
 		.revUser{
 			display : inline-block;
 			float : left;
+			margin-right : 20px;
 		}
 		.revDate{
 			display : inline-block;
@@ -307,7 +308,11 @@
 		}
 		.revContent{
 			display : block;
-		}	
+		}
+		.nickFont{
+			font-family: 'Noto Sans KR', sans-serif;
+			color : #000;
+		}
 </style>
 <script type="text/javascript">
 <%	
@@ -463,7 +468,9 @@ if(recommend != null){
 												<tr>
 													<td>
 														<div class = "revUser">
+														<span class = "nickFont" >
 														<%=Review.get(j).getRe_nick() %>
+														</span>
 														</div>
 														평점 : <%=Review.get(j).getRe_score()%>
 														<div class="revDate">
@@ -496,6 +503,7 @@ if(recommend != null){
 								<div class = "wishInput">
 									
 										<%
+										if(member != null) {
 										if(wishCheck !=null){
 											if(wishCheck.get(i) != null){
 												if(wishCheck.get(i).getW_wish()>0){
@@ -505,7 +513,7 @@ if(recommend != null){
 								        	recommend.get(i).getA_id()
 								        %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
 										</form>
-								        <% }}else{ %>
+								        <% }}}}else{ %>
 								        <form action="WishListInputCon" method="post">
 								        <button type="submit" class="h0" name="a_idToWish" value="<%= 
 								        	recommend.get(i).getA_id()
@@ -514,7 +522,7 @@ if(recommend != null){
 								        </form>
 								        <% 
 								        }
-											}
+											
 								        %>
    									 
 								</div>
