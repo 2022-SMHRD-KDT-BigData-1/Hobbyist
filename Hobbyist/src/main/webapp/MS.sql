@@ -179,3 +179,18 @@ create table Recommend(
 	CONSTRAINT FK_a_city FOREIGN KEY(a_city) REFERENCES ACADEMY(a_city)
 )
 >>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/Hobbyist.git
+
+drop table map_info
+
+
+create table map_info(
+	category varchar(20) not null,
+	academy varchar(50) not null ,
+	location varchar(20) not null,
+	tel varchar(20) not null
+	) 
+
+insert into map_info values ('운동', '모던필라테스', '남구', '062-672-9030')
+insert into map_info values ('운동', '크로스핏디노', '남구', '062-655-6593')
+insert into map_info values ('운동', '라인앤필라테스', '남구', '062-676-8896')
+insert into map_info values ('운동', '모던필라테스', '남구', '062-672-9030')
