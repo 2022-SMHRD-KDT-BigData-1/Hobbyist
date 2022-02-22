@@ -143,48 +143,6 @@ public class ExBoardDAO {
 		}
 	}
 
-	// 제목을 클릭하였을 때 조회수 증가
-	public void readCount(int no) {
-		String sql = "update exboard set readcount = readcount + 1 where no = " + no;
-		try {
-			connect();
-			ppst = conn.prepareStatement(sql);
-			ppst.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			quitDB();
-		}
-	}
-
-	// 제목을 클릭하였을 때 특정 항목을 검색할 로직
-	public ExBoardDTO getBoard(int no) {
-		String sql = "select * from exboard where no = ?";
-		ExBoardDTO board = null;
-		try {
-			connect();
-			ppst = conn.prepareStatement(sql);
-			ppst.setInt(1, no);
-			rs = ppst.executeQuery();
-			if (rs.next()) {
-				board = new ExBoardDTO();
-				board.setNo(rs.getInt("no"));
-				board.setName(rs.getString("name"));
-				board.setPasswd(rs.getString("passwd"));
-				board.setSubject(rs.getString("subject"));
-				board.setContent(rs.getString("content"));
-				board.setReg_date(rs.getTimestamp("reg_date"));
-				board.setReadCount(rs.getInt("readcount"));
-				board.setIp(rs.getString("ip"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			quitDB();
-		}
-		return board;
-	}
-
 	// update 로직
 	public void updateDB(ExBoardDTO board) {
 		String sql = "update exboard set name = ?, subject = ?, content = ? where no = ?";
@@ -215,5 +173,105 @@ public class ExBoardDAO {
 		} finally {
 			quitDB();
 		}
+	}
+	
+	// 제목을 클릭하였을 때 조회수 증가
+	public void readCount(int no) {
+		String sql = "update exboard set readcount = readcount + 1 where no = " + no;
+		try {
+			connect();
+			ppst = conn.prepareStatement(sql);
+			ppst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			quitDB();
+		}
+	}
+	
+	// 제목을 클릭하였을 때 특정 항목을 검색할 로직
+	public ExBoardDTO getBoard(int no) {
+		String sql = "select * from exboard where no = ?";
+		ExBoardDTO board = null;
+		try {
+			connect();
+			ppst = conn.prepareStatement(sql);
+			ppst.setInt(1, no);
+			rs = ppst.executeQuery();
+			if (rs.next()) {
+				board = new ExBoardDTO();
+				board.setNo(rs.getInt("no"));
+				board.setName(rs.getString("name"));
+				board.setPasswd(rs.getString("passwd"));
+				board.setSubject(rs.getString("subject"));
+				board.setContent(rs.getString("content"));
+				board.setReg_date(rs.getTimestamp("reg_date"));
+				board.setReadCount(rs.getInt("readcount"));
+				board.setIp(rs.getString("ip"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			quitDB();
+		}
+		return board;
+	}
+
+	// 검색어와 일치하는 레코드 수를 구하는 로직
+	public int getfCount(String sel, String find) {
+		int fCount = 0;
+		String sql = "select count(*) from exboard where " + sel + " like '%" + find + "%'";
+		try {
+			connect();
+			ppst = conn.prepareStatement(sql);
+			rs = ppst.executeQuery();
+			if (rs.next()) {
+				fCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			quitDB();
+		}
+		return fCount; // 총 레코드 수 리턴
+	}
+
+	// 리스트 페이지에 보여줄 검색 관련 로직(페이징 처리)
+	public List<ExBoardDTO> getfList(int startRow, int endRow, String sel, String find) {
+		// 검색 페이징 처리를 위한 sql / 인라인뷰, rownum 사용
+		String sql = "select * from "
+				+ "(select rownum rn, no, name, passwd, subject, content, reg_date, readcount, ip from "
+				+ "(select * from exboard where " + sel + " like '%" + find
+				+ "%' order by no desc)) where rn between ? and ?";
+		List<ExBoardDTO> list = null;
+		try {
+			connect(); // 커넥션을 얻어옴
+			ppst = conn.prepareStatement(sql); // sql 정의
+			ppst.setInt(1, startRow); // sql 물음표에 값 매핑
+			ppst.setInt(2, endRow);
+			rs = ppst.executeQuery(); // sql 실행
+			if (rs.next()) { // 데이터베이스에 데이터가 있으면 실행
+				list = new ArrayList<>(); // list 객체 생성
+				do {
+					// 반복할 때마다 ExboardDTO 객체를 생성 및 데이터 저장
+					ExBoardDTO board = new ExBoardDTO();
+					board.setNo(rs.getInt("no"));
+					board.setName(rs.getString("name"));
+					board.setPasswd(rs.getString("passwd"));
+					board.setSubject(rs.getString("subject"));
+					board.setContent(rs.getString("content"));
+					board.setReg_date(rs.getTimestamp("reg_date"));
+					board.setReadCount(rs.getInt("readcount"));
+					board.setIp(rs.getString("ip"));
+
+					list.add(board); // list에 0번 인덱스부터 board 객체의 참조값을 저장
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			quitDB(); // DB 연결 종료 / Connection 반환
+		}
+		return list; // list 반환
 	}
 }
