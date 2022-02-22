@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.model.CommunityDAO;
-import com.message.model.CommunityDTO;
+import com.message.model.CommunityDAO2;
+import com.message.model.CommunityDTO2;
 
 
 @WebServlet("/CommunityPostCon")
@@ -24,26 +24,26 @@ public class CommunityPostCon extends HttpServlet {
 		
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		
-		CommunityDAO dao = new CommunityDAO();
+		CommunityDAO2 dao = new CommunityDAO2();
 		
-		CommunityDTO post = dao.commOneSelect(seq);
-		
-		if(post != null) {
-			System.out.println("게시글 진입 성공!");
-			HttpSession session = request.getSession();
-			session.setAttribute("post", post);
-			response.sendRedirect("communityPost.jsp");
-		} else {
-			System.out.println("게시글 진입 실패..");
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('제시글 진입 실패..');");
-			out.print("community.jsp';");
-			out.print("</script>");
-			
-		}
+//		CommunityDTO2 post = dao.commOneSelect(seq);
+//		
+//		if(post != null) {
+//			System.out.println("게시글 진입 성공!");
+//			HttpSession session = request.getSession();
+//			session.setAttribute("post", post);
+//			response.sendRedirect("communityPost.jsp");
+//		} else {
+//			System.out.println("게시글 진입 실패..");
+//			
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.print("<script>");
+//			out.print("alert('제시글 진입 실패..');");
+//			out.print("community.jsp';");
+//			out.print("</script>");
+//			
+//		}
 		
 	}
 

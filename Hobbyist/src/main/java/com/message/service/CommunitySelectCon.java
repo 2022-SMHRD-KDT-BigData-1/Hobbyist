@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.model.CommunityDAO;
-import com.message.model.CommunityDTO;
+import com.message.model.CommunityDAO2;
+import com.message.model.CommunityDTO2;
 
 @WebServlet("/CommunityCon")
 public class CommunitySelectCon extends HttpServlet {

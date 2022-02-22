@@ -2,6 +2,8 @@ package com.message.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.model.CommunityDAO;
-import com.message.model.CommunityDTO;
+import com.message.model.CommunityDAO2;
+import com.message.model.CommunityDTO2;
 
 
 @WebServlet("/CommunityUploadCon")
@@ -24,13 +26,24 @@ public class CommunityUploadCon extends HttpServlet {
 		
 		
 		String nick = request.getParameter("nick");
+		String pw = request.getParameter("pw");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		String pw = request.getParameter("pw");
+		String ip = request.getRemoteAddr();
+		SimpleDateFormat df = new SimpleDateFormat("YY-MM-dd HH:mm");
+		
+		CommunityDAO2 dao = new CommunityDAO2();
+		
+		int cnt = dao.insertDB(null,nick,pw,title,content,df,0,ip); // getList 메서드 호출
+		
+		
+		
+		
+		
 
-		CommunityDAO dao = new CommunityDAO();
-
-		int cnt = dao.commUpload(new CommunityDTO(0, nick, title, content, pw, 0, null));
+//		CommunityDAO dao = new CommunityDAO();
+//
+//		int cnt = dao.commUpload(new CommunityDTO(0, nick, title, content, pw, 0, null));
 		
 		
 		if (cnt > 0) {

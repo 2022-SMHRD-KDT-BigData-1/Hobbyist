@@ -83,7 +83,7 @@ public class CommentDAO {
 	 
 
 	// ´ñ±Û Ãß°¡
-	public int commentUpload(CommentDTO comment, CommunityDTO board, MemberDTO member) {
+	public int commentUpload(CommentDTO comment, CommunityDTO2 board, MemberDTO member) {
 
 		connect();
 
@@ -92,7 +92,7 @@ public class CommentDAO {
 		try {
 			psmt = conn.prepareStatement(sql);
 
-			psmt.setInt(1, board.getC_seq());
+			psmt.setInt(1, board.getNo());
 			psmt.setString(2, member.getM_nick());
 			psmt.setString(3, comment.getCom_content());
 			psmt.setString(4, comment.getCom_pw());
@@ -110,7 +110,7 @@ public class CommentDAO {
 	}
 
 	// ´ñ±Û ¼öÁ¤
-	public int commentUpdate(CommentDTO comment, CommunityDTO board, MemberDTO nick) {
+	public int commentUpdate(CommentDTO comment, CommunityDTO2 board, MemberDTO nick) {
 
 		connect();
 
@@ -120,7 +120,7 @@ public class CommentDAO {
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, comment.getCom_content());
-			psmt.setInt(2, board.getC_seq());
+			psmt.setInt(2, board.getNo());
 			psmt.setString(3, nick.getM_nick());
 			psmt.setString(4, comment.getCom_pw());
 

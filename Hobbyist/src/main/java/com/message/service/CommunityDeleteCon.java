@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.model.CommunityDAO;
-import com.message.model.CommunityDTO;
+import com.message.model.CommunityDAO2;
+import com.message.model.CommunityDTO2;
 
 @WebServlet("/CommunityDeleteCon")
 public class CommunityDeleteCon extends HttpServlet {
@@ -21,27 +21,27 @@ public class CommunityDeleteCon extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		CommunityDTO list = (CommunityDTO) session.getAttribute("list");
+		CommunityDTO2 list = (CommunityDTO2) session.getAttribute("list");
 
 		String num = request.getParameter("num");
 		String nick = list.getM_nick();
 
-		CommunityDAO dao = new CommunityDAO();
+		CommunityDAO2 dao = new CommunityDAO2();
 
-		int cnt = dao.commDelete(nick, num);
-
-		if (cnt > 0) {
-			System.out.println("게시글 삭제 성공!");
-			response.sendRedirect("main.jsp");
-		} else {
-			System.out.println("게시글 삭제 실패..");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('게시글 전송 실패..');");
-			out.print("location.href='community.jsp';");
-			out.print("</script>");
-		}
+//		int cnt = dao.commDelete(nick, num);
+//
+//		if (cnt > 0) {
+//			System.out.println("게시글 삭제 성공!");
+//			response.sendRedirect("main.jsp");
+//		} else {
+//			System.out.println("게시글 삭제 실패..");
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.print("<script>");
+//			out.print("alert('게시글 전송 실패..');");
+//			out.print("location.href='community.jsp';");
+//			out.print("</script>");
+//		}
 
 	}
 

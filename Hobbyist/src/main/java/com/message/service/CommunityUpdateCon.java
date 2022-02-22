@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.model.CommunityDAO;
-import com.message.model.CommunityDTO;
+import com.message.model.CommunityDAO2;
+import com.message.model.CommunityDTO2;
 
 @WebServlet("/CommunityUpdateCon")
 public class CommunityUpdateCon extends HttpServlet {
@@ -23,7 +23,7 @@ public class CommunityUpdateCon extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		CommunityDTO community = (CommunityDTO) session.getAttribute("community");
+		CommunityDTO2 community = (CommunityDTO2) session.getAttribute("community");
 		String nick = community.getM_nick();
 
 		String title = request.getParameter("title");
@@ -32,23 +32,23 @@ public class CommunityUpdateCon extends HttpServlet {
 		String file = request.getParameter("file");
 		
 
-		CommunityDAO dao = new CommunityDAO();
-		int cnt = dao.commUpdate(new CommunityDTO(0, nick, title, content, null, 0, null), null);
-
-		if (cnt > 0) {
-			System.out.println("게시글 수정 성공!");
-			session.setAttribute("community", new CommunityDTO(0, nick, title, content, null, 0, null));
-			response.sendRedirect("main.jsp");
-		} else {
-			System.out.println("게시글 수정 실패..");
-
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('게시글 수정 실패..');");
-			out.print("location.href='community.jsp';");
-			out.print("</script>");
-		}
+		CommunityDAO2 dao = new CommunityDAO2();
+//		int cnt = dao.commUpdate(new CommunityDTO2(0, nick, title, content, null, 0, null), null);
+//
+//		if (cnt > 0) {
+//			System.out.println("게시글 수정 성공!");
+//			session.setAttribute("community", new CommunityDTO2(0, nick, title, content, null, 0, null));
+//			response.sendRedirect("main.jsp");
+//		} else {
+//			System.out.println("게시글 수정 실패..");
+//
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.print("<script>");
+//			out.print("alert('게시글 수정 실패..');");
+//			out.print("location.href='community.jsp';");
+//			out.print("</script>");
+//		}
 
 	}
 

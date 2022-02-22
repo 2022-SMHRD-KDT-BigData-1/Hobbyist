@@ -1,5 +1,8 @@
 package com.message.model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,15 +14,17 @@ import lombok.NoArgsConstructor;
 //기본 생성자를 생성해줌.
 
 @AllArgsConstructor
+//모든 변수를 포함한 생성자를 생성해줌
 
-public class CommunityDTO {
-	private int c_seq;
+public class CommunityDTO2 {
+	private int no;
 	private String m_nick;
+	private String c_pw;
 	private String c_title;
 	private String c_content;
-	private String c_pw;
-	private int c_view;
-	private String c_date;
+	private Timestamp c_date;
+	private int c_readCount;
+	private String ip;
 }
 
 
