@@ -51,13 +51,16 @@ public class CommunityDAO {
 		}
 	}
 
-	// 커뮤니티 글 목록 전체조회
+	// 커뮤니티 글 목록
 	public ArrayList<CommunityDTO> commSelect() {
 
 		ArrayList<CommunityDTO> list = new ArrayList<CommunityDTO>();
 
 		connect();
 
+<<<<<<< HEAD
+		sql = "select c_seq, c_title, c_writer, c_view, c_content from community where c_email";
+=======
 		/*
 		 * sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date" +
 		 * " from community" + " order by c_seq desc";
@@ -65,6 +68,7 @@ public class CommunityDAO {
 		
 		sql = "select c_seq, m_nick, c_title, c_content, c_pw, c_view, c_date from community order by c_seq desc";
 				
+>>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/Hobbyist.git
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -72,8 +76,8 @@ public class CommunityDAO {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getInt(6), rs.getString(7)));
+				list.add(new CommunityDTO(rs.getInt(1), rs.getString(2), rs.getString(3), null, rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
 			}
 
 		} catch (SQLException e) {
@@ -84,6 +88,8 @@ public class CommunityDAO {
 
 		return list;
 	}
+<<<<<<< HEAD
+=======
 	
 	
 	//페이지 처리 메소드
@@ -168,24 +174,25 @@ public class CommunityDAO {
 //		}
 //		return seq;
 //	}
+>>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/Hobbyist.git
 
 	// 커뮤니티 글 쓰기
-	public int commUpload(CommunityDTO board) {
+	public int commUpload(CommunityDTO message) {
 
 		connect();
-		System.out.println(board.getM_nick());
-		System.out.println(board.getC_title());
-		System.out.println(board.getC_content());
-		System.out.println(board.getC_pw());
-		sql = "insert into community values(c_seq.nextval,?,?,?,sysdate,?,0)";
+
+		sql = "insert into community values(?,?,?,?,?,?)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, board.getM_nick());
-			psmt.setString(2, board.getC_title());
-			psmt.setString(3, board.getC_content());
-			psmt.setString(4, board.getC_pw());
+			
+			psmt.setInt(1, message.getC_seq());
+			psmt.setString(2, message.getC_writer());
+			psmt.setString(3, message.getC_title());
+			psmt.setString(4, message.getC_content());
+			psmt.setString(5, message.getC_date());
+			psmt.setInt(6, 1);
+			
 
 			cnt = psmt.executeUpdate();
 
@@ -194,42 +201,44 @@ public class CommunityDAO {
 		} finally {
 			close();
 		}
-		return cnt;
+
+		return -1;
+
 	}
 
 	// 커뮤니티 글 수정
-	public int commUpdate(CommunityDTO board, MemberDTO nick) {
+	public int commUpdate(CommunityDTO communityDTO) {
 
 		connect();
 
-		sql = "update community set c_title=?, c_content=? where m_nick=? and c_pw=?";
+		sql = "update community set c_title=?, c_content=? where c_writer=? and c_pw=? ";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, board.getC_title());
-			psmt.setString(2, board.getC_content());
-			psmt.setString(3, nick.getM_nick());
-			psmt.setString(4, board.getC_pw());
+			psmt.setString(1, communityDTO.getC_title());
+			psmt.setString(2, communityDTO.getC_content());
 
 			cnt = psmt.executeUpdate();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return cnt;
+
 	}
 
 	// 커뮤니티 글 삭제
-	public int commDelete(String nick, String pw) {
+	public int commDelete(String email, String pw) {
 
 		connect();
 
-		sql = "delete from community where m_nick=? and c_pw=?";
+		sql = "delete from community where c_writer=? and c_pw=?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, nick);
+			psmt.setString(1, email);
 			psmt.setString(2, pw);
 
 			cnt = psmt.executeUpdate();
