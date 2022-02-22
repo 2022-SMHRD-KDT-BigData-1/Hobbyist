@@ -182,80 +182,62 @@ a {
 								alt="" /></a>
 							<h3>운동</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">헬스</a></li>
-								<li><a href="#" class="button primary small">요가</a></li>
 								<li><a href="#" class="button primary small">필라테스</a></li>
 								<li><a href="#" class="button primary small">클라이밍</a></li>
 								<li><a href="#" class="button primary small">크로스핏</a></li>
-								<li><a href="#" class="button primary small">플라잉요가</a></li>
+								<li><a href="#" class="button primary small">요가</a></li>
+								<li><a href="#" class="button primary small">수영</a></li>
 							</ul>
 						</article>
 						<article>
 							<a href="#" class="image"><img src="images/ballet.jpg" alt="" /></a>
-							<h3>무용</h3>
+							<h3>댄스</h3>
 							<ul class="actions">
 								<li><a href="#" class="button primary small">발레</a></li>
-								<li><a href="#" class="button primary small">방송 댄스</a></li>
-								<li><a href="#" class="button primary small">댄스스포츠</a></li>
+								<li><a href="#" class="button primary small">방송댄스</a></li>
 								<li><a href="#" class="button primary small">폴댄스</a></li>
+								<li><a href="#" class="button primary small">무용</a></li>
 							</ul>
 						</article>
 						<article>
 							<a href="#" class="image"><img src="images/boxing.jpg" alt="" /></a>
 							<h3>스포츠 무술</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">복싱</a></li>
-								<li><a href="#" class="button primary small">태권도</a></li>
+								<li><a href="#" class="button primary small">킥복싱</a></li>
 								<li><a href="#" class="button primary small">주짓수</a></li>
-								<li><a href="#" class="button primary small">수영</a></li>
-								<li><a href="#" class="button primary small">테니스</a></li>
+								<li><a href="#" class="button primary small">무에타이</a></li>
 							</ul>
 						</article>
 					</div>
 				</section>
 				<section>
 					<header class="major">
-						<h2>아트 뷰티 공예</h2>
+						<h2>음악 미술 요리</h2>
 					</header>
 					<div class="posts">
 						<article>
 							<a href="#" class="image"><img src="images/guitar.jpg" alt="" /></a>
-							<h3>음악 악기</h3>
+							<h3>음악</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">기타</a></li>
-								<li><a href="#" class="button primary small">베이스</a></li>
-								<li><a href="#" class="button primary small">드럼</a></li>
-								<li><a href="#" class="button primary small">피아노</a></li>
-								<li><a href="#" class="button primary small">보컬</a></li>
+								<li><a href="#" class="button primary small">실용음악</a></li>
 							</ul>
 						</article>
 						<article>
-							<a href="#" class="image"><img src="images/makeup.jpg" alt="" /></a>
-							<h3>뷰티 아트</h3>
+							<a href="#" class="image"><img src="images/art.jpg" alt="" /></a>
+							<h3>미술</h3>
 							<ul class="actions">
-								<li><a href="#" class="button primary small">메이크업</a></li>
-								<li><a href="#" class="button primary small">헤어</a></li>
-								<li><a href="#" class="button primary small">네일</a></li>
 								<li><a href="#" class="button primary small">미술</a></li>
-								<li><a href="#" class="button primary small">컴퓨터아트</a></li>
-								<li><a href="#" class="button primary small">애니메이션</a></li>
-								<li><a href="#" class="button primary small">웹툰</a></li>
+								<li><a href="#" class="button primary small">공예&화훼</a></li>
 							</ul>
 						</article>
 						<article>
-							<a href="#" class="image"><img src="images/pottery.jpg"
+							<a href="#" class="image"><img src="images/cook.jpg"
 								alt="" /></a>
-							<h3>요리 공예</h3>
+							<h3>요리</h3>
 							<ul class="actions">
 								<li><a href="#" class="button primary small">요리</a></li>
 								<li><a href="#" class="button primary small">바리스타</a></li>
 								<li><a href="#" class="button primary small">베이킹</a></li>
-								<li><a href="#" class="button primary small">도예</a></li>
-								<li><a href="#" class="button primary small">자수</a></li>
-								<li><a href="#" class="button primary small">뜨개질</a></li>
-								<li><a href="#" class="button primary small">금속</a></li>
-								<li><a href="#" class="button primary small">가죽</a></li>
-								<li><a href="#" class="button primary small">플라워</a></li>
 							</ul>
 						</article>
 					</div>

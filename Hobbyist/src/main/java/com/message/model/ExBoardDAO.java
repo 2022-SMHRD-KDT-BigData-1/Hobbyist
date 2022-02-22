@@ -65,14 +65,18 @@ public class ExBoardDAO {
 		}
 	}
 
-	// 리스트 페이지에 보여줄 로직
-	public List<ExBoardDTO> getList() {
-		String sql = "select * from exboard order by no desc";
+	// 리스트 페이지에 보여줄 로직(페이징 처리)
+	public List<ExBoardDTO> getList(int startRow, int endRow) {
+		// 페이징 처리를 위한 sql / 인라인뷰, rownum 사용
+		String sql = "select * from "
+				+ "(select rownum rn, no, name, passwd, subject, content, reg_date, readcount, ip from "
+				+ "(select * from exboard order by no desc)) where rn between ? and ?";
 		List<ExBoardDTO> list = null;
 		try {
-			// conn = getConnection(); // 커넥션을 얻어옴
-			connect();
+			connect(); // 커넥션을 얻어옴
 			ppst = conn.prepareStatement(sql); // sql 정의
+			ppst.setInt(1, startRow); // sql 물음표에 값 매핑
+			ppst.setInt(2, endRow);
 			rs = ppst.executeQuery(); // sql 실행
 			if (rs.next()) { // 데이터베이스에 데이터가 있으면 실행
 				list = new ArrayList<>(); // list 객체 생성
@@ -87,6 +91,7 @@ public class ExBoardDAO {
 					board.setReg_date(rs.getTimestamp("reg_date"));
 					board.setReadCount(rs.getInt("readcount"));
 					board.setIp(rs.getString("ip"));
+
 					list.add(board); // list에 0번 인덱스부터 board 객체의 참조값을 저장
 				} while (rs.next());
 			}
@@ -96,6 +101,25 @@ public class ExBoardDAO {
 			quitDB(); // DB 연결 종료 / Connection 반환
 		}
 		return list; // list 반환
+	}
+
+	// 총 레코드 수 구하는 로직
+	public int getCount() {
+		int count = 0;
+		String sql = "select count(*) from exboard";
+		try {
+			connect();
+			ppst = conn.prepareStatement(sql);
+			rs = ppst.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			quitDB();
+		}
+		return count; // 총 레코드 수 리턴
 	}
 
 	// insert 로직
@@ -178,9 +202,9 @@ public class ExBoardDAO {
 			quitDB();
 		}
 	}
-	
+
 	// 해당 데이터 삭제
-	public void deleteDB(int no){
+	public void deleteDB(int no) {
 		String sql = "delete from exboard where no = " + no;
 		try {
 			connect();
