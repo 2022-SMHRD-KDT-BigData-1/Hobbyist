@@ -77,7 +77,7 @@ public class WishlistDAO {
 		
 	}
 	
-	public ArrayList<WishlistDTO>select() { // 폐기 보류 
+	public ArrayList<WishlistDTO>select() { // 보류 
 		ArrayList<WishlistDTO> list = new ArrayList<WishlistDTO>();
 		
 		connect();
