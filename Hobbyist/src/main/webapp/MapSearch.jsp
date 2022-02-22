@@ -12,10 +12,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
-<link
-	href="https://fonts.googleapis.com/
-    icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined"
-	rel="stylesheet" />
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -28,6 +25,7 @@ a {
 	color: #f45c5c;
 }
 </style>
+
 </head>
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -56,16 +54,16 @@ a {
 					<div class="row">
 						<div class="form-group row full-right">
 							<div class="col-sm-10">
-								<input align="center" class="form-control" onkeyup="searchFunction();" type="text" size="20">
+								<input align="center" class="form-control" id="Academy" type="text" size="20">
 							</div>
 							<div class="col-sm-2">
-								<button class="button primary" onclick="searchFunction();" type="button">search</button>
+								<button class="button primary" type="button">search</button>
 							</div>
 							<div>
 								<br>
 							</div>
 							<h4>Info</h4>
-							<table id="wishlist">
+							<table id="mapList">
 								<thead>
 									<tr>
 										<th>분류</th>
@@ -74,8 +72,8 @@ a {
 										<th>문의 번호</th>
 									</tr>
 								</thead>
-								<tbody>
-								<tr>
+								<tbody id="ajaxTable">
+								<%-- <tr>
 										<td>운동/스포츠</td>
 										<td>모던필라테스</td>
 										<td>광주광역시 남구 봉선동 22-2</td>
@@ -92,7 +90,7 @@ a {
 									</tr>
 									<%
 									}
-									%>
+									%> --%>
 								</tbody>
 								<tfoot>
 									<tr>
@@ -155,12 +153,46 @@ a {
 			</div>
 		</div>
 	</div>
+	
+	<script src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+		$(".primary").on('click',function(){
+			var Academy = $('#Academy').val();
+			console.log('클릭'+ Academy);
+			$.ajax({
+				type: "post",
+			    url: "MapInfoListSearch",
+			    data: {"Academy": Academy},
+			    success: function(result) {
+			        console.log('성공');
+			        console.log(result[1]);
+			        let content = JSON.parse(result);
+			        console.log(content);
+			        
+			        for (var i =0; i<content.length;i++) {
+			        	console.log("test content "+content[i])
+			        	let list = content[i];
+			        	$("#ajaxTable").append("<tr>"+
+			        	"<td>"+list.Category+"</td>"+
+			        	"<td>"+list.Academy+"</td>"+
+			        	"<td>"+list.Location+"</td>"+
+			        	"<td>"+list.Tel+"</td>"+
+			        	+"</tr>");
+			        } 
+			 
+			        
+			    },
+				error:function(){
+					alert("실패");
+				}
+			});
+		});
+	
+	</script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>

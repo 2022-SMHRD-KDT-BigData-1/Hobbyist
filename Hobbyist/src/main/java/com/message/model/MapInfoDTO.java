@@ -17,7 +17,7 @@ public class MapInfoDTO {
 
 	
 	String Category;
-	String Academy;
+	public String Academy;
 	String Location;
 	String Tel;
 	
