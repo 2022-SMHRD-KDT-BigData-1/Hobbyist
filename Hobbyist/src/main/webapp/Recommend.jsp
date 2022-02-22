@@ -1,3 +1,4 @@
+<%@page import="com.message.model.ReviewDTO"%>
 <%@page import="com.message.model.WishlistDAO"%>
 <%@page import="com.message.model.WishlistDTO"%>
 <%@page import="com.message.model.RecommendDAO"%>
@@ -13,7 +14,6 @@
 	request.setCharacterEncoding("utf-8");
 	ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
 	MemberDTO member = (MemberDTO) session.getAttribute("member");
-	
 	int pageSize = 8; // 한 페이지에 출력할 레코드 수
 
 	// 페이지 링크를 클릭한 번호 / 현재 페이지
@@ -32,11 +32,14 @@
 	
 	int count = 0;
 	
+	ArrayList <ReviewDTO> Review = (ArrayList <ReviewDTO>) session.getAttribute("Review");
+	ArrayList <WishlistDTO> wishCheck = (ArrayList <WishlistDTO>) session.getAttribute("wish");
+	ArrayList <Double> scoreAvg = (ArrayList <Double>) session.getAttribute("avgScore");
 	if(recommend != null){
 			count = (Integer) session.getAttribute("count");
 	}
-	ArrayList <Double> scoreAvg = (ArrayList <Double>) session.getAttribute("scoreAvg");
-	ArrayList <WishlistDTO> wishCheck = (ArrayList <WishlistDTO>) session.getAttribute("wish");
+	
+	
 	
 	int endRow = currentPage * pageSize;
 	if(currentPage > count / pageSize ){
@@ -49,7 +52,7 @@
 <meta charset="UTF-8">
 <title>Hobbyist</title>
 <link rel="stylesheet" href="assets/css/main.css" />
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link
 	href="https://fonts.googleapis.com/
     icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined"
@@ -140,6 +143,7 @@
 		margin : 0 auto;
 		padding : 0 auto;
 		box-sizing:border-box;
+		position : relative;
 	}
 	#rec > .recView td{
 		margin : 0 auto;
@@ -155,22 +159,22 @@
 		margin : 0 auto;
 		text-align : center;
 	}
-	#recInfo{
+	.recInfo{
 		float : left;
 		
 	}
-	#recReviewWish{
+	.recReviewWish{
 		box-sizing : border-box;
 		float : right;
 		margin : 0 auto;
 		padding : 1px;
 	}
-	#star{
+	.star{
 		width : 20px;
 		margin-top : 2px;
 		margin-right : 2px;
 	}
-	#acaImg{
+	.acaImg{
 		position : relative;
 		width : 25%;
 		box-sizing : border-box;
@@ -178,13 +182,26 @@
 		float : left;
 		margin-right : 10px;
 	}
-	#acaImg > img{
+	.acaImg > img{
 		width : 100%;
 		height : 80px;
 		float : left;
 		opacity: 0.8;
 	}
-	#acaImg > #imgMemo{
+	.acaImg2{
+		position : relative;
+		width : 100%;
+		box-sizing : border-box;
+		overflow : hidden;
+		margin-right : 10px;
+		height : 30%;
+	}
+	.acaImg2 > img{
+		width : 100%;
+		height : 100%;
+		opacity: 0.8;
+	}
+	.acaImg2 > .imgMemo{
 		font-family: "SUIT-Medium";
 		color : #fff;
 		font-weight : bold;
@@ -196,11 +213,24 @@
 		font-size : 20px;
 		width : 70%;
 	}
-		#wishInput{
+	.acaImg > .imgMemo{
+		font-family: "SUIT-Medium";
+		color : #fff;
+		font-weight : bold;
+		position: absolute;
+		top : 50%;
+		left : 50%;
+		transform: translate(-50%,-50%);
+		margin : 0 auto;
+		font-size : 20px;
+		width : 70%;
+	}
+		.wishInput{
 			width: 30px;
+			height : 30px;
 			 float : right;
 		}
-		#wishInput > form > #h0{
+		.wishInput > form > .h0{
             box-sizing: content-box;
             width: 30px;
             margin: 0 auto;
@@ -209,7 +239,7 @@
             box-shadow : none;
             background-color:transparent;
         }
-		#wishInput > form > #h1{
+		.wishInput > form > .h1{
             box-sizing: content-box;
             width: 30px;
             margin: 0 auto;
@@ -218,12 +248,12 @@
             box-shadow : none;
             background-color:transparent;
         }
-        #wishInput .heart{
+        .wishInput .heart{
             width: 30px;
             margin: 0 auto;
             padding: 0 auto;
         }
-        #reviewButton {
+        .reviewButton {
 	        font-family: 'Noto Sans KR', sans-serif;
         	box-shadow : none;
             background-color:transparent;
@@ -231,25 +261,80 @@
             padding : 0 auto;
             font-color : #666;
         }
-        #popUp{
-        	width : 100%; 
-        	top : 20px;
-        	position : absolute;
-        	z-index : 1;
+        .popUp{
+        	width : 652px;
+        	height : 749px;
+        	position : fixed;
+        	bottom : 12.5%;
+        	left : 26.5%;
+        	z-index : 10;
         	background:transparent;
+        	border-radius: 15%;
         	display : none;
         }
-        #popUp > article{
-        	width : 700px;
-        	height : 500px;
+        .popUp > article{
+        	width : 652px;
+        	height : 751px;
         	position : relative;
-        	z-index : 2;
+        	z-index : 20;
         	background-color : #fff;
         	 margin : auto;
         }
+       .popDown {
+       	background:transparent;
+       	box-shadow : none;
+       	font-family: 'Noto Sans KR', sans-serif;
+       	float : right;
+       	display : block;
+       	margin : 0;
+       }
+		#popDark{
+			position : absolute;
+			width : 100%;
+			height : 121%;
+			background-color : #000;
+			opacity : 0.5;
+			z-index : 9;
+			display : none;
+		}
+		.revUser{
+			display : inline-block;
+			float : left;
+		}
+		.revDate{
+			display : inline-block;
+			float : right;
+		}
+		.revContent{
+			display : block;
+		}	
 </style>
+<script type="text/javascript">
+<%	
+if(recommend != null){
+
+	for(int i = startRow; i < endRow; i++){
+%>	
+	$(document).ready(function(){
+		$("#reviewButton<%=i%>").click(function(){
+			$("#popUp<%=i%>").fadeIn();
+			$("#popDark").fadeIn();
+			var offset = $('#recWrapper').offset(); 
+        $('html').animate({scrollTop : offset.top}, 400);
+		});
+		$("#popDown<%=i%>").click(function(){
+			$("#popUp<%=i%>").fadeOut();
+			$("#popDark").fadeOut();
+		})
+	})
+<%
+	}
+}
+%>
+</script>
 </head>
 <body>
+	<div id = "popDark"></div>
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
@@ -305,11 +390,6 @@
 			<div id = "recWrapper">
 				<div id = "rec">
 					<div class = "recView">
-					<div id = "popUp">
-						<article>
-							<h1>TEST</h1>
-						</article>
-					</div>
 					<table>
 					<%	
 						if(recommend != null){
@@ -318,29 +398,116 @@
 					%>	
 						<tr>
 							<td>
-								<div id = "acaImg">
+							<div class = "popUp" id ="popUp<%=i%>">
+								<article>
+									<button type="button" class = "popDown" id = "popDown<%=i%>">[닫기]</button>
+									<div class = "acaImg2">
 									<img alt="이미지 준비중" src="./images/defaultImg.jpg">
-									<p id = "imgMemo">이미지 준비중</p>
 								</div>
-								<div id = "recInfo">
+								<div class = "recInfo">
 									<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
 									<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
 									<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
 								</div>
-								<div id = "wishInput">
+								<div class = "recReviewWish">
+									<img alt="star" src="./images/star.png" class = "star">
+									<strong>
+									<%
+									if(scoreAvg != null){
+										if(scoreAvg.get(i) == null){
+											%>
+											<%= 0 %>
+											<%
+										}else{
+											
+									%>
+									
+									<%= scoreAvg.get(i) %>
+									<%
+										}
+									}
+									%>
+									<br>
+									 </strong>
+								</div>
+								<div class = "wishInput">
 									
 										<%if(wishCheck !=null){
 											if(wishCheck.get(i) != null){
 												if(wishCheck.get(i).getW_wish()>0){
 										%>
 										<form action="WishlistRecoDelCon" method="post">
-										<button type="submit" id="h1" name ="wishDelete" value = "<%= 
+										<button type="submit" class="h1" name ="wishDelete" value = "<%= 
 								        	recommend.get(i).getA_id()
 								        %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
 										</form>
 								        <% }}else{ %>
 								        <form action="WishListInputCon" method="post">
-								        <button type="submit" id="h0" name="a_idToWish" value="<%= 
+								        <button type="submit" class="h0" name="a_idToWish" value="<%= 
+								        	recommend.get(i).getA_id()
+								        %>">
+								        <img src="./images/heart0.png" alt="heart0" class="heart"></button>
+								        </form>
+								        <% 
+								        }
+											}
+								        %>
+								</div>
+									<table>
+								<%
+								
+								if (Review != null){
+									for (int j = 0; j < Review.size(); j++)	{
+										if(recommend.get(i).getA_id().equals(Review.get(j).getRe_id())){
+											%>
+												<tr>
+													<td>
+														<div class = "revUser">
+														<%=Review.get(j).getRe_nick() %>
+														</div>
+														평점 : <%=Review.get(j).getRe_score()%>
+														<div class="revDate">
+														<%=Review.get(j).getRe_date()%>
+														</div>
+														<div class ="revContent">
+														<%=Review.get(j).getRe_content() %>
+														</div>
+													</td>
+												</tr>											
+											<%
+										}
+									}
+								}
+								
+								%>
+									</table>
+								
+								</article>
+							</div>
+								<div class = "acaImg">
+									<img alt="이미지 준비중" src="./images/defaultImg.jpg">
+									<p class = "imgMemo">이미지 준비중</p>
+								</div>
+								<div class = "recInfo">
+									<strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
+									<strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
+									<strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+								</div>
+								<div class = "wishInput">
+									
+										<%
+										if(wishCheck !=null){
+											if(wishCheck.get(i) != null){
+												if(wishCheck.get(i).getW_wish()>0){
+										 %>
+										<form action="WishlistRecoDelCon" method="post">
+										<button type="submit" class="h1" name ="wishDelete" value = "<%= 
+								        	recommend.get(i).getA_id()
+								        %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
+										</form>
+								        <% }}else{ %>
+								        <form action="WishListInputCon" method="post">
+								        <button type="submit" class="h0" name="a_idToWish" value="<%= 
 								        	recommend.get(i).getA_id()
 								        %>">
 								        <img src="./images/heart0.png" alt="heart0" class="heart"></button>
@@ -351,26 +518,27 @@
 								        %>
    									 
 								</div>
-								<div id = "recReviewWish">
-									<img alt="star" src="./images/star.png" id = "star">
+								<div class = "recReviewWish">
+									<img alt="star" src="./images/star.png" class = "star">
 									<strong> 평점 : 
 									<%
-										if(scoreAvg.get(i).isNaN()){
+									if(scoreAvg != null){
+										if(scoreAvg.get(i) == null){
 											%>
 											<%= 0 %> 점
 											<%
 										}else{
-											System.out.println(scoreAvg.get(i));
 									%>
 									
-									<%= ((double)((int)(scoreAvg.get(i)*10)))/10 %> 점
+									<%= scoreAvg.get(i) %> 점
 									<%
 										}
+									}
 									%>
 									<br>
 									 </strong>
-									<button type="button" id = "reviewButton">
-									리뷰 : [ 0 ]
+									<button type="button" class = "reviewButton" id = "reviewButton<%=i %>">
+									[ 리뷰 ]
 									</button>
 								</div>
 							</td>
