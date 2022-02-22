@@ -148,7 +148,7 @@ public class ReviewDAO {
 			ArrayList<Double> scoreAVG = new ArrayList<Double>();
 			System.out.println("avg");
 			for(int i = 0 ; i < score.size(); i++) {
-			connect();
+			connect(); 
 			
 			sql="select round(avg(re_score),1) from review where re_id = ?";
 			
