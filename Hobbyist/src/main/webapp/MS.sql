@@ -88,3 +88,4 @@ create table Recommend(
 	CONSTRAINT FK_a_note FOREIGN KEY(a_note) REFERENCES ACADEMY(a_note),
 	CONSTRAINT FK_a_city FOREIGN KEY(a_city) REFERENCES ACADEMY(a_city)
 )
+
