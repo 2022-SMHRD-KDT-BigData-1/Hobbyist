@@ -1,9 +1,9 @@
 select count(*) from academy where a_L_category = '테스트1' and a_m_category = '테스트1-1' and a_city = '남구'
 
 
-
-
-
+insert into addr values('북구','용봉동','146')
+select * from history
+select * from member
 create table academy(
 	a_seq number(5),
 	a_id varchar(20) not null,
