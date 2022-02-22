@@ -30,7 +30,7 @@ public class RecommendSelectCon extends HttpServlet {
 		if(session.getAttribute("recommend") != null) {
 			session.removeAttribute("recommend");
 			session.removeAttribute("count");
-			session.removeAttribute("scoreAvg");
+			session.removeAttribute("avgScore");
 			session.removeAttribute("wish");
 			session.removeAttribute("Review");
 		}
@@ -54,11 +54,12 @@ public class RecommendSelectCon extends HttpServlet {
 		ArrayList<AcademyDTO> recommend =  dao.recSelect(Recommend);
 		ArrayList<ReviewDTO> Review = dao2.reviewSelect(recommend);
 		ArrayList<Double> avgScore = dao2.avgScore(recommend);
-		System.out.println(avgScore.get(0)+"con까지는 잘옴");
 		if(session.getAttribute("member") != null) {
 			String email = member.getM_email();
 			ArrayList<WishlistDTO> wish = dao3.recoWishSelect(recommend, email);
+			System.out.println(wish.size() + "위시 어레이리스트 생성 완료");
 			session.setAttribute("wish", wish);
+			System.out.println(session.getAttribute("wish") + "위시 세션 생성 완료");
 		}
 		
 		int count = 0;

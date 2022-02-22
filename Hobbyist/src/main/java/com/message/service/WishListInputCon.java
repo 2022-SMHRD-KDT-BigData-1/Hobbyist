@@ -45,17 +45,11 @@ public class WishListInputCon extends HttpServlet {
 		
 		if(cnt > 0) {
 			System.out.println("위시리스트 등록 성공");
-//			if(session.getAttribute("member") != null) {
-//				session.removeAttribute("wish");
-//				ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
-//				String email = member.getM_email();
-//				ArrayList<WishlistDTO> wish = dao.recoWishSelect(recommend, email);
-//				session.setAttribute("wish", wish);
-//			}
-			ArrayList <WishlistDTO> wish = (ArrayList <WishlistDTO>) session.getAttribute("wish");
-			session.removeAttribute("wish");
-			ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
-			for(int i = 0; i<wish.size();i++) {
+			if(session.getAttribute("wish") != null) {
+				ArrayList <WishlistDTO> wish = (ArrayList <WishlistDTO>) session.getAttribute("wish");
+				session.removeAttribute("wish");
+				ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
+				for(int i = 0; i<wish.size();i++) {
 					if(recommend.get(i).getA_id().equals(a_id)) {
 						wish.remove(i);
 						wish.add(i, new WishlistDTO(0,1,null,null));
@@ -77,4 +71,4 @@ public class WishListInputCon extends HttpServlet {
 		}
 	}
 
-
+}

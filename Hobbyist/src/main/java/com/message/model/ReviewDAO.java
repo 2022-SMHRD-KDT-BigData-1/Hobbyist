@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ReviewDAO {
-	//revUpload(작성), revDelete(삭제), revSelect(조회), revUpdate(수정) 
 	private Connection conn;
 	private PreparedStatement psmt;
 	private ResultSet rs;
@@ -32,7 +31,6 @@ public class ReviewDAO {
 	
 	}
 	
-	//연결 종료 기능
 	public void close() {
 		try {
 			if(rs !=null) {
@@ -122,7 +120,6 @@ public class ReviewDAO {
 
 		public ArrayList<ReviewDTO> reviewSelect(ArrayList<AcademyDTO> score) {
 			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
-				System.out.println("select");
 			for(int i = 0 ; i < score.size(); i++) {
 			connect();
 			
@@ -146,7 +143,6 @@ public class ReviewDAO {
 		
 		public ArrayList<Double> avgScore(ArrayList<AcademyDTO> score) {
 			ArrayList<Double> scoreAVG = new ArrayList<Double>();
-			System.out.println("avg");
 			for(int i = 0 ; i < score.size(); i++) {
 			connect(); 
 			

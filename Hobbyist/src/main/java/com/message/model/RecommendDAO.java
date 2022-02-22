@@ -95,7 +95,7 @@ public class RecommendDAO {
 		} finally {
 			close();
 		}
-		System.out.println(count+"dao");
+		System.out.println("RecommendDAO 총 행수 : "+count);
 		
 		return count; // 총 레코드 수 리턴
 	}
