@@ -118,59 +118,51 @@ public class ReviewDAO {
 			
 			return cnt;
 		}
-		public ArrayList<ReviewDTO> revSelect(ReviewDTO review) {
+		
+
+		public ArrayList<ReviewDTO> reviewSelect(ArrayList<AcademyDTO> score) {
 			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
-			
+				System.out.println("select");
+			for(int i = 0 ; i < score.size(); i++) {
 			connect();
 			
 			sql="select * from review where re_id = ?";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
-				psmt.setString(1, review.getRe_id());
-				
+				psmt.setString(1, score.get(i).getA_id());
 				rs=psmt.executeQuery();
-				
-				
 				while(rs.next()) {
-					list.add(new ReviewDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
+					list.add(new ReviewDTO (rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
 				}
-				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				close();
 			}
-			
+			}
 			return list;
 		}
-
+		
 		public ArrayList<Double> avgScore(ArrayList<AcademyDTO> score) {
-			ArrayList<Integer> scoreList = new ArrayList<Integer>();
 			ArrayList<Double> scoreAVG = new ArrayList<Double>();
-			double scoreResult = 0;
-				
+			System.out.println("avg");
 			for(int i = 0 ; i < score.size(); i++) {
 			connect();
 			
-			sql="select re_score from review where re_id = ?";
+			sql="select round(avg(re_score),1) from review where re_id = ?";
 			
 			try {
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, score.get(i).getA_id());
 				rs=psmt.executeQuery();
 				
-				scoreList.clear();
-				while(rs.next()) {
-					scoreList.add(rs.getInt(1));
+				if(rs.next()) {
+					scoreAVG.add(rs.getDouble(1));
+				}else {
+					scoreAVG.add(null);
 				}
 				
-				scoreResult = 0;
-				for(int j = 0 ; j < scoreList.size(); j ++) {
-					scoreResult += scoreList.get(j);
-				}
-				scoreAVG.add(scoreResult/scoreList.size()); 
-			
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -179,5 +171,4 @@ public class ReviewDAO {
 			}
 			return scoreAVG;
 		}
-
 }

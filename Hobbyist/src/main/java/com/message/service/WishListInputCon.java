@@ -22,8 +22,17 @@ public class WishListInputCon extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=utf-8");
+		if(session.getAttribute("member") == null) {
+			PrintWriter out = response.getWriter();
+			out.print("<script>");
+			out.print("alert('로그인 후 이용하실 수 있습니다.');");
+			out.print("location.href='Recommend.jsp';");
+			out.print("</script>");
+		}
+		
 		request.setCharacterEncoding("utf-8");
 		
 		
