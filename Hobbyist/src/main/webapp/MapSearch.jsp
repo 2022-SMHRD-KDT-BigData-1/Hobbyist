@@ -51,15 +51,15 @@ a {
 
 				<!-- Section -->
 
-				<section class="ajax">
+				<section class="map_search">
 					<h3>map</h3>
 					<div class="row">
 						<div class="form-group row full-right">
 							<div class="col-sm-10">
-								<input align="center" class="form-control" type="text" size="20">
+								<input align="center" class="form-control" onkeyup="searchFunction();" type="text" size="20">
 							</div>
 							<div class="col-sm-2">
-								<button class="btn btn-light" type="button">search</button>
+								<button class="button primary" onclick="searchFunction();" type="button">search</button>
 							</div>
 							<div>
 								<br>
