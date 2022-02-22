@@ -3,7 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%	MemberDTO member = (MemberDTO) session.getAttribute("success_data");%>
+ <%	MemberDTO member = (MemberDTO) session.getAttribute("success_data");%>
+<%-- <%MemberDTO x = (MemberDTO) request.getAttribute("success_data"); --%> --%>
 <!-- 회원가입시 오류 발생.... 내일 질문 -->
 <!DOCTYPE html>
 <!--
@@ -45,7 +46,7 @@
 </style>
 </head>
 
-<%MemberDTO x = (MemberDTO) request.getAttribute("success_data"); %>
+
 
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -251,9 +252,9 @@
 					</header>
 					<p></p>
 					<ul class="contact">
-						<li><a href="manage.jsp"><%=x.getM_email() %></a></li>
-						<li><%=x.getM_tel() %></li>
-						<li><%=x.getM_address() %></li> 
+						<li><a href="manage.jsp"><%=member.getM_email() %></a></li>
+						<li><%=member.getM_tel() %></li>
+						<li><%=member.getM_address() %></li> 
 					</ul>
 				</section>
 
