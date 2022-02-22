@@ -166,7 +166,7 @@ public class ReviewDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				close();
+				close(); 
 			}
 			}
 			return scoreAVG;
