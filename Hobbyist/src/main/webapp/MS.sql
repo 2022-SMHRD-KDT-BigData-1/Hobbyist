@@ -4,7 +4,7 @@ select count(*) from academy where a_L_category = '테스트1' and a_m_category = '
 <<<<<<< HEAD
 
 
-
+drop table academy2
 create table academy(
 	a_seq number(5),
 	a_id varchar(20) not null,
@@ -20,7 +20,7 @@ create table academy(
 );
 insert into History values(1,'학원','목 금', '북구', '010-4684-131','08:00-10:00')
 select * from HISTORY
-
+drop table academy
 select * from ACADEMY
 
 select * from member
