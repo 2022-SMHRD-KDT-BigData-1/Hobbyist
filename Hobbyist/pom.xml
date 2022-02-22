@@ -15,7 +15,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-					<encoding>MS949</encoding>
+					<encoding>MS949</encoding> 
 				</configuration>
 			</plugin>
 			<plugin>
