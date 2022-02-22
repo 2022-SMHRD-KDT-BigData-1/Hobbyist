@@ -16,7 +16,7 @@ public class CommunityDAO {
 	private String sql;
 
 	// 수강정보 / 수강내역 / 위시리스트
-	public void connect() {
+	public void connect() { 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
