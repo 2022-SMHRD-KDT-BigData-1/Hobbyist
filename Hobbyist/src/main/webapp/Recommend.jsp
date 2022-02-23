@@ -303,6 +303,7 @@
          display : none;
       }
       .revUser{
+      	margin-right : 15px;
          display : inline-block;
          float : left;
       }
@@ -311,8 +312,38 @@
          float : right;
       }
       .revContent{
-         display : block;
+         display : inline-block;
+         height : 30px;
       }   
+      .revWrite{
+      	display : none;
+      	position : absolute;
+      	top : 48%;
+      }
+      .revSub{
+      	background-color : #fff;
+      	float : right;
+      }
+      .revWriteClose{
+     	background-color : #fff;
+      	float : left;
+      }
+      .revWriteButton {
+      	float : right;
+      	box-shadow : none;
+        background-color:transparent;
+        margin : 0 auto;
+        padding : 0 auto;
+      }
+      .revDel{
+      	position : absolute;
+      	right : 0;
+      	bottome : 0;
+      	box-shadow : none;
+        background-color:transparent;
+        margin : 0 auto;
+        padding : 0 auto;
+      }
 </style>
 <script type="text/javascript">
 <%   
@@ -325,11 +356,21 @@ if(recommend != null){
          $("#popUp<%=i%>").fadeIn();
          $("#popDark").fadeIn();
          var offset = $('#recWrapper').offset(); 
-        $('html').animate({scrollTop : offset.top}, 400);
+         $('html').animate({scrollTop : offset.top}, 400);
       });
       $("#popDown<%=i%>").click(function(){
          $("#popUp<%=i%>").fadeOut();
          $("#popDark").fadeOut();
+      })
+   })
+   $(document).ready(function(){
+      $(".revWriteButton").click(function(){
+    	 $(".reviewSelect").fadeOut();
+         $(".revWrite").fadeIn();
+      });
+      $(".revWriteClose").click(function(){
+    	  $(".revWrite").fadeOut();
+          $(".reviewSelect").fadeIn();
       })
    })
 <%
@@ -457,35 +498,83 @@ if(recommend != null){
                                  } }
                                 %>
                         </div>
-                           <table>
+                        <button type ="button" class = "revWriteButton">리뷰작성</button>
+                           <table class = "reviewSelect">
                         <%
                         
                         if (Review != null){
+                        	int cnt = 0;
                            for (int j = 0; j < Review.size(); j++)   {
-                              if(recommend.get(i).getA_id().equals(Review.get(j).getRe_id())){
+                              if(recommend.get(i).getA_id().equals(Review.get(j).getRe_id()) && cnt <6){
                                  %>
                                     <tr>
                                        <td>
+                                          <div class="revDate">
+                                          <%=Review.get(j).getRe_date()%>
+                                          </div>
                                           <div class = "revUser">
                                           <%=Review.get(j).getRe_nick() %>
                                           </div>
                                           평점 : <%=Review.get(j).getRe_score()%>
-                                          <div class="revDate">
-                                          <%=Review.get(j).getRe_date()%>
-                                          </div>
+                                          <br>
                                           <div class ="revContent">
                                           <%=Review.get(j).getRe_content() %>
+                                          <form action="ReviewDeleteCon" method="post">
+                                          <button type = "submit" class = "revDel">[삭제]</button>
+                                          </form>
                                           </div>
                                        </td>
-                                    </tr>                                 
+                                    </tr>          
+                                                           
                                  <%
+                                 cnt++;
                               }
-                           }
-                        }
-                        
-                        %>
+			                     }
+			                  }else{
+			                		%>
+		                          	 <tr>
+		                                    <td> 리뷰가 없습니다. <br> 첫 리뷰를 작성해보세요!</td>
+		                              </tr>
+		                              	<%
+			                  }
+			                       %>
+			                     	<tr>
+			                     		<td align = "center">[1]</td>
+			                     	</tr>
                            </table>
-                        
+                        	<form action="ReviewWriteCon" method="post">
+						<table border="1" class = revWrite>
+							<tr>
+								<td> 점수</td>
+								<td>
+									<select name="score">
+									    <option value="1">1</option>
+									    <option value="2">2</option>
+									    <option value="3">3</option>
+									    <option value="4">4</option>
+									    <option value="5" selected="selected">5</option>
+									</select>
+									<input type = "hidden" value = "<%= recommend.get(i).getA_id() %>" name = "re_id">
+									<input type = "hidden" value = "<%= recommend.get(i).getA_name() %>" name = "classname">
+								</td>
+								
+							</tr>
+							<tr>
+								<td>닉네임</td>
+								<td><input type="text" name="nick" class="nick"></td>
+								<td>비밀번호</td>
+								<td><input type="password" name="passwd" class="passwd"></td>
+							</tr>
+							<tr>
+								<td colspan="4"><textarea rows="7" cols="60"
+										name="content" class="content"></textarea></td>
+							</tr>
+							<tr align="center">
+								<td colspan="2"><input type="submit" value="작성" class = "revSub"></td>
+								<td colspan="2"><input type= "button" value="닫기" class = "revWriteClose"></td>
+							</tr>
+						</table>
+						</form>
                         </article>
                      </div>
                         <div class = "acaImg">
@@ -504,20 +593,23 @@ if(recommend != null){
                                     if(wishCheck.get(i).getW_wish()>0){
                               %>
                               <form action="WishlistRecoDelCon" method="post">
-                              <button type="submit" class="h1" name ="wishDelete" value = "<%= 
-                                   recommend.get(i).getA_id()
-                                %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
+                              <button type="submit" class="h1" name ="wishDelete" value = "<%= recommend.get(i).getA_id() %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
                                 <% }}else{ %>
                               </form>
                               	<form action="WishListInputCon" method="post">
-                                	<button type="submit" class="h0" name="a_idToWish" value="<%= 
-                                   	recommend.get(i).getA_id()
-	                                %>">
+                                	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getA_id() %>">
                                 	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                 </form>
                                 <% 
-                                 } }
-                                %>
+                                 } }else{
+                                	 %>
+                                	 <form action="WishListInputCon" method="post">
+                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getA_id() %>">
+                                 	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
+                                 </form>
+                                 <%
+                                 }
+                             	 %>
                         </div>
                         <div class = "recReviewWish">
                            <img alt="star" src="./images/star.png" class = "star">

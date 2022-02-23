@@ -48,18 +48,21 @@ public class ReviewDAO {
 	}
 		public int revUpload(ReviewDTO review) {
 			connect();
+			System.out.println(review.getRe_nick() + "닉네임 con -> dao 전달");
+			System.out.println(review.getRe_classname() + "학원이름 con -> dao 전달");
 			
-			sql="insert into review values(Seq.NEXTVAL,?,?,?,?,?,sysdate,?)";
+			
+			sql="insert into review values(num_seq.nextval,?,?,?,?,?,?,sysdate)";
 			
 			try {
 				psmt = conn.prepareStatement(sql);
 				
 				psmt.setString(1, review.getRe_nick());
-				psmt.setString(2, review.getRe_classname());
-				psmt.setString(3, review.getRe_pw()); 
-				psmt.setString(4, review.getRe_content()); 
+				psmt.setString(2, review.getRe_id()); 
+				psmt.setString(3, review.getRe_classname());
+				psmt.setString(4, review.getRe_pw()); 
 				psmt.setInt(5, review.getRe_score()); 
-				psmt.setString(6, review.getRe_id()); 
+				psmt.setString(6, review.getRe_content()); 
 		
 				cnt = psmt.executeUpdate();
 				
