@@ -31,11 +31,12 @@ public class MapInfoDAO {
 	
 	public ArrayList<MapInfoDTO> search(String Academy){
 		
-		String sql = "select * from map_info where Academy =?";
+		String sql = "select * from map_info where Academy like ?";
 		ArrayList<MapInfoDTO> mapList = new ArrayList<MapInfoDTO>();
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, Academy);
+			String Academys = '%'+Academy+'%';
+			psmt.setString(1, Academys);
 			
 			rs = psmt.executeQuery();
 			
