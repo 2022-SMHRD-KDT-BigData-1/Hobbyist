@@ -82,12 +82,12 @@
 <body>
 	<%
 	request.setCharacterEncoding("UTF-8");
-	String city = request.getParameter("city");
+	String start = request.getParameter("start");
 	/* String dong = request.getParameter("dong");
 	String pos = request.getParameter("position"); */
 %>
 <!-- 자바스크립트에서는 자바의 변수를 가져올 수 없음.. 편법을 사용하여 type을 hidden으로 하면 가능 -->
-	<input type="hidden" value="<%= city %>" class="value1">
+	<input type="hidden" value="<%= start %>" class="start">
 	<%-- <input type="hidden" value="<%= dong %>" class="value2">
 	<input type="hidden" value="<%= pos %>" class="value3"> --%>
 
@@ -110,7 +110,7 @@
 		
 			<div id="category_wrapper_wrapper">
 						<script>
-						var value1 = document.querySelector('.value1').value;
+						var value1 = document.querySelector('.start').value;
 						/* var value2 = document.querySelector('.value2').value+"동";
 						var value3 = document.querySelector('.value3').value;
 						console.log(value1);
@@ -156,7 +156,8 @@
 						        infowindow.open(map, marker);
 						        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 						        map.setCenter(coords);
-						        /* location.href = "asd.jsp?value="+coords; */
+						        
+						        location.href = "Tmap.jsp?start="+coords;
 						    } 
 						});    
 						</script>

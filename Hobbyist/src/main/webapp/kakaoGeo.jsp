@@ -8,7 +8,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,13 +35,11 @@
 	padding-top: 10px;
 	padding-left: 10px;
 }
-
 .category_wraper {
 	position: relative;
 	float: left;
 	height: 50px;
 }
-
 .category_wraper>span {
 	font-family: "SUIT-Medium";
 	color: #f45c5c;
@@ -51,7 +48,6 @@
 	margin: 10px;
 	height: 100px;
 }
-
 #recWrapper {
 	margin: 0 auto;
 	padding: 0;
@@ -62,7 +58,6 @@
 	border: 2px solid #f45c5c;
 	border-radius: 5px 5px 5px 5px;
 }
-
 #recMap {
 	margin: 0 auto;
 	padding: 0 auto;
@@ -71,7 +66,6 @@
 	box-sizing: border-box;
 	float: right;
 }
-
 #rec {
 	margin: 0 auto;
 	padding: 0 auto;
@@ -89,14 +83,13 @@
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String city = request.getParameter("city");
-	String dong = request.getParameter("dong");
-	String pos = request.getParameter("position");
+	/* String dong = request.getParameter("dong");
+	String pos = request.getParameter("position"); */
 %>
 <!-- 자바스크립트에서는 자바의 변수를 가져올 수 없음.. 편법을 사용하여 type을 hidden으로 하면 가능 -->
 	<input type="hidden" value="<%= city %>" class="value1">
-	<input type="hidden" value="<%= dong %>" class="value2">
-	<input type="hidden" value="<%= pos %>" class="value3">
-
+	<%-- <input type="hidden" value="<%= dong %>" class="value2">
+	<input type="hidden" value="<%= pos %>" class="value3"> --%>
 
 	<div id="wrapper">
 		<!-- Main -->
@@ -117,22 +110,18 @@
 		
 			<div id="category_wrapper_wrapper">
 						<script>
-						var value1 = document.querySelector('.value1').value+"구";
-						var value2 = document.querySelector('.value2').value+"동";
+						var value1 = document.querySelector('.value1').value;
+						/* var value2 = document.querySelector('.value2').value+"동";
 						var value3 = document.querySelector('.value3').value;
 						console.log(value1);
 						console.log(value2);
-						console.log(value3);  
-						var adr = "광주광역시";
+						console.log(value3);   */
+						/* var adr = "광주광역시";
 						var position1 = adr.concat(value1);
-						var position2 = position1.concat(value2);
+						var position2 = position1.concat(value2); */
 						</script>
 				<div class="category_wraper">
 					<span>현재 위치입니다.</span>
-					<%-- <form action="asd.jsp" method="post">
-						<input type="hidden" value="<%= city %>" class="value1" name="position2">
-						<input type="submit" value="길찾기" >
-					</form> --%>
 				</div>
 			</div>
 			<div id="recWrapper">
@@ -146,43 +135,34 @@
 						    };  
 						// 지도를 생성합니다    
 						var map = new kakao.maps.Map(mapContainer, mapOption); 
-						
 						// 주소-좌표 변환 객체를 생성합니다
 						var geocoder = new kakao.maps.services.Geocoder();
-						
 						// 주소로 좌표를 검색합니다
-						geocoder.addressSearch(position2,function(result, status) {
+						geocoder.addressSearch(value1,function(result, status) {
 						    // 정상적으로 검색이 완료됐으면 
 						     if (status === kakao.maps.services.Status.OK) {
-						
 						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 						        // 위도, 경도로 변환해주는 코드
-						        /* console.log("test "+coords); */
-						        
-						        // 결과값으로 받은 위치를 마커로 표시합니다
+						        	console.log("test "+ coords);
+						     // 결과값으로 받은 위치를 마커로 표시합니다
 						        var marker = new kakao.maps.Marker({
 						            map: map,
 						            position: coords 
 						        });
-						
 						        // 인포윈도우로 장소에 대한 설명을 표시합니다
 						        var infowindow = new kakao.maps.InfoWindow({
 						            content: '<div style="width:150px;text-align:center;padding:6px 0;">입력한 위치</div>'
 						        });
 						        infowindow.open(map, marker);
-						
 						        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 						        map.setCenter(coords);
+						        /* location.href = "asd.jsp?value="+coords; */
 						    } 
 						});    
 						</script>
 				</div>
-
 			</div>
-
 		</div>
-
-
 		<!-- Sidebar -->
 		<div id="sidebar">
 			<div class="inner">
@@ -192,7 +172,6 @@
 						<input type="text" name="query" id="query" placeholder="Search" />
 					</form>
 				</section>
-
 				<!-- Menu -->
 				<nav id="menu">
 					<header class="major">
@@ -220,7 +199,6 @@
 						</li>
 					</ul>
 				</section>
-
 				<!-- Footer -->
 				<footer id="footer">
 					<p class="copyright">
