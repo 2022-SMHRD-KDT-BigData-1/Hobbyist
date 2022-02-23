@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 import com.message.model.MapInfoDAO;
 import com.message.model.MapInfoDTO;
 
-
 @WebServlet("/MapInfoListSearch")
 public class MapInfoListSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,9 +33,13 @@ public class MapInfoListSearch extends HttpServlet {
 		//JsonObject json = new JsonObject();
 		
 		ArrayList<MapInfoDTO> list = dao.search(Academy);
-		System.out.println(list.get(0).getAcademy());
-		System.out.println(list.get(0).getCategory());
-		System.out.println(list.get(0).getLocation());
+		for(int i =0;i<list.size();i++) {
+			System.out.println(list.get(i).getAc_addr());
+			System.out.println(list.get(i).getAc_name());
+		}
+		 
+		  
+		 
 		Gson gson = new Gson();
 		
 		

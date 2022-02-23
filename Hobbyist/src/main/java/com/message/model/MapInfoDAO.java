@@ -31,21 +31,25 @@ public class MapInfoDAO {
 	
 	public ArrayList<MapInfoDTO> search(String Academy){
 		
-		String sql = "select * from map_info where Academy like ?";
+		String sql = "select ac_id, ac_name, ac_addr, ac_rel from ADDR where ac_addr like ? or ac_addr like ? or ac_addr like?";
 		ArrayList<MapInfoDTO> mapList = new ArrayList<MapInfoDTO>();
 		try {
 			psmt = conn.prepareStatement(sql);
 			String Academys = '%'+Academy+'%';
+			String Academys2 = '%'+Academy;
+			String Academys3 = Academy+'%';
 			psmt.setString(1, Academys);
+			psmt.setString(2, Academys2);
+			psmt.setString(3, Academys3);
 			
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
 				MapInfoDTO maplist = new MapInfoDTO();
-				maplist.setCategory(rs.getString(1));
-				maplist.setAcademy(rs.getString(2));
-				maplist.setLocation(rs.getString(3));
-				maplist.setTel(rs.getString(4));
+				maplist.setAc_category(rs.getString(1));
+				maplist.setAc_id(rs.getString(2));
+				maplist.setAc_name(rs.getString(3));
+				maplist.setAc_rel(rs.getString(4));
 				mapList.add(maplist);
 			}
 		} catch(Exception e) {

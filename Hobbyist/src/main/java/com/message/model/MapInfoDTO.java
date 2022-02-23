@@ -14,14 +14,16 @@ import lombok.NoArgsConstructor;
 //변수, 생성자, getter/setter, toString() 정의
 
 public class MapInfoDTO {
-
-	
-	String Category;
-	public String Academy;
-	String Location;
-	String Tel;
-	
-	
-	
-	
+	private String ac_id;
+	private String ac_name;
+	private String ac_city;
+	private String ac_si;
+	private String ac_dong;
+	private String ac_addr;
+	private String ac_category;
+	private String ac_img;
+	private String ac_rev;
+	private String ac_rel;
+	private String ac_wi;
+	private String ac_ky;
 }

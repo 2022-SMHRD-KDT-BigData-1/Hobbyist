@@ -69,28 +69,10 @@ a {
 										<th>분류</th>
 										<th>학원이름</th>
 										<th>위치</th>
-										<th>문의 번호</th>
+										<th>링크</th>
 									</tr>
 								</thead>
 								<tbody id="ajaxTable">
-								<%-- <tr>
-										<td>운동/스포츠</td>
-										<td>모던필라테스</td>
-										<td>광주광역시 남구 봉선동 22-2</td>
-										<td>062-672-9030</td>
-									</tr>
-									<%
-									for (int i = 0; i <= 10; i++) {
-									%>
-									<tr>
-										<td>분류</td>
-										<td>학원이름</td>
-										<td>위치</td>
-										<td>문의 번호</td>
-									</tr>
-									<%
-									}
-									%> --%>
 								</tbody>
 								<tfoot>
 									<tr>
@@ -169,18 +151,20 @@ a {
 			        console.log(result[1]);
 			        let content = JSON.parse(result);
 			        console.log(content);
-			        
+			        $("#ajaxTable").empty();
 			        for (var i =0; i<content.length;i++) {
 			        	console.log("test content "+content[i])
 			        	let list = content[i];
+			        	
 			        	$("#ajaxTable").append("<tr>"+
-			        	"<td>"+list.Category+"</td>"+
-			        	"<td>"+list.Academy+"</td>"+
-			        	"<td>"+list.Location+"</td>"+
-			        	"<td>"+list.Tel+"</td>"+
+			        	"<td>"+list.ac_category+"</td>"+
+			        	"<td>"+list.ac_id+"</td>"+
+			        	"<td>"+list.ac_addr+"</td>"+
+			        	"<td>"+list.ac_rel+"</td>"+
 			        	+"</tr>");
 			        } 
-			 
+			        
+			        
 			        
 			    },
 				error:function(){
