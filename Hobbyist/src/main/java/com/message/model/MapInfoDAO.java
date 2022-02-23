@@ -31,7 +31,7 @@ public class MapInfoDAO {
 	
 	public ArrayList<MapInfoDTO> search(String Academy){
 		
-		String sql = "select ac_id, ac_name, ac_addr, ac_rel from ADDR where ac_addr like ? or ac_addr like ? or ac_addr like?";
+		String sql = "select ac_id, ac_name, ac_addr, ac_rel from ADDR where ac_name like ? or ac_name like ? or ac_name like?";
 		ArrayList<MapInfoDTO> mapList = new ArrayList<MapInfoDTO>();
 		try {
 			psmt = conn.prepareStatement(sql);

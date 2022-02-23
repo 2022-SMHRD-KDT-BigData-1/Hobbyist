@@ -74,12 +74,12 @@ a {
 								</thead>
 								<tbody id="ajaxTable">
 								</tbody>
-								<tfoot>
+								<!-- <tfoot>
 									<tr>
 										<td colspan="2"></td>
 										<td><a href="#" class="button primary small">Small</a></td>
 									</tr>
-								</tfoot>
+								</tfoot> -->
 							</table>
 
 						</div>
