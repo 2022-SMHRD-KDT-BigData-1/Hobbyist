@@ -34,9 +34,13 @@ public class MapSearchList extends HttpServlet {
 		//JsonObject json = new JsonObject();
 		
 		ArrayList<MapInfoDTO> list = dao.search(Academy);
-		System.out.println(list.get(0).getAcademy());
-		System.out.println(list.get(0).getCategory());
-		System.out.println(list.get(0).getLocation());
+		for(int i =0;i<list.size();i++) {
+			System.out.println(list.get(0).getAcademy());
+			System.out.println(list.get(0).getCategory());
+			System.out.println(list.get(0).getLocation());
+		}
+		
+		
 		Gson gson = new Gson();
 		
 		
