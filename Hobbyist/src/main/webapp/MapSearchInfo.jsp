@@ -95,7 +95,7 @@ a {
 								<tfoot>
 									<tr>
 										<td colspan="2"></td>
-										<td><a href="#" class="button primary small">Small</a></td>
+										<td><a href="#" class="button primary small">add wishlist</a></td>
 									</tr>
 								</tfoot>
 							</table>
@@ -162,7 +162,7 @@ a {
 			console.log('클릭'+ Academy);
 			$.ajax({
 				type: "post",
-			    url: "MapInfoListSearch",
+			    url: "MapSearchInfo",
 			    data: {"Academy": Academy},
 			    success: function(result) {
 			        console.log('성공');
@@ -173,6 +173,7 @@ a {
 			        for (var i =0; i<content.length;i++) {
 			        	console.log("test content "+content[i])
 			        	let list = content[i];
+			        	$("#ajaxTable").empty();
 			        	$("#ajaxTable").append("<tr>"+
 			        	"<td>"+list.Category+"</td>"+
 			        	"<td>"+list.Academy+"</td>"+

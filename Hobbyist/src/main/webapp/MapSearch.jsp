@@ -152,13 +152,13 @@ a {
 			        let content = JSON.parse(result);
 			        console.log(content);
 			        $("#ajaxTable").empty();
-			        for (var i =0; i<content.length;i++) {
+			        for (var i =0; i<10;i++) {
 			        	console.log("test content "+content[i])
 			        	let list = content[i];
 			        	
 			        	$("#ajaxTable").append("<tr>"+
 			        	"<td>"+list.ac_category+"</td>"+
-			        	"<td>"+list.ac_id+"</td>"+
+			        	"<td>"+list.ac_name+"</td>"+
 			        	"<td>"+list.ac_addr+"</td>"+
 			        	"<td>"+list.ac_rel+"</td>"+
 			        	+"</tr>");
