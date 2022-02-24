@@ -15,81 +15,84 @@
 	rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 <style type="text/css">
-	#category_wrapper_wrapper{
-		margin : 0 auto;
-		padding : 0px auto;
-		width : 1300px;
-		height : 65px;
-		box-sizing:border-box;
-		margin-top : 20px;
-		border : 2px solid #f45c5c;
-		border-radius: 5px 5px 5px 5px;
-		padding-top : 10px;
-		padding-left : 10px;
-	}
-	.category_wraper{
-		position : relative;
-		float : left;
-		height : 50px;
+#category_wrapper_wrapper {
+	margin: 0 auto;
+	padding: 0px auto;
+	width: 1300px;
+	height: 130px;
+	box-sizing: border-box;
+	margin-top: 20px;
+	border: 2px solid #f45c5c;
+	border-radius: 5px 5px 5px 5px;
+	padding-top: 10px;
+	padding-left: 10px;
 }
-	.category_wraper > span{
-		font-family: "SUIT-Medium";
-		color : #f45c5c;
-		font-weight : bold;
-		font-size : 24px;
-		float : left;
-		/* margin : 10px; */
-		height : 100px;
-		margin-left : 30px;
-		margin-right : 30px;
-		
+
+.category_wraper {
+	position: relative;
+	float: left;
+	height: 50px;
 }
-	.category_wraper > input.category{
-		box-sizing : border-box;
-		width : 600px;
-		height : 40px;
-		font-family: "SUIT-Medium";
-		color : #f45c5c;
-		font-weight : bold;
-		margin-left : 200px ;
-	}
-	.category_wraper > button{
-		box-sizing : border-box;
-		font-family: "SUIT-Medium";
-		width : 100%;
-		height : 80%;
-		margin-left : 20px;
-		background-color : #f45c5c;
-		opacity: 0.9;
-	}
-	.category_wraper > button > span{
-		font-size : 20px;
-		color : white;
-	}
-	#recWrapper{
-		margin : 0 auto;
-		padding : 0 ;
-		width : 1300px;
-		height : 750px;
-		box-sizing:border-box;
-		margin-top : 20px;
-		border : 2px solid #f45c5c;
-		border-radius: 5px 5px 5px 5px;
-	}
-	#recMap{
-		margin : 0 auto;
-		padding : 0 auto;
-		width : 100%;
-		height : 745px;
-		box-sizing:border-box;
-		float : right;
-	}
 
+.category_wraper>span {
+	font-family: "SUIT-Medium";
+	color: #f45c5c;
+	font-weight: bold;
+	font-size: 24px;
+	float: left;
+	/* margin : 10px; */
+	height: 100px;
+	margin-left: 30px;
+	margin-right: 30px;
+}
 
-	
+.category_wraper>input.category {
+	box-sizing: border-box;
+	width: 600px;
+	height: 40px;
+	font-family: "SUIT-Medium";
+	color: #f45c5c;
+	font-weight: bold;
+	margin-left: 200px;
+}
+
+.category_wraper>button {
+	box-sizing: border-box;
+	font-family: "SUIT-Medium";
+	width: 100%;
+	height: 80%;
+	margin-left: 20px;
+	background-color: #f45c5c;
+	opacity: 0.9;
+}
+
+.category_wraper>button>span {
+	font-size: 20px;
+	color: white;
+}
+
+#recWrapper {
+	margin: 0 auto;
+	padding: 0;
+	width: 1300px;
+	height: 750px;
+	box-sizing: border-box;
+	margin-top: 20px;
+	border: 2px solid #f45c5c;
+	border-radius: 5px 5px 5px 5px;
+}
+
+#recMap {
+	margin: 0 auto;
+	padding: 0 auto;
+	width: 100%;
+	height: 745px;
+	box-sizing: border-box;
+	float: right;
+}
 </style>
 
-	
+
 
 </head>
 <body>
@@ -109,31 +112,40 @@
 					</ul>
 				</header>
 			</div>
-			
-		<div id = "category_wrapper_wrapper">
-			<form action="kakaoT.jsp" method = "post"> 
-				<div class = "category_wraper">
-				<span>주소를 입력하세요</span>
-				 <input type = "text" class = "category" name = "start" placeholder="ex) 광주광역시 북구 호동로">
-				</div>
-				<div class = "category_wraper">
-					<button type = "submit"><span id="recSearch">지오코딩 실행</span></button>
-				</div>
-			</form>
-		</div>
-			<div id = "recWrapper">
-				<div id = "recMap">
-					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a"></script>
-					<script>	
+
+			<div id="category_wrapper_wrapper">
+				<form action="kakaoT.jsp" method="post">
+					<div class="category_wraper">
+						<span>출발주소</span> 
+						<input type="text" class="category" name="start" placeholder="ex) 광주광역시 북구 호동로"> 
+					</div>
+					<div class="category_wraper">
+						<span>도착주소</span> 
+						<input type="text" class="category" name="end" placeholder="ex) 광주광역시 동구 예술길 31-15">
+					</div>
+					<div class="category_wraper">
+						<button type="submit">
+							<span id="recSearch">지오코딩 실행</span>
+						</button>
+					</div>
+				</form>
+			</div><br>
+			<div id="recWrapper">
+				<div id="recMap">
+					<script type="text/javascript"
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a"></script>
+					<script>
 						var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
-						    mapOption = { 
-						        center: new kakao.maps.LatLng(35.15809599087085, 126.817700142583), // 지도의 중심좌표
-						        level: 5 // 지도의 확대 레벨
-						    };
-						
+						mapOption = {
+							center : new kakao.maps.LatLng(35.15809599087085,
+									126.817700142583), // 지도의 중심좌표
+							level : 5
+						// 지도의 확대 레벨
+						};
+
 						// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-						var map = new kakao.maps.Map(mapContainer, mapOption); 
-					</script>					
+						var map = new kakao.maps.Map(mapContainer, mapOption);
+					</script>
 				</div>
 			</div>
 		</div>
@@ -187,6 +199,6 @@
 			</div>
 		</div>
 	</div>
-		
+
 </body>
 </html>
