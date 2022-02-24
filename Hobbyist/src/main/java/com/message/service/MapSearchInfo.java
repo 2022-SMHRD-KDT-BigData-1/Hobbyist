@@ -14,10 +14,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.message.model.MapInfoDAO;
 import com.message.model.MapInfoDTO;
+import com.message.model.MapSearchInfoDAO;
+import com.message.model.MapSearchInfoDTO;
 
 
-@WebServlet("/MapSearchList")
-public class MapSearchList extends HttpServlet {
+@WebServlet("/MapSearchInfo")
+public class MapSearchInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
@@ -28,12 +30,12 @@ public class MapSearchList extends HttpServlet {
 		
 		System.out.println(Academy);
 		
-		MapInfoDAO dao = new MapInfoDAO();
+		MapSearchInfoDAO dao = new MapSearchInfoDAO();
 		JsonArray jarray = new JsonArray();
 		
 		//JsonObject json = new JsonObject();
 		
-		ArrayList<MapInfoDTO> list = dao.search(Academy);
+		ArrayList<MapSearchInfoDTO> list = dao.search(Academy);
 		System.out.println(list.get(0).getAcademy());
 		System.out.println(list.get(0).getCategory());
 		System.out.println(list.get(0).getLocation());

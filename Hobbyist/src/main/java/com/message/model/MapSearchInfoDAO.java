@@ -29,10 +29,10 @@ public class MapSearchInfoDAO {
 		}
 	}
 	
-	public ArrayList<MapInfoDTO> search(String Academy){
+	public ArrayList<MapSearchInfoDTO> search(String Academy){
 		
 		String sql = "select * from map_info where Academy like ?";
-		ArrayList<MapInfoDTO> mapList = new ArrayList<MapInfoDTO>();
+		ArrayList<MapSearchInfoDTO> mapList = new ArrayList<MapSearchInfoDTO>();
 		try {
 			psmt = conn.prepareStatement(sql);
 			String Academys = '%'+Academy+'%';
@@ -41,7 +41,7 @@ public class MapSearchInfoDAO {
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-				MapInfoDTO maplist = new MapInfoDTO();
+				MapSearchInfoDTO maplist = new MapSearchInfoDTO();
 				maplist.setCategory(rs.getString(1));
 				maplist.setAcademy(rs.getString(2));
 				maplist.setLocation(rs.getString(3));
