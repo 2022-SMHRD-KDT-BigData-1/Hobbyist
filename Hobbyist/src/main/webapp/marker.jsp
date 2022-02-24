@@ -9,7 +9,6 @@
 MarkerDAO dao = new MarkerDAO();
 locmarker = dao.marSelect(); %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +25,8 @@ locmarker = dao.marSelect(); %>
 	
 </style>
 <body>
+
+
 <% for(int i = 0 ; i < locmarker.size(); i++){ %>
 	<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>" class="locmarker">
 <% } %>
@@ -33,7 +34,11 @@ locmarker = dao.marSelect(); %>
 
 		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=clusterer"></script>
 		<script>
-			window.onload = function(){
+
+		<!-- 동민이 바보 -->
+		
+		
+		window.onload = function(){
 
 				var myLocmarker = document.querySelectorAll('.locmarker');
 				
