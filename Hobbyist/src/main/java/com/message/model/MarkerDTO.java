@@ -19,7 +19,7 @@ public class MarkerDTO {
 	private String AC_DONG;
 	private String AC_ADDR;
 	private String AC_CATEGORY;
-	private String A_IMG;
+	private String AC_IMG;
 	private String AC_REV;
 	private String AC_REL;
 	private String AC_WI;
