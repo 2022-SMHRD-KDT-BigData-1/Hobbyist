@@ -19,7 +19,7 @@ locmarker = dao.marSelect(); %>
 	
 	#map{
 		float: right;
-		width: 80%;
+		width: 100%;
 		height:800px;
 	}
 	
@@ -28,7 +28,7 @@ locmarker = dao.marSelect(); %>
 
 
 <% for(int i = 0 ; i < locmarker.size(); i++){ %>
-	<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>" class="locmarker">
+	<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>" class="locmarker">
 <% } %>
 	<div id="map">
 
@@ -46,11 +46,14 @@ locmarker = dao.marSelect(); %>
 				
 				
 				for(var i = 0; i < myLocmarker.length; i++){
-					locArray[i] = new Array(3);
+					locArray[i] = new Array(6);
 					var arr = myLocmarker[i].value.split(',');;
 					locArray[i][0] = arr[0];
 					locArray[i][1] = arr[1];
 					locArray[i][2] = arr[2];
+					locArray[i][3] = arr[3];
+					locArray[i][4] = arr[4];
+					locArray[i][5] = arr[5];
 					}
 
 				var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
@@ -68,7 +71,7 @@ locmarker = dao.marSelect(); %>
 				var clusterer = new kakao.maps.MarkerClusterer({
 				        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
 				        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-				        minLevel: 7 // 클러스터 할 최소 지도 레벨 
+				        minLevel: 4 // 클러스터 할 최소 지도 레벨 
 				    });
 	
 				var markers = [];
@@ -81,7 +84,7 @@ locmarker = dao.marSelect(); %>
 					});
 					
 					var infowindow = new kakao.maps.InfoWindow({
-					    content :"<div style='padding: 5px'>"+locArray[i][0]+"</div>" // 인포윈도우에 표시할 내용
+					    content :"<div style='padding: 5px'><img src=locArray[i][4]/>"+locArray[i][0]+"</div>" // 인포윈도우에 표시할 내용
 					});
 		
 			/*for(var i =0;i<pos.length;i++)
