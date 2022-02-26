@@ -64,7 +64,7 @@ public class MemberDAO {
 			psmt.setString(4, member.getM_nick());
 			psmt.setString(5, member.getM_tel());
 			psmt.setString(6, member.getM_address());
-			psmt.setString(7, member.getM_age());
+			psmt.setInt(7, member.getM_age());
 			psmt.setString(8, member.getM_gender());
 			psmt.setString(9, member.getA_id());
 			
@@ -93,7 +93,7 @@ public class MemberDAO {
 			
 			if(rs.next()) {//rs.next는 회원가입된 정보가 DB에 있는지 확인
 				
-				member = new MemberDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9));
+				member = new MemberDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getString(9));
 			}
 			
 		} catch (SQLException e) {		
@@ -108,7 +108,7 @@ public class MemberDAO {
 		
 		connect();
 		
-		sql="update member set m_pw=?, m_name=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_a_id=? where m_email=?";
+		sql="update member set m_pw=?, m_name=?, m_nick=?, m_age=?, m_gender=?, m_tel=?, m_address=?, m_a_id = ? where m_email=?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -116,11 +116,12 @@ public class MemberDAO {
 			psmt.setString(1, memberDTO.getM_pw());
 			psmt.setString(2, memberDTO.getM_name());
 			psmt.setString(3, memberDTO.getM_nick());
-			psmt.setString(4, memberDTO.getM_age());
+			psmt.setInt(4, memberDTO.getM_age());
 			psmt.setString(5, memberDTO.getM_gender());
 			psmt.setString(6, memberDTO.getM_tel());
 			psmt.setString(7, memberDTO.getM_address());
 			psmt.setString(8, memberDTO.getA_id());
+			psmt.setString(9, memberDTO.getM_email());
 			
 			cnt=psmt.executeUpdate();
 			

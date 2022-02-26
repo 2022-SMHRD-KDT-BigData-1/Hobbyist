@@ -1,3 +1,4 @@
+<%@page import="com.message.model.MemberDTO"%>
 <%@page import="com.message.model.ExBoardDTO"%>
 <%@page import="com.message.model.ExBoardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -6,6 +7,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
+MemberDTO member = (MemberDTO) session.getAttribute("member");
 SimpleDateFormat df = new SimpleDateFormat("YY-MM-dd HH:mm");
 
 String sel = request.getParameter("sel"); // 검색 옵션의 value
@@ -118,13 +120,25 @@ a {
 			<div class="inner">
 
 				<!-- Header -->
-				<header id="header"> <a href="index.html" class="logo"><h1>
+				<header id="header"> <a href="main.jsp" class="logo"><h1>
 						<strong>Hobbyist</strong>
 					</h1></a>
 				<ul class="icons">
-					<li><a href="Login.jsp"><span class="label">로그인</span></a></li>
-					<li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
-				</ul>
+                  <%
+                     if(member != null) {
+                  %>
+                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="update.jsp"><span class="label">회원 정보수정</span></a></li>
+                  <%
+                     }else{
+                        %>
+                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+                        <%
+                     }
+                  %>
+               </ul> 
 				</header>
 				<center>
 					<h3>게시글 목록</h3>
@@ -139,7 +153,6 @@ a {
 							<td width="30%">제목</td>
 							<td width="20%">작성일</td>
 							<td width="10%">조회수</td>
-							<td width="15%">ip</td>
 						</tr>
 						<%
 						if (count > 0 && fCount == 0 && find == null) { // 데이터베이스에 데이터가 있으면
@@ -157,7 +170,6 @@ a {
 							</td>
 							<td><%=df.format(board.getReg_date())%></td>
 							<td><%=board.getReadCount()%></td>
-							<td><%=board.getIp()%></td>
 						</tr>
 						<%
 						}
@@ -308,12 +320,12 @@ a {
 				<h2>Menu</h2>
 				</header>
 				<ul>
-					<li><a href="m1.html">Sports / Workout</a></li>
-					<li><a href="m2.html">Dance / Music </a></li>
-					<li><a href="m3.html">Art / Drawing</a></li>
-					<li><a href="m4.html">Beauty / Make-up </a></li>
-					<li><a href="m5.html">Cooking / Barista</a></li>
-				</ul>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
 				</nav>
 
 				<!-- Section -->
@@ -322,11 +334,21 @@ a {
 				</header>
 				<p></p>
 				<ul class="contact">
-					<li><a href="#">smhrd@smhrd.co.kr</a></li>
-					<li>(000) 000-0000</li>
-					<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-					</li>
-				</ul>
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
 				</section>
 
 				<!-- Footer -->

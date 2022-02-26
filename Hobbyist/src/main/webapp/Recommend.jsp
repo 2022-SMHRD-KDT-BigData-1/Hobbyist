@@ -1,3 +1,6 @@
+<%@page import="com.message.model.MarkerDAO"%>
+<%@page import="com.message.model.MarkerDTO"%>
+<%@page import="com.message.model.AddrDTO"%>
 <%@page import="com.message.model.ReviewDTO"%>
 <%@page import="com.message.model.WishlistDAO"%>
 <%@page import="com.message.model.WishlistDTO"%>
@@ -10,9 +13,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<% ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
+MarkerDAO dao = new MarkerDAO();
+locmarker = dao.marSelect(); %>
 <%
    request.setCharacterEncoding("utf-8");
-   ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
+   ArrayList <AddrDTO> recommend = (ArrayList<AddrDTO>) session.getAttribute("recommend");
    MemberDTO member = (MemberDTO) session.getAttribute("member");
    int pageSize = 8; // 한 페이지에 출력할 레코드 수
 
@@ -168,6 +175,10 @@
       float : left;
       
    }
+   .recInfo a{
+      margin-right :10px;
+      
+   }
    .recReviewWish{
       box-sizing : border-box;
       float : right;
@@ -299,7 +310,7 @@
          height : 121%;
          background-color : #000;
          opacity : 0.5;
-         z-index : 9;
+         z-index : 5;
          display : none;
       }
       .revUser{
@@ -308,11 +319,14 @@
          float : left;
       }
       .revDate{
+       position : relative;
          display : inline-block;
          float : right;
       }
       .revContent{
-         display : inline-block;
+      	position : absolute;
+      	top:30px;
+         display : inline;
          height : 30px;
       }   
       .revWrite{
@@ -336,13 +350,28 @@
         padding : 0 auto;
       }
       .revDel{
+      	width : 100px;
+      	height : 30px;
+      	display : inline;
       	position : absolute;
-      	right : 0;
-      	bottome : 0;
+      	right :0%;
+      	top : 35%;
       	box-shadow : none;
         background-color:transparent;
-        margin : 0 auto;
-        padding : 0 auto;
+        margin : 0 ;
+        padding : 0;
+      }
+      div > .revPass{
+      	margin-left : 10px;
+      	display : inline;
+      	width : 120px;
+      	height : 25px;
+      }
+     .revinfo{
+		position: relative;      
+      }
+      .form{
+      	margin : 0;
       }
 </style>
 <script type="text/javascript">
@@ -387,14 +416,25 @@ if(recommend != null){
          <div class="inner">
             <!-- Header -->
             <header id="header">
-               <a href="index.html" class="logo"><h1>
+               <a href="main.jsp" class="logo"><h1>
                      <strong>Hobbyist</strong>
                   </h1></a>
                <ul class="icons">
-                  <li><a href="Login.jsp"><span class="label">Login</span></a></li>
-                  <li><a href="#"><span class="label">Join</span></a></li>
-                  <li><a href="#"><span class="label">MyPage</span></a></li>
-               </ul>
+                  <%
+                     if(member != null) {
+                  %>
+                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="update.jsp"><span class="label">회원 정보수정</span></a></li>
+                  <%
+                     }else{
+                        %>
+                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+                        <%
+                     }
+                  %>
+               </ul> 
             </header>
          </div>
          
@@ -411,7 +451,7 @@ if(recommend != null){
               <option value="광산구"></option>
          </datalist>
          </div>
-         
+         <!-- 
          <div class = "category_wraper">      
          <span>대분류</span>
          <input type = "text" list = "a_L_category1" class = "category" name = "a_L_category1">
@@ -419,13 +459,28 @@ if(recommend != null){
             <option value="테스트1"></option>
          </datalist>
          </div>
-         
+          -->
          <div class = "category_wraper">
-         <span>소분류</span>
+         <span>카테고리</span>
          <input type = "text" list = "a_m_category1" class = "category" name = "a_m_category1">
          <datalist id = "a_m_category1">
-            <option value="테스트1-1"></option>
-            <option value="테스트1-2"></option>
+            <option value="크로스핏"></option>
+            <option value="클라이밍"></option>
+            <option value="요가"></option>
+            <option value="수영"></option>
+            <option value="요리"></option>
+            <option value="베이킹"></option>
+            <option value="바리스타"></option>
+            <option value="필라테스"></option>
+            <option value="무에타이"></option>
+            <option value="킥복싱"></option>
+            <option value="주짓수"></option>
+            <option value="음악"></option>
+            <option value="댄스"></option>
+            <option value="폴댄스"></option>
+            <option value="무용"></option>
+            <option value="발레"></option>
+            <option value="공예&화훼"></option>
          </datalist>
          </div>
          <div class = "category_wraper">
@@ -448,12 +503,22 @@ if(recommend != null){
                         <article>
                            <button type="button" class = "popDown" id = "popDown<%=i%>">[닫기]</button>
                            <div class = "acaImg2">
+                            <%
+                        	if(recommend.get(i).getAc_img() != null){
+                        %>
+                        	<img alt="학원이미지" src="<%= recommend.get(i).getAc_img() %>">
+                        <%
+                        	}else{
+                        %>
                            <img alt="이미지 준비중" src="./images/defaultImg.jpg">
+                           <%
+                        	}
+                           %>
                         </div>
                         <div class = "recInfo">
-                           <strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
-                           <strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
-                           <strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+                           <strong>상호명 : </strong> <%= recommend.get(i).getAc_name() %> <br>
+                           <strong>주소 : </strong> <%= recommend.get(i).getAc_addr() %><br>
+                           <strong>관련정보 : </strong> <a href ="<%= recommend.get(i).getAc_rel() %>" target="_blank" >홈페이지 바로가기</a> <a href ="<%= recommend.get(i).getAc_rev()%>" target="_blank"> 블로그리뷰 </a><br>
                         </div>
                         <div class = "recReviewWish">
                            <img alt="star" src="./images/star.png" class = "star">
@@ -484,13 +549,13 @@ if(recommend != null){
                               %>
                               <form action="WishlistRecoDelCon" method="post">
                               <button type="submit" class="h1" name ="wishDelete" value = "<%= 
-                                   recommend.get(i).getA_id()
+                                   recommend.get(i).getAc_id()
                                 %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
                                 <% }}else{ %>
                               </form>
                               	<form action="WishListInputCon" method="post">
                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= 
-                                   	recommend.get(i).getA_id()
+                                   	recommend.get(i).getAc_id()
 	                                %>">
                                 	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                 </form>
@@ -505,24 +570,34 @@ if(recommend != null){
                         if (Review != null){
                         	int cnt = 0;
                            for (int j = 0; j < Review.size(); j++)   {
-                              if(recommend.get(i).getA_id().equals(Review.get(j).getRe_id()) && cnt <6){
+                              if(recommend.get(i).getAc_id().equals(Review.get(j).getRe_id()) && cnt <6){
                                  %>
-                                    <tr>
-                                       <td>
+                                    <tr> 
+                                       <td class = "revinfo">
+                                           <form action="ReviewDeleteCon" method="post" class ="form">
                                           <div class="revDate">
-                                          <%=Review.get(j).getRe_date()%>
+                                          <%
+                                          if(Review.get(j).getRe_date() !=null){
+                                        	  %>
+		                                          <%=Review.get(j).getRe_date()%>
+                                        	  <%
+                                          }
+                                          %>
+                                          <button type = "submit" class = "revDel" name = "rev_id"value="<%= recommend.get(i).getAc_id() %>">삭제</button>
                                           </div>
                                           <div class = "revUser">
                                           <%=Review.get(j).getRe_nick() %>
                                           </div>
+                                          <div>
                                           평점 : <%=Review.get(j).getRe_score()%>
+                                          <input type = "password" class = "revPass" name ="revPass" placeholder="비밀번호">
+                                          <input type = "hidden" name ="rev_nick" value ="<%= Review.get(j).getRe_nick() %>">
+                                          </div>
                                           <br>
                                           <div class ="revContent">
                                           <%=Review.get(j).getRe_content() %>
-                                          <form action="ReviewDeleteCon" method="post">
-                                          <button type = "submit" class = "revDel">[삭제]</button>
-                                          </form>
                                           </div>
+                                          </form>
                                        </td>
                                     </tr>          
                                                            
@@ -554,8 +629,8 @@ if(recommend != null){
 									    <option value="4">4</option>
 									    <option value="5" selected="selected">5</option>
 									</select>
-									<input type = "hidden" value = "<%= recommend.get(i).getA_id() %>" name = "re_id">
-									<input type = "hidden" value = "<%= recommend.get(i).getA_name() %>" name = "classname">
+									<input type = "hidden" value = "<%= recommend.get(i).getAc_id() %>" name = "re_id">
+									<input type = "hidden" value = "<%= recommend.get(i).getAc_name() %>" name = "classname">
 								</td>
 								
 							</tr>
@@ -567,7 +642,7 @@ if(recommend != null){
 							</tr>
 							<tr>
 								<td colspan="4"><textarea rows="7" cols="60"
-										name="content" class="content"></textarea></td>
+										name="content" class="content" placeholder ="여기에 리뷰를 입력해주세요."></textarea></td>
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="submit" value="작성" class = "revSub"></td>
@@ -578,13 +653,23 @@ if(recommend != null){
                         </article>
                      </div>
                         <div class = "acaImg">
+                        <%
+                        	if(recommend.get(i).getAc_img() != null){
+                        %>
+                        	<img alt="학원이미지" src="<%= recommend.get(i).getAc_img() %>">
+                        <%
+                        	}else{
+                        %>
                            <img alt="이미지 준비중" src="./images/defaultImg.jpg">
                            <p class = "imgMemo">이미지 준비중</p>
+                           <%
+                        	}
+                           %>
                         </div>
                         <div class = "recInfo">
-                           <strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
-                           <strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
-                           <strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+                           <strong>상호명 : </strong> <%= recommend.get(i).getAc_name() %> <br>
+                           <strong>주소 : </strong> <%= recommend.get(i).getAc_addr() %><br>
+                           <strong>관련정보 : </strong> <a href ="<%= recommend.get(i).getAc_rel() %>" target="_blank" >홈페이지 바로가기</a><br>
                         </div>
                        <div class = "wishInput">
                            
@@ -593,18 +678,18 @@ if(recommend != null){
                                     if(wishCheck.get(i).getW_wish()>0){
                               %>
                               <form action="WishlistRecoDelCon" method="post">
-                              <button type="submit" class="h1" name ="wishDelete" value = "<%= recommend.get(i).getA_id() %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
+                              <button type="submit" class="h1" name ="wishDelete" value = "<%= recommend.get(i).getAc_id() %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
                                 <% }}else{ %>
                               </form>
                               	<form action="WishListInputCon" method="post">
-                                	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getA_id() %>">
+                                	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getAc_id() %>">
                                 	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                 </form>
                                 <% 
                                  } }else{
                                 	 %>
                                 	 <form action="WishListInputCon" method="post">
-                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getA_id() %>">
+                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getAc_id() %>">
                                  	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                  </form>
                                  <%
@@ -688,30 +773,121 @@ if(recommend != null){
                </div>
             </div>
             <div id = "recMap">
-                  
+                  <% for(int i = 0 ; i < locmarker.size(); i++){ %>
+	<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
+<% } %>
+	<div id="map">
+		<script src="./assets/js/jquery.min.js"></script>
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=clusterer"></script>
+		<script>
+		var markers = [];
+		var overlays = [];
+		
+		function makeClickListener(map, marker, overlay) {
+		    return function() {
+		        overlay.setMap(map)
+		    };
+		}
+		
+		<%-- // 지도를 생성한다--%> 
+		var map; 
+		var overlay;
+		//window.onload = function(){
+				var mapContainer = document.getElementById("recMap"), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(35.160617058500605, 126.85134751152451), // 지도의 중심좌표
+			        level: 4, // 지도의 확대 레벨
+			        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+			    }; 
+				map = new kakao.maps.Map(mapContainer, mapOption);
+				var myLocmarker = document.querySelectorAll('.locmarker');
+				
+				var locArray = new Array(myLocmarker.length);
+				
+				
+				for(var i = 0; i < myLocmarker.length; i++){
+					locArray[i] = new Array(7);
+					var arr = myLocmarker[i].value.split(',');
+					locArray[i][0] = arr[0];
+					locArray[i][1] = arr[1];
+					locArray[i][2] = arr[2];
+					locArray[i][3] = arr[3];
+					locArray[i][4] = arr[4];
+					locArray[i][5] = arr[5];
+					locArray[i][6] = arr[6];
+					console.log(locArray[i][4]+'/'+locArray[i][5] + '/'+locArray[i][6]);
+				}
+
+				
+				//클러스터러 추가
+				 var clusterer = new kakao.maps.MarkerClusterer({
+				        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+				        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+				        minLevel: 3 // 클러스터 할 최소 지도 레벨 
+				    }); 
+	
+				
+				for(var i =0; i<locArray.length; i++){
+					// 지도에 마커를 생성하고 표시한다
+					var marker = new kakao.maps.Marker({
+						position: new kakao.maps.LatLng(locArray[i][1], locArray[i][2]),
+						map: map // 마커를 표시할 지도 객체
+					});
+					
+					
+					var content = '<div class="wrap">' + 
+		            '    <div class="info">' + 
+		            '        <div class="title">' + 
+		                        locArray[i][0] + 
+		            '            <div class="close" onclick="closeOverlay('+i+')" title="닫기"></div>' + 
+		            '        </div>' + 
+		            '        <div class="body">' + 
+		            '            <div class="img">' +
+		            '                <img src="'+locArray[i][4]+'" width="73" height="70" alt = "NO IMAGE">' +
+		            '           </div>' + 
+		            '            <div class="desc">' + 
+		            '                <div class="ellipsis">'+locArray[i][3]+'</div>' + 
+		            '                <div><a href="'+locArray[i][6]+'" target="_blank" class="link">홈페이지</a></div>' + 
+		            '                <div><a href="'+locArray[i][5]+'" target="_blank" class="link">리뷰</a></div>' +
+		            '            </div>' + 
+		            '        </div>' + 
+		            '    </div>' +    
+		            '</div>';
+
+					// 마커 위에 커스텀오버레이를 표시합니다
+					// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+					overlay = new kakao.maps.CustomOverlay({
+					    content: content,
+					    map: null,
+					    position: marker.getPosition()   
+					});
+					
+					
+					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
+					// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+					/*kakao.maps.event.addListener(marker, 'click', function() {
+						overlay.setMap(map);
+					});*/
+			
+					// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+					markers.push(marker);
+					overlays.push(overlay);	
+					}
+		//}
+				
+		function closeOverlay(i) {
+			 overlays[i].setMap(null);   
+		    //overlay.setMap(null);
+		    /*$(".wrap").on("click",function(){
+		    	$(this).hide();
+		    })*/
+		}
+		</script>
+	</div>
             </div>
             
          </div>
-         
-         
-         
-         
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <!-- Sidebar -->
       <div id="sidebar">
@@ -729,11 +905,11 @@ if(recommend != null){
                   <h2>Menu</h2>
                </header>
                <ul>
-                  <li><a href="m1.html">Sports / Workout</a></li>
-                  <li><a href="m2.html">Dance / Music </a></li>
-                  <li><a href="m3.html">Art / Drawing</a></li>
-                  <li><a href="m4.html">Beauty / Make-up </a></li>
-                  <li><a href="m5.html">Cooking / Barista</a></li>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
                </ul>
             </nav>
 
@@ -744,10 +920,20 @@ if(recommend != null){
                </header>
                <p></p>
                <ul class="contact">
-                  <li><a href="#">information@untitled.tld</a></li>
-                  <li>(000) 000-0000</li>
-                  <li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
                   </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
                </ul>
             </section>
 
@@ -762,18 +948,6 @@ if(recommend != null){
          </div>
       </div>
    </div>
-      <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"></script>
-            <script>
-               var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
-                   mapOption = {
-                       center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-                       level: 3, // 지도의 확대 레벨
-                       mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-                   }; 
-         
-               // 지도를 생성한다 
-               var map = new kakao.maps.Map(mapContainer, mapOption); 
-         
-            </script>
+      
 </body>
 </html>

@@ -46,7 +46,6 @@ public class ReviewWriteCon extends HttpServlet {
 			if(session.getAttribute("Review") != null) {
 				ArrayList <ReviewDTO> Review = (ArrayList <ReviewDTO>) session.getAttribute("Review");
 				session.removeAttribute("Review");
-				ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
 				Review.add(review);
 				session.setAttribute("Review", Review);
 					}

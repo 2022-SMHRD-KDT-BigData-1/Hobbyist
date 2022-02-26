@@ -195,14 +195,25 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="index.html" class="logo"><h1>
+					<a href="main.jsp" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="#"><span class="label">Login</span></a></li>
-						<li><a href="#"><span class="label">Join</span></a></li>
-						<li><a href="#"><span class="label">MyPage</span></a></li>
-					</ul>
+                  <%
+                     if(member != null) {
+                  %>
+                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="update.jsp"><span class="label">회원 정보수정</span></a></li>
+                  <%
+                     }else{
+                        %>
+                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+                        <%
+                     }
+                  %>
+               </ul> 
 				</header>
 			</div>
 			
@@ -417,12 +428,12 @@
 						<h2>Menu</h2>
 					</header>
 					<ul>
-						<li><a href="m1.html">Sports / Workout</a></li>
-						<li><a href="m2.html">Dance / Music </a></li>
-						<li><a href="m3.html">Art / Drawing</a></li>
-						<li><a href="m4.html">Beauty / Make-up </a></li>
-						<li><a href="m5.html">Cooking / Barista</a></li>
-					</ul>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
 				</nav>
 
 				<!-- Section -->
@@ -432,11 +443,21 @@
 					</header>
 					<p></p>
 					<ul class="contact">
-						<li><a href="#">information@untitled.tld</a></li>
-						<li>(000) 000-0000</li>
-						<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-						</li>
-					</ul>
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
 				</section>
 
 				<!-- Footer -->

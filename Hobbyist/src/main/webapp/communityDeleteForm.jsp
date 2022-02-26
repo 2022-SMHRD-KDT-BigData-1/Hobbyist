@@ -1,8 +1,10 @@
+<%@page import="com.message.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 int no = Integer.parseInt(request.getParameter("no"));
+MemberDTO member = (MemberDTO) session.getAttribute("member");
 %>
 
 <html>
@@ -63,7 +65,7 @@ a {
 			<div class="inner">
 
 				<!-- Header -->
-				<header id="header"> <a href="index.html" class="logo"><h1>
+				<header id="header"> <a href="main.jsp" class="logo"><h1>
 						<strong>Hobbyist</strong>
 					</h1></a>
 				<ul class="icons">
@@ -107,12 +109,12 @@ a {
 				<h2>Menu</h2>
 				</header>
 				<ul>
-					<li><a href="m1.html">Sports / Workout</a></li>
-					<li><a href="m2.html">Dance / Music </a></li>
-					<li><a href="m3.html">Art / Drawing</a></li>
-					<li><a href="m4.html">Beauty / Make-up </a></li>
-					<li><a href="m5.html">Cooking / Barista</a></li>
-				</ul>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
 				</nav>
 
 				<!-- Section -->
@@ -121,11 +123,21 @@ a {
 				</header>
 				<p></p>
 				<ul class="contact">
-					<li><a href="#">smhrd@smhrd.co.kr</a></li>
-					<li>(000) 000-0000</li>
-					<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-					</li>
-				</ul>
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
 				</section>
 
 				<!-- Footer -->

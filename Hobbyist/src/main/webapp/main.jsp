@@ -1,9 +1,12 @@
 
 
+<%@page import="com.message.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<% 
+MemberDTO member = (MemberDTO) session.getAttribute("member");
+%>
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -70,13 +73,25 @@ a {
 
 				<!-- Header -->
 				<header id="header">
-					<a href="index.html" class="logo"><h1>
+					<a href="#" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="Login.jsp"><span class="label">로그인</span></a></li>
-						<li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
-					</ul>
+                  <%
+                     if(member != null) {
+                  %>
+                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="Update.html"><span class="label">정보수정</span></a></li>
+                  <%
+                     }else{
+                        %>
+                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+                        <%
+                     }
+                  %>
+               </ul> 
 				</header>
 
 				<!-- Banner -->
@@ -137,7 +152,9 @@ a {
 				</div>
 
 				<section>
-					<a href="Recommend.jsp">광주광역시에서 찾기</a>
+					<a href="RecommendMove.jsp">광주광역시에서 찾기</a>
+					<a href="WishlistSelectCon">위시리스트 보기</a>
+					<a href="communityList.jsp">게시판 보기</a>
 					<header class="major">
 						<h2>우리 동네에서 찾기</h2>
 					</header>
@@ -173,6 +190,7 @@ a {
 				</section>
 
 				<!-- Section -->
+				
 				<section>
 					<header class="major">
 						<h2>건강 다이어트</h2>
@@ -246,7 +264,6 @@ a {
 			</div>
 		</div>
 
-
 		<!-- Sidebar -->
 		<div id="sidebar">
 			<div class="inner">
@@ -263,12 +280,12 @@ a {
 						<h2>Menu</h2>
 					</header>
 					<ul>
-						<li><a href="m1.html">Sports / Workout</a></li>
-						<li><a href="m2.html">Dance / Music </a></li>
-						<li><a href="m3.html">Art / Drawing</a></li>
-						<li><a href="m4.html">Beauty / Make-up </a></li>
-						<li><a href="m5.html">Cooking / Barista</a></li>
-					</ul>
+                  <li><a href="townGeo.jsp">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.jsp">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
 				</nav>
 
 				<!-- Section -->
@@ -278,11 +295,21 @@ a {
 					</header>
 					<p></p>
 					<ul class="contact">
-						<li><a href="#">smhrd@smhrd.co.kr</a></li>
-						<li>(000) 000-0000</li>
-						<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-						</li>
-					</ul>
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
 				</section>
 
 				<!-- Footer -->

@@ -56,7 +56,7 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="index.html" class="logo"><h1>
+					<a href="main.jsp" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
@@ -237,12 +237,12 @@
 						<h2>Menu</h2>
 					</header>
 					<ul>
-						<li><a href="m1.html">Sports / Workout</a></li>
-						<li><a href="m2.html">Dance / Music </a></li>
-						<li><a href="m3.html">Art / Drawing</a></li>
-						<li><a href="m4.html">Beauty / Make-up </a></li>
-						<li><a href="m5.html">Cooking / Barista</a></li>
-					</ul>
+                  <li><a href="">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
 				</nav>
 
 				<!-- Section -->

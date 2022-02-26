@@ -1,7 +1,9 @@
 
+<%@page import="com.message.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%MemberDTO member =(MemberDTO) request.getAttribute("success_data");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -61,9 +63,9 @@
 							<p>환영합니다!</p>
 						<ul>
 							<li class = "js_li">회원가입을 축하합니다.</li> 
-							<li class = "js_li">Hobbyist의 새로운 이메일은 ${requestScope.success_data}입니다.</li>
+							<li class = "js_li">Hobbyist의 새로운 이메일은 <%=member.getM_email() %>입니다.</li>
 						</ul>
-							<button onclick='location.href="main_success.jsp"' >시작하기</button>
+							<button onclick='location.href="main.jsp"' >시작하기</button>
 							
 					</div>
 	</body>

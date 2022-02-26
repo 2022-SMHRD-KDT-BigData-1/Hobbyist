@@ -16,9 +16,8 @@ import lombok.NoArgsConstructor;
 
 public class HistoryDTO {
 	private int h_seq;
-	private String a_name;
 	private String h_day;
 	private String h_time;
-	private String a_city;
-	private String h_tel;
+	private String ac_id;
+	private String m_email;
 }

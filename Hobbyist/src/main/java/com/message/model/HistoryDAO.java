@@ -52,32 +52,58 @@ public class HistoryDAO {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<HistoryDTO> H_Select() {
+	public ArrayList<HistoryDTO> H_Select(String email) {
 
 		ArrayList<HistoryDTO> list = new ArrayList<HistoryDTO>();
 
 		connect();
 
-		sql = "select h_seq, a_name, h_day,h_time, a_city, h_tel"
-				+ " from history"
+		sql = "select *"
+				+ " from history h, addr ad where h.ac_id=ad.ac_id"
+				+ " and m_email=?"
 				+ " order by h_seq";
-
+		
 		try {
 			psmt = conn.prepareStatement(sql);
-
+			psmt.setString(1, email);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new HistoryDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
+				list.add(new HistoryDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5)));
 			}
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
+		return list;
+	}
+	public ArrayList<AddrDTO> H_Select2(String email) {
 
+		ArrayList<AddrDTO> list = new ArrayList<AddrDTO>();
+
+		connect();
+
+		sql = "select *"
+				+ " from history h, addr ad where h.ac_id=ad.ac_id"
+				+ " and m_email=?"
+				+ " order by h_seq";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, email);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(new AddrDTO(null,rs.getString(7),null,null,null,rs.getString(11),null,null,null,rs.getString(15),null,null));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return list;
 	}
 

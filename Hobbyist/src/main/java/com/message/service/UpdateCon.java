@@ -30,19 +30,18 @@ public class UpdateCon extends HttpServlet {
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
 		String nick = request.getParameter("nick");
-		String age= request.getParameter("m_age");
-		String gender = request.getParameter("m_gender");
+		int age = Integer.parseInt(request.getParameter("age"));
+		String gender = request.getParameter("gender");
 		String tel = request.getParameter("tel");
 		String address = request.getParameter("address");
-		String m_a_id = request.getParameter("m_a_id");
 		
 		
 		MemberDAO dao = new MemberDAO();
-		int cnt = dao.memberUpdate(new MemberDTO(email, pw, name, nick, age, gender, tel, address,  m_a_id));
+		int cnt = dao.memberUpdate(new MemberDTO(email, pw, name, nick, tel, address, age, gender, ""));
 		
 		if(cnt>0) {
 			
-			session.setAttribute("member", new MemberDTO(email, pw, name, nick, tel, address, age, gender, m_a_id));
+			session.setAttribute("member", new MemberDTO(email, pw, name, nick, tel, address, age, gender, null));
 			
 			response.sendRedirect("main.jsp");
 			

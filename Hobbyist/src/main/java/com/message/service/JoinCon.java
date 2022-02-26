@@ -29,7 +29,7 @@ public class JoinCon implements iCommand {
 		String nick = request.getParameter("nick");
 		String tel = request.getParameter("tel");
 		String address= request.getParameter("address");
-		String age = request.getParameter("age");
+		int age = Integer.parseInt(request.getParameter("age"));
 		String gender = request.getParameter("gender");
 		String a_id = request.getParameter("a_id");
 		

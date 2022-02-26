@@ -104,14 +104,6 @@
               <label for="woman">여자</label>
             </td>
           </tr>
-         <tr>
-            <td align="center">
-              <strong>학원코드</strong>
-            </td>
-            <td>
-              <input type="text" name="a_id" placeholder="7064564" />
-            </td>
-          </tr>
           <tr>
             <td colspan="2" align="center">
               <input type="submit" value="JOIN" />

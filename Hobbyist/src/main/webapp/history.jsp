@@ -54,10 +54,10 @@
         <div class="inner">
           <!-- Header -->
           <header id="header">
-            <a href="index.html" class="logo"
+            <a href="main.jsp" class="logo"
               ><h1><strong>Hobbyist</strong></h1></a
             >
-            <ul class="icons">
+            <!-- <ul class="icons">
               <li>
                 <a href="#"><span class="label">로그아웃</span></a>
               </li>
@@ -67,22 +67,34 @@
               <li>
                 <a href="#"><span class="label">개인정보수정</span></a>
               </li>
-            </ul>
+            </ul> -->
+             <ul class="icons">
+                  <%
+                     if(member != null) {
+                  %>
+                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="update.html"><span class="label">정보수정</span></a></li>
+                  <%
+                     }else{
+                        %>
+                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+                        <%
+                     }
+                  %>
+               </ul> 
           </header>
 
-          <%
-          	HistoryDAO dao = new HistoryDAO();
-          ArrayList<HistoryDTO> h_list = dao.H_Select();
-          %>
-
+          
           <!-- Section -->
           <section>
             <div>
               <div class="row">
                 <form action="#" method="post">
-                  <strong align="center"><h1>수강 이력</h1></strong>
+                  <strong align="center"><h1>My Page</h1></strong>
                   <br />
-                  <p><strong class="inin">수강 이력</strong></p>
+                  <!-- <p><strong class="inin">My Page</strong></p> -->
                   <br />
                   <table align="center">
                   	<tr>
@@ -93,23 +105,10 @@
                   	<td align="center">시간</td>
                   	<td align="center">전화번호</td>
                   	</tr>
-                  	<% 
-					if (h_list.isEmpty()) {
-						 out.print("<tr><td colspan='6'>현재 가입된 회원이 없습니다.</td></tr>");
-					} else {
-						 for (int i = 0; i < h_list.size(); i++) {
-						       out.print("<tr>");
-						       out.print("<td align='center'>" + h_list.get(i).getH_seq() + "</td>");
-						       out.print("<td align='center'>" + h_list.get(i).getA_name() + "</td>");
-						       out.print("<td align='center'>" + h_list.get(i).getA_city() + "</td>");
-						       out.print("<td align='center'>" + h_list.get(i).getH_day() + "</td>");
-						       out.print("<td align='center'>" + h_list.get(i).getH_time() + "</td>");
-						       out.print("<td align='center'>" + h_list.get(i).getH_tel() + "</td>");
-						       out.print("</tr>");
-						}
-					}
-
-					%>
+                  
+					<tr>
+						<td><a href="manage.jsp">수강 정보 추가하기</a></td>
+					</tr>
                   </table>
                 </form>
               </div>
@@ -136,10 +135,12 @@
               <h2>Menu</h2>
             </header>
             <ul>
-              <li><a href="m1.html">My Schedule</a></li>
-              <li><a href="m2.html">My Wishlist</a></li>
-              <li><a href="m3.html">My History</a></li>
-            </ul>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
           </nav>
 
           <!-- Section -->
@@ -149,15 +150,21 @@
             </header>
             <p></p>
             <ul class="contact">
-              <li>
-                <a href="#">smhrd@smhrd.co.kr</a>
-              </li>
-              <li>(000) 000-0000</li>
-              <li>
-                1234 Somewhere Road #8254<br />
-                Nashville, TN 00000-0000
-              </li>
-            </ul>
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
           </section>
 
           <!-- Footer -->
