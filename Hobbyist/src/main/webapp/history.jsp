@@ -1,3 +1,4 @@
+<%@page import="com.message.model.AddrDTO"%>
 <%@page import="com.message.model.MemberDTO"%>
 <%@page import="com.message.model.HistoryDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -5,7 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%	MemberDTO member = (MemberDTO) session.getAttribute("member");%>   
+<%	MemberDTO member = (MemberDTO) session.getAttribute("member");
+	ArrayList <AddrDTO> addr = (ArrayList <AddrDTO>) session.getAttribute("H_select2");
+	ArrayList <HistoryDTO> his = (ArrayList <HistoryDTO>) session.getAttribute("H_select");
+
+%>   
 
 <!DOCTYPE html>
 <!--
@@ -103,11 +108,24 @@
                   	<td align="center">위치</td>
                   	<td align="center">요일</td>
                   	<td align="center">시간</td>
-                  	<td align="center">전화번호</td>
+                  	<td align="center">홈페이지</td>
                   	</tr>
-                  
+                  	<%
+                  		for(int i = 0; i < his.size(); i++) {
+                  	%>
+                  	<tr>
+                  	<td align="center"><%= his.get(i).getH_seq() %></td>
+                  	<td align="center"><%= addr.get(i).getAc_name() %></td>
+                  	<td align="center"><%= addr.get(i).getAc_addr()%></td>
+                  	<td align="center"><%= his.get(i).getH_day() %></td>
+                  	<td align="center"><%= his.get(i).getH_time() %></td>
+                  	<td align="center"><a href="<%= addr.get(i).getAc_rel()%>" target="_blank"><%= addr.get(i).getAc_rel()%></a></td>
+                  	</tr>
+                  <%
+                  		}
+                  %>
 					<tr>
-						<td><a href="manage.jsp">수강 정보 추가하기</a></td>
+						<td colspan="6" align="center"><a href="manage.jsp" >수강 정보 추가하기</a></td>
 					</tr>
                   </table>
                 </form>
