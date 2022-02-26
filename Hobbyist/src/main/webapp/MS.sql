@@ -1,9 +1,30 @@
 select count(*) from academy where a_L_category = '테스트1' and a_m_category = '테스트1-1' and a_city = '남구'
 
-
+select * from WISHLIST
+select *
+from wishlist w, academy a
+where w.a_id = a.a_id
+select * from wishlist w, academy a where w.a_id = a.a_id and w_wish = 1 and w_email = 'admin'
+select * from addr where ac_si = '남구' and ac_dong = '봉선동' and ac_category = '크로스핏'
 <<<<<<< HEAD
+select * from review
+select * from wishlist
 
+drop table wishlist cascade constraint
 
+select * from wishlist w, addr a where w.ac_id = a.ac_id and w_wish = 1 and w_email = 'admin'
+
+create table wishlist(
+   w_seq number(5) not null,
+   w_wish number(5) not null,
+   w_email varchar(50),
+   ac_id varchar(20),
+   constraint wishlist_pk primary key(w_seq),
+   CONSTRAINT FK_a_id FOREIGN KEY(ac_id) REFERENCES addr(ac_id)
+)
+
+select * from academy
+delete from review where re_score = 5
 drop table academy2
 create table academy(
 	a_seq number(5),

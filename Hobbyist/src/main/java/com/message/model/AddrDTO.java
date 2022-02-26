@@ -14,9 +14,17 @@ import lombok.NoArgsConstructor;
 //모든 필드변수를 초기화하는 생성자를 생성해줌.
 //변수, 생성자, getter/setter, toString() 정의
 
-public class WishlistDTO {
-	private int w_seq;
-	private int w_wish;
-	private String w_email;
+public class AddrDTO {
 	private String ac_id;
+	private String ac_name;
+	private String ac_city;
+	private String ac_si;
+	private String ac_dong;
+	private String ac_addr;
+	private String ac_category;
+	private String ac_img;
+	private String ac_rev;
+	private String ac_rel;
+	private String ac_wi;
+	private String ac_ky;
 }

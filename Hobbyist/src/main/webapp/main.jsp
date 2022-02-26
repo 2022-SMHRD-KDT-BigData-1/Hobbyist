@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -137,7 +136,9 @@ a {
 				</div>
 
 				<section>
-					<a href="Recommend.jsp">광주광역시에서 찾기</a>
+					<a href="RecommendMove.jsp">광주광역시에서 찾기</a>
+					<a href="WishlistSelectCon">위시리스트 보기</a>
+					<a href="communityList.jsp">게시판 보기</a>
 					<header class="major">
 						<h2>우리 동네에서 찾기</h2>
 					</header>

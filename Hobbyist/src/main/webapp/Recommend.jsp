@@ -1,3 +1,4 @@
+<%@page import="com.message.model.AddrDTO"%>
 <%@page import="com.message.model.ReviewDTO"%>
 <%@page import="com.message.model.WishlistDAO"%>
 <%@page import="com.message.model.WishlistDTO"%>
@@ -12,7 +13,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
    request.setCharacterEncoding("utf-8");
-   ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
+   ArrayList <AddrDTO> recommend = (ArrayList<AddrDTO>) session.getAttribute("recommend");
    MemberDTO member = (MemberDTO) session.getAttribute("member");
    int pageSize = 8; // 한 페이지에 출력할 레코드 수
 
@@ -168,6 +169,10 @@
       float : left;
       
    }
+   .recInfo a{
+      margin-right :10px;
+      
+   }
    .recReviewWish{
       box-sizing : border-box;
       float : right;
@@ -299,7 +304,7 @@
          height : 121%;
          background-color : #000;
          opacity : 0.5;
-         z-index : 9;
+         z-index : 5;
          display : none;
       }
       .revUser{
@@ -308,11 +313,14 @@
          float : left;
       }
       .revDate{
+       position : relative;
          display : inline-block;
          float : right;
       }
       .revContent{
-         display : inline-block;
+      	position : absolute;
+      	top:30px;
+         display : inline;
          height : 30px;
       }   
       .revWrite{
@@ -336,13 +344,28 @@
         padding : 0 auto;
       }
       .revDel{
+      	width : 100px;
+      	height : 30px;
+      	display : inline;
       	position : absolute;
-      	right : 0;
-      	bottome : 0;
+      	right :0%;
+      	top : 35%;
       	box-shadow : none;
         background-color:transparent;
-        margin : 0 auto;
-        padding : 0 auto;
+        margin : 0 ;
+        padding : 0;
+      }
+      div > .revPass{
+      	margin-left : 10px;
+      	display : inline;
+      	width : 120px;
+      	height : 25px;
+      }
+     .revinfo{
+		position: relative;      
+      }
+      .form{
+      	margin : 0;
       }
 </style>
 <script type="text/javascript">
@@ -387,7 +410,7 @@ if(recommend != null){
          <div class="inner">
             <!-- Header -->
             <header id="header">
-               <a href="index.html" class="logo"><h1>
+               <a href="main.jsp" class="logo"><h1>
                      <strong>Hobbyist</strong>
                   </h1></a>
                <ul class="icons">
@@ -411,7 +434,7 @@ if(recommend != null){
               <option value="광산구"></option>
          </datalist>
          </div>
-         
+         <!-- 
          <div class = "category_wraper">      
          <span>대분류</span>
          <input type = "text" list = "a_L_category1" class = "category" name = "a_L_category1">
@@ -419,13 +442,28 @@ if(recommend != null){
             <option value="테스트1"></option>
          </datalist>
          </div>
-         
+          -->
          <div class = "category_wraper">
-         <span>소분류</span>
+         <span>카테고리</span>
          <input type = "text" list = "a_m_category1" class = "category" name = "a_m_category1">
          <datalist id = "a_m_category1">
-            <option value="테스트1-1"></option>
-            <option value="테스트1-2"></option>
+            <option value="크로스핏"></option>
+            <option value="클라이밍"></option>
+            <option value="요가"></option>
+            <option value="수영"></option>
+            <option value="요리"></option>
+            <option value="베이킹"></option>
+            <option value="바리스타"></option>
+            <option value="필라테스"></option>
+            <option value="무에타이"></option>
+            <option value="킥복싱"></option>
+            <option value="주짓수"></option>
+            <option value="음악"></option>
+            <option value="댄스"></option>
+            <option value="폴댄스"></option>
+            <option value="무용"></option>
+            <option value="발레"></option>
+            <option value="공예&화훼"></option>
          </datalist>
          </div>
          <div class = "category_wraper">
@@ -448,12 +486,22 @@ if(recommend != null){
                         <article>
                            <button type="button" class = "popDown" id = "popDown<%=i%>">[닫기]</button>
                            <div class = "acaImg2">
+                            <%
+                        	if(recommend.get(i).getAc_img() != null){
+                        %>
+                        	<img alt="학원이미지" src="<%= recommend.get(i).getAc_img() %>">
+                        <%
+                        	}else{
+                        %>
                            <img alt="이미지 준비중" src="./images/defaultImg.jpg">
+                           <%
+                        	}
+                           %>
                         </div>
                         <div class = "recInfo">
-                           <strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
-                           <strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
-                           <strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+                           <strong>상호명 : </strong> <%= recommend.get(i).getAc_name() %> <br>
+                           <strong>주소 : </strong> <%= recommend.get(i).getAc_addr() %><br>
+                           <strong>관련정보 : </strong> <a href ="<%= recommend.get(i).getAc_rel() %>" target="_blank" >홈페이지 바로가기</a> <a href ="<%= recommend.get(i).getAc_rev()%>" target="_blank"> 블로그리뷰 </a><br>
                         </div>
                         <div class = "recReviewWish">
                            <img alt="star" src="./images/star.png" class = "star">
@@ -484,13 +532,13 @@ if(recommend != null){
                               %>
                               <form action="WishlistRecoDelCon" method="post">
                               <button type="submit" class="h1" name ="wishDelete" value = "<%= 
-                                   recommend.get(i).getA_id()
+                                   recommend.get(i).getAc_id()
                                 %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
                                 <% }}else{ %>
                               </form>
                               	<form action="WishListInputCon" method="post">
                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= 
-                                   	recommend.get(i).getA_id()
+                                   	recommend.get(i).getAc_id()
 	                                %>">
                                 	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                 </form>
@@ -505,24 +553,34 @@ if(recommend != null){
                         if (Review != null){
                         	int cnt = 0;
                            for (int j = 0; j < Review.size(); j++)   {
-                              if(recommend.get(i).getA_id().equals(Review.get(j).getRe_id()) && cnt <6){
+                              if(recommend.get(i).getAc_id().equals(Review.get(j).getRe_id()) && cnt <6){
                                  %>
-                                    <tr>
-                                       <td>
+                                    <tr> 
+                                       <td class = "revinfo">
+                                           <form action="ReviewDeleteCon" method="post" class ="form">
                                           <div class="revDate">
-                                          <%=Review.get(j).getRe_date()%>
+                                          <%
+                                          if(Review.get(j).getRe_date() !=null){
+                                        	  %>
+		                                          <%=Review.get(j).getRe_date()%>
+                                        	  <%
+                                          }
+                                          %>
+                                          <button type = "submit" class = "revDel" name = "rev_id"value="<%= recommend.get(i).getAc_id() %>">삭제</button>
                                           </div>
                                           <div class = "revUser">
                                           <%=Review.get(j).getRe_nick() %>
                                           </div>
+                                          <div>
                                           평점 : <%=Review.get(j).getRe_score()%>
+                                          <input type = "password" class = "revPass" name ="revPass" placeholder="비밀번호">
+                                          <input type = "hidden" name ="rev_nick" value ="<%= Review.get(j).getRe_nick() %>">
+                                          </div>
                                           <br>
                                           <div class ="revContent">
                                           <%=Review.get(j).getRe_content() %>
-                                          <form action="ReviewDeleteCon" method="post">
-                                          <button type = "submit" class = "revDel">[삭제]</button>
-                                          </form>
                                           </div>
+                                          </form>
                                        </td>
                                     </tr>          
                                                            
@@ -554,8 +612,8 @@ if(recommend != null){
 									    <option value="4">4</option>
 									    <option value="5" selected="selected">5</option>
 									</select>
-									<input type = "hidden" value = "<%= recommend.get(i).getA_id() %>" name = "re_id">
-									<input type = "hidden" value = "<%= recommend.get(i).getA_name() %>" name = "classname">
+									<input type = "hidden" value = "<%= recommend.get(i).getAc_id() %>" name = "re_id">
+									<input type = "hidden" value = "<%= recommend.get(i).getAc_name() %>" name = "classname">
 								</td>
 								
 							</tr>
@@ -567,7 +625,7 @@ if(recommend != null){
 							</tr>
 							<tr>
 								<td colspan="4"><textarea rows="7" cols="60"
-										name="content" class="content"></textarea></td>
+										name="content" class="content" placeholder ="여기에 리뷰를 입력해주세요."></textarea></td>
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="submit" value="작성" class = "revSub"></td>
@@ -578,13 +636,23 @@ if(recommend != null){
                         </article>
                      </div>
                         <div class = "acaImg">
+                        <%
+                        	if(recommend.get(i).getAc_img() != null){
+                        %>
+                        	<img alt="학원이미지" src="<%= recommend.get(i).getAc_img() %>">
+                        <%
+                        	}else{
+                        %>
                            <img alt="이미지 준비중" src="./images/defaultImg.jpg">
                            <p class = "imgMemo">이미지 준비중</p>
+                           <%
+                        	}
+                           %>
                         </div>
                         <div class = "recInfo">
-                           <strong>상호명 : </strong> <%= recommend.get(i).getA_name() %> <br>
-                           <strong>주소 : </strong> <%= recommend.get(i).getA_address() %><br>
-                           <strong>관련정보 : </strong> <%= recommend.get(i).getA_note() %><br>
+                           <strong>상호명 : </strong> <%= recommend.get(i).getAc_name() %> <br>
+                           <strong>주소 : </strong> <%= recommend.get(i).getAc_addr() %><br>
+                           <strong>관련정보 : </strong> <a href ="<%= recommend.get(i).getAc_rel() %>" target="_blank" >홈페이지 바로가기</a><br>
                         </div>
                        <div class = "wishInput">
                            
@@ -593,18 +661,18 @@ if(recommend != null){
                                     if(wishCheck.get(i).getW_wish()>0){
                               %>
                               <form action="WishlistRecoDelCon" method="post">
-                              <button type="submit" class="h1" name ="wishDelete" value = "<%= recommend.get(i).getA_id() %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
+                              <button type="submit" class="h1" name ="wishDelete" value = "<%= recommend.get(i).getAc_id() %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
                                 <% }}else{ %>
                               </form>
                               	<form action="WishListInputCon" method="post">
-                                	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getA_id() %>">
+                                	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getAc_id() %>">
                                 	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                 </form>
                                 <% 
                                  } }else{
                                 	 %>
                                 	 <form action="WishListInputCon" method="post">
-                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getA_id() %>">
+                                 	<button type="submit" class="h0" name="a_idToWish" value="<%= recommend.get(i).getAc_id() %>">
                                  	<img src="./images/heart0.png" alt="heart0" class="heart"></button>
                                  </form>
                                  <%

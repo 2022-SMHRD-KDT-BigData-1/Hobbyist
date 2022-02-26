@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.message.model.AcademyDTO;
+import com.message.model.AddrDTO;
 import com.message.model.MemberDTO;
 import com.message.model.WishlistDAO;
 import com.message.model.WishlistDTO;
@@ -48,9 +49,9 @@ public class WishListInputCon extends HttpServlet {
 			if(session.getAttribute("wish") != null) {
 				ArrayList <WishlistDTO> wish = (ArrayList <WishlistDTO>) session.getAttribute("wish");
 				session.removeAttribute("wish");
-				ArrayList <AcademyDTO> recommend = (ArrayList<AcademyDTO>) session.getAttribute("recommend");
+				ArrayList <AddrDTO> recommend = (ArrayList<AddrDTO>) session.getAttribute("recommend");
 				for(int i = 0; i<wish.size();i++) {
-					if(recommend.get(i).getA_id().equals(a_id)) {
+					if(recommend.get(i).getAc_id().equals(a_id)) {
 						wish.remove(i);
 						wish.add(i, new WishlistDTO(0,1,null,null));
 						session.setAttribute("wish", wish);

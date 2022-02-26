@@ -77,7 +77,9 @@ public class ReviewDAO {
 			connect();
 			
 			sql="delete from review where re_nick=? and re_pw=? and re_id = ?";
-			
+			System.out.println(review.getRe_nick() + "nick ");
+			System.out.println(review.getRe_pw() + "pw");
+			System.out.println(review.getRe_id() + "id");
 			try {
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, review.getRe_nick());
@@ -119,41 +121,85 @@ public class ReviewDAO {
 			
 			return cnt;
 		}
-		
+		public ArrayList<ReviewDTO> reviewSelect(ArrayList<AddrDTO> score) {
+	         connect();
+	         ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
+	         
+	         
+	         try {
+	            for(int i = 0 ; i < score.size(); i++) {
+	               sql="select * from review where re_id = ?";
+	               psmt=conn.prepareStatement(sql);
+	               psmt.setString(1, score.get(i).getAc_id());
+	               rs=psmt.executeQuery();
+	               while(rs.next()) {
+	                  list.add(new ReviewDTO (rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
+	               }
+	            }
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         } finally {
+	            close();
+	         }
+	         return list;
+	      }
+//		public ArrayList<ReviewDTO> reviewSelect(ArrayList<AcademyDTO> score) {
+//			connect();
+//			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
+//			
+//			
+//			try {
+//				for(int i = 0 ; i < score.size(); i++) {
+//					sql="select * from review where re_id = ?";
+//					psmt=conn.prepareStatement(sql);
+//					psmt.setString(1, score.get(i).getA_id());
+//					rs=psmt.executeQuery();
+//					while(rs.next()) {
+//						list.add(new ReviewDTO (rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
+//					}
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			} finally {
+//				close();
+//			}
+//			return list;
+//		}
 
-		public ArrayList<ReviewDTO> reviewSelect(ArrayList<AcademyDTO> score) {
-			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
-			for(int i = 0 ; i < score.size(); i++) {
-			connect();
-			
-			sql="select * from review where re_id = ?";
-			
-			try {
-				psmt=conn.prepareStatement(sql);
-				psmt.setString(1, score.get(i).getA_id());
-				rs=psmt.executeQuery();
-				while(rs.next()) {
-					list.add(new ReviewDTO (rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close();
-			}
-			}
-			return list;
-		}
 		
-		public ArrayList<Double> avgScore(ArrayList<AcademyDTO> score) {
+//		public ArrayList<ReviewDTO> reviewSelect(ArrayList<AcademyDTO> score) {
+//			ArrayList<ReviewDTO> list = new ArrayList<ReviewDTO>();
+//			for(int i = 0 ; i < score.size(); i++) {
+//			connect();
+//			
+//			sql="select * from review where re_id = ?";
+//			
+//			try {
+//				psmt=conn.prepareStatement(sql);
+//				psmt.setString(1, score.get(i).getA_id());
+//				rs=psmt.executeQuery();
+//				while(rs.next()) {
+//					list.add(new ReviewDTO (rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8)));
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			} finally {
+//				close();
+//			}
+//			}
+//			return list;
+//		}
+		
+		public ArrayList<Double> avgScore(ArrayList<AddrDTO> score) {
 			ArrayList<Double> scoreAVG = new ArrayList<Double>();
-			for(int i = 0 ; i < score.size(); i++) {
 			connect(); 
 			
 			sql="select round(avg(re_score),1) from review where re_id = ?";
 			
 			try {
+				for(int i = 0 ; i < score.size(); i++) {
 				psmt=conn.prepareStatement(sql);
-				psmt.setString(1, score.get(i).getA_id());
+				psmt.setString(1, score.get(i).getAc_id());
 				rs=psmt.executeQuery();
 				
 				if(rs.next()) {
@@ -161,13 +207,39 @@ public class ReviewDAO {
 				}else {
 					scoreAVG.add(null);
 				}
-				
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				close(); 
 			}
-			}
+			
 			return scoreAVG;
 		}
+//		public ArrayList<Double> avgScore(ArrayList<AcademyDTO> score) {
+//			ArrayList<Double> scoreAVG = new ArrayList<Double>();
+//			connect(); 
+//			
+//			sql="select round(avg(re_score),1) from review where re_id = ?";
+//			
+//			try {
+//				for(int i = 0 ; i < score.size(); i++) {
+//					psmt=conn.prepareStatement(sql);
+//					psmt.setString(1, score.get(i).getA_id());
+//					rs=psmt.executeQuery();
+//					
+//					if(rs.next()) {
+//						scoreAVG.add(rs.getDouble(1));
+//					}else {
+//						scoreAVG.add(null);
+//					}
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			} finally {
+//				close(); 
+//			}
+//			
+//			return scoreAVG;
+//		}
 }
