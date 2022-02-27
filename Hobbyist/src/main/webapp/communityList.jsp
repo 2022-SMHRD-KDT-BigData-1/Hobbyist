@@ -150,7 +150,7 @@ a {
 						<tr>
 							<td width="10%">번호</td>
 							<td width="15%">이름</td>
-							<td width="30%">제목</td>
+							<td width="45%">제목</td>
 							<td width="20%">작성일</td>
 							<td width="10%">조회수</td>
 						</tr>
@@ -176,7 +176,7 @@ a {
 						} else if (count == 0) { // 데이터가 없으면
 						%>
 						<tr>
-							<td colspan="6" align="center">게시글이 없습니다.</td>
+							<td colspan="5" align="center">게시글이 없습니다.</td>
 						</tr>
 						<%
 						} else if (count > 0 && fCount != 0) { // 검색한 데이터가 있으면
@@ -201,19 +201,19 @@ a {
 						} else { // 검색된 데이터가 없으면
 						%>
 						<tr>
-							<td colspan="6" align="center">게시글이 없습니다.</td>
+							<td colspan="5" align="center">게시글이 없습니다.</td>
 						</tr>
 						<%
 						}
 						%>
 						<tr>
-							<td colspan="6" align="right">
+							<td colspan="5" align="right">
 								<%-- 버튼을 클릭하면 writeForm.jsp로 이동 --%> <input type="button"
 								value="글작성" onclick="location.href='communityWriteForm.jsp'">
 							</td>
 						</tr>
 						<tr>
-							<td colspan="6" align="center">
+							<td colspan="5" align="center">
 								<%
 								// 페이징  처리(모든 레코드)
 								if (count > 0 && fCount == 0 && find == null) {
@@ -294,7 +294,7 @@ a {
 									<option value="subject">제목</option>
 							</select>
 							</td>
-							<td colspan="3"><input type="text" name="find" id="find"></td>
+							<td colspan="2"><input type="text" name="find" id="find"></td>
 							<td><input type="submit" value="검색"></td>
 						</tr>
 						</form>
