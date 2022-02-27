@@ -2,7 +2,6 @@ package com.message.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,57 +10,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.model.AddrDTO;
 import com.message.model.HistoryDAO;
 import com.message.model.HistoryDTO;
 import com.message.model.MemberDTO;
-import com.message.model.WishlistDAO;
-import com.message.model.WishlistDTO;
 
-@WebServlet("/ManageCon")
-public class ManageCon extends HttpServlet {
+@WebServlet("/HistoryDeleteCon")
+public class HistoryDeleteCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=utf-8");
-		
 		request.setCharacterEncoding("utf-8");
-		
-		
-		String classname = request.getParameter("classname"); 
-		String city = request.getParameter("city");
-		String[] day = request.getParameterValues("day");
-		String day2 = "";
-		for(int i = 0; i < day.length; i++) {
-			if(day.length >1) {
-				day2 += day[i] + " ";
-			}else {
-				day2 += day[i];
-			}
-		}
-		String time = request.getParameter("time");
-		System.out.println(time+"con으로 전달된 time");
+		PrintWriter out = response.getWriter();
+		String ac_id = request.getParameter("ac"); 
+		System.out.println(ac_id+"con단 ac_id");
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		
+		HistoryDTO hisDelete = new HistoryDTO(0,null,null,ac_id,member.getM_email());
 		HistoryDAO dao = new HistoryDAO();
-		String ac_id = dao.selectAc_id(classname);
 		
-		HistoryDTO inputHis = new HistoryDTO(0, day2,time,ac_id, member.getM_email());
-		
-		
-		int cnt = dao.historyCreate(inputHis);
+		int cnt = dao.hisDelete(hisDelete);
 		
 		if(cnt > 0) {
-			System.out.println("수강이력 등록 성공");
-				response.sendRedirect("HistoryCon");
-			}else {
-				System.out.println("수강이력 등록 실패");
-				PrintWriter out = response.getWriter();
 				out.print("<script>");
-				out.print("alert('정확한 상호명을 입력해주세요.');");
+				out.print("alert('삭제 성공');");
+				out.print("</script>");
+				response.sendRedirect("HistoryCon");
+//				String pageNum = (String) session.getAttribute("pageNum");
+//				response.sendRedirect("Recommend.jsp?pageNum=" + pageNum);
+			}else {
+				System.out.println("수강이력 삭제 실패");
+				out.print("<script>");
+				out.print("alert('수강이력 삭제 실패');");
 				out.print("location.href='HistoryCon';");
 				out.print("</script>");
 			}
+
+		
+		
+		
+		
+		
 	}
+
 }

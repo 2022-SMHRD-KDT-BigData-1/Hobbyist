@@ -96,7 +96,7 @@ public class HistoryDAO {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				list.add(new AddrDTO(null,rs.getString(7),null,null,null,rs.getString(11),null,null,null,rs.getString(15),null,null));
+				list.add(new AddrDTO(rs.getString(4),rs.getString(7),null,null,null,rs.getString(11),null,null,null,rs.getString(15),null,null));
 			}
 
 		} catch (SQLException e) {
@@ -153,6 +153,27 @@ public class HistoryDAO {
 
 		return cnt;
 
+	}
+
+	public int hisDelete(HistoryDTO hisDelete) {
+		connect();
+		sql = "delete from History where m_email = ? and ac_id = ?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, hisDelete.getM_email());
+			psmt.setString(2, hisDelete.getAc_id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return cnt;
 	}
 
 }

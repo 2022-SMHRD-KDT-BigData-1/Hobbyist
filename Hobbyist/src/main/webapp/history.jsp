@@ -96,7 +96,6 @@
           <section>
             <div>
               <div class="row">
-                <form action="#" method="post">
                   <strong align="center"><h1>My Page</h1></strong>
                   <br />
                   <!-- <p><strong class="inin">My Page</strong></p> -->
@@ -111,24 +110,28 @@
                   	<td align="center">홈페이지</td>
                   	</tr>
                   	<%
+                  		int cnt = 1;
                   		for(int i = 0; i < his.size(); i++) {
                   	%>
+                  	<form action ="HistoryDeleteCon" method="post">
                   	<tr>
-                  	<td align="center"><%= his.get(i).getH_seq() %></td>
+                  	<td align="center"><%= cnt %></td>
                   	<td align="center"><%= addr.get(i).getAc_name() %></td>
                   	<td align="center"><%= addr.get(i).getAc_addr()%></td>
                   	<td align="center"><%= his.get(i).getH_day() %></td>
                   	<td align="center"><%= his.get(i).getH_time() %></td>
                   	<td align="center"><a href="<%= addr.get(i).getAc_rel()%>" target="_blank"><%= addr.get(i).getAc_rel()%></a></td>
+                  	<td align="center"><button type ="submit" name="ac" value ="<%=addr.get(i).getAc_id() %>">[삭제]</button></td>
                   	</tr>
+                  	</form>
                   <%
+                  	cnt++;
                   		}
                   %>
 					<tr>
 						<td colspan="6" align="center"><a href="manage.jsp" >수강 정보 추가하기</a></td>
 					</tr>
                   </table>
-                </form>
               </div>
             </div>
           </section>

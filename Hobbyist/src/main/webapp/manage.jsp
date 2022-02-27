@@ -76,7 +76,7 @@
           <section>
             <div>
               <div class="row">
-                <form action="history.jsp" method="post">
+                <form action="ManageCon" method="post">
                   <strong align="center"><h1>수강 관리</h1></strong>
                   <br />
                   <p><strong class="inin">수강 정보 입력</strong></p>
@@ -107,25 +107,25 @@
                       <td>요일</td>
                       <td>
                       	
-                        <input type="checkbox" name="day" value="mon" id="mon"/>
+                        <input type="checkbox" name="day" value="월" id="mon"/>
                         <label for="mon">월요일</label>
                         
-                        <input type="checkbox" name="day" value="tue" id="tue"/>
+                        <input type="checkbox" name="day" value="화" id="tue"/>
                         <label for="tue">화요일</label>
                         
-                        <input type="checkbox" name="day" value="wed" id="wed"/>
+                        <input type="checkbox" name="day" value="수" id="wed"/>
                         <label for="wed">수요일</label>
                         
-                        <input type="checkbox" name="day" value="thu" id="thu"/>
+                        <input type="checkbox" name="day" value="목" id="thu"/>
                         <label for="thu">목요일</label>
                         
-                        <input type="checkbox" name="day" value="fri" id="fri"/>
+                        <input type="checkbox" name="day" value="금" id="fri"/>
                         <label for="fri">금요일</label>
                         
-                        <input type="checkbox" name="day" value="sat" id="sat"/>
+                        <input type="checkbox" name="day" value="토" id="sat"/>
                         <label for="sat">토요일</label>
                         
-                        <input type="checkbox" name="day" value="sun" id="sun"/>
+                        <input type="checkbox" name="day" value="일" id="sun"/>
                         <label for="sun">일요일</label>
                         
                       </td>
@@ -133,22 +133,24 @@
                     <tr class="row2">
                       <td class="text1">시간</td>
                       <td>
-                        <select>
-                          <option value="오전 6시" name="time">6:00 - 8:00</option>
-                          <option value="오전 8시" name="time">8:00 - 10:00</option>
-                          <option value="오전 10시" name="time">10:00 - 12:00</option>
-                          <option value="오후 12시" name="time">12:00 - 14:00</option>
-                          <option value="오후 2시" name="time">14:00 - 16:00</option>
-                          <option value="오후 4시" name="time">16:00 - 18:00</option>
-                          <option value="오후 6시" name="time">18:00 - 20:00</option>
-                          <option value="오후 8시" name="time">20:00 - 22:00</option>
+                        <select name="time">
+                          <option value="6:00 - 8:00" >6:00 - 8:00</option>
+                          <option value="8:00 - 10:00" >8:00 - 10:00</option>
+                          <option value="10:00 - 12:00" >10:00 - 12:00</option>
+                          <option value="12:00 - 14:00" >12:00 - 14:00</option>
+                          <option value="14:00 - 16:00" >14:00 - 16:00</option>
+                          <option value="16:00 - 18:00" >16:00 - 18:00</option>
+                          <option value="18:00 - 20:00" >18:00 - 20:00</option>
+                          <option value="20:00 - 22:00" >20:00 - 22:00</option>
                         </select>
                       </td>
                     </tr>
 
                     <tr class="lastsub">
                       <td> </td>
-                      <td align="center"><a href="#" class="button primary fit">SEND</a></td>
+                      <td align="center">
+                      	<input type = "submit" value = "등록">
+                      </td>
                        
                       
                     </tr>
