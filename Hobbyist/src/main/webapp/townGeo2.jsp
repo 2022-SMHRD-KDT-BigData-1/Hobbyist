@@ -1,3 +1,5 @@
+<%@page import="com.message.model.MarkerDAO"%>
+<%@page import="com.message.model.MarkerDTO"%>
 <%@page import="com.message.model.RecommendDAO"%>
 <%@page import="com.message.model.MessageDTO"%>
 <%@page import="com.message.model.MessageDAO"%>
@@ -10,6 +12,9 @@
 <%
 MemberDTO member = (MemberDTO) session.getAttribute("member");
 %>
+<% ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
+MarkerDAO dao = new MarkerDAO();
+locmarker = dao.marSelect(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,6 +143,17 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 					<script type="text/javascript"
 						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
 					<script>
+					<% for(int i = 0 ; i < locmarker.size(); i++){ %>
+					<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
+				<% } %>
+				var markers = [];
+				var overlays = [];
+				
+				function makeClickListener(map, marker, overlay) {
+				    return function() {
+				        overlay.setMap(map)
+				    };
+				}
 						window.onload = function(){
 							var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
 						    mapOption = {
@@ -168,17 +184,9 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 							        infowindow.open(map, marker);
 							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 							        map.setCenter(coords);
-							        
 							    } 
 							});
-							
-							
-							
 						}
-						
-						
-						
-					
 					</script>
 				</div>
 			</div>
@@ -199,7 +207,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 					</header>
 					<ul>
                   <li><a href="townGeo.jsp">우리동네에서찾기</a></li>
-                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
                   <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>
                   <li><a href="WishlistSelectCon">위시리스트 </a></li>

@@ -250,7 +250,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
                </header>
                <ul>
                    <li><a href="townGeo.jsp">우리동네에서찾기</a></li>
-                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
                   <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>
                   <li><a href="WishlistSelectCon">위시리스트 </a></li>
