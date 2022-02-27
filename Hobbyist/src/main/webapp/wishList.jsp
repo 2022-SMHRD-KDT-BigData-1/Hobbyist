@@ -1,4 +1,6 @@
 
+<%@page import="com.message.model.MarkerDAO"%>
+<%@page import="com.message.model.MarkerDTO"%>
 <%@page import="com.message.model.AddrDTO"%>
 <%@page import="com.message.model.MemberDTO"%>
 <%@page import="com.message.model.WishlistDTO"%>
@@ -8,10 +10,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-ArrayList <AddrDTO> wishselect = (ArrayList <AddrDTO>) session.getAttribute("wishselect");
-ArrayList <WishlistDTO> wishselect2 = (ArrayList <WishlistDTO>) session.getAttribute("wishselect");
-MemberDTO member = (MemberDTO)session.getAttribute("member");
+ArrayList<AddrDTO> wishselect = (ArrayList<AddrDTO>) session.getAttribute("wishselect");
+ArrayList<WishlistDTO> wishselect2 = (ArrayList<WishlistDTO>) session.getAttribute("wishselect");
+MemberDTO member = (MemberDTO) session.getAttribute("member");
 %>
+<% ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
+MarkerDAO dao = new MarkerDAO();
+locmarker = dao.marSelect(); %>
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -26,9 +31,10 @@ MemberDTO member = (MemberDTO)session.getAttribute("member");
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
-<link  rel="stylesheet"href="./css/bootstrap.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src = "./js/bootstrap.js"></script>
+<link rel="stylesheet" href="./css/bootstrap.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./js/bootstrap.js"></script>
 <style type="text/css">
 a {
 	text-decoration: none;
@@ -200,47 +206,107 @@ a {
 	margin-top: 0;
 }
 
-#mapwrap{position:relative;overflow:hidden;}
-.category, .category *{margin:0;padding:0;color:#000;}   
-.category {position:absolute;overflow:hidden;top:10px;left:10px;width:150px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
-.category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
-.category li{list-style:none;float:left;width:50px;height:45px;padding-top:5px;cursor:pointer;} 
-.category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png') no-repeat;} 
-.category .ico_coffee {background-position:-10px 0;}  
-.category .ico_store {background-position:-10px -36px;}   
-.category .ico_carpark {background-position:-10px -72px;} 
+#mapwrap {
+	position: relative;
+	overflow: hidden;
+}
+
+.category, .category * {
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+
+.category {
+	position: absolute;
+	overflow: hidden;
+	top: 10px;
+	left: 10px;
+	width: 150px;
+	height: 50px;
+	z-index: 10;
+	border: 1px solid black;
+	font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+	font-size: 12px;
+	text-align: center;
+	background-color: #fff;
+}
+
+.category .menu_selected {
+	background: #FF5F4A;
+	color: #fff;
+	border-left: 1px solid #915B2F;
+	border-right: 1px solid #915B2F;
+	margin: 0 -1px;
+}
+
+.category li {
+	list-style: none;
+	float: left;
+	width: 50px;
+	height: 45px;
+	padding-top: 5px;
+	cursor: pointer;
+}
+
+.category .ico_comm {
+	display: block;
+	margin: 0 auto 2px;
+	width: 22px;
+	height: 26px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png')
+		no-repeat;
+}
+
+.category .ico_coffee {
+	background-position: -10px 0;
+}
+
+.category .ico_store {
+	background-position: -10px -36px;
+}
+
+.category .ico_carpark {
+	background-position: -10px -72px;
+}
+
 #wish {
-	margin : 0 auto;
-	padding : 0 auto;
-	height : 30px;
-	width : 30px;
+	margin: 0 auto;
+	padding: 0 auto;
+	height: 30px;
+	width: 30px;
 	box-sizing: content-box;
 }
-      .h1{
-      		text-align : center;
-            box-sizing: content-box;
-            width: 30px;
-            height : 30px;
-            margin: 0 auto;
-            padding: 0;
-            border: 0;
-            box-shadow : none;
-            background-color:transparent;
-        }
-        .heart{
-            width: 30px;
-            margin: 0 auto;
-            padding: 0 auto;
-        }
-        .relTd{
-        	position: relative;	
-        }
-        .wish {
-        	position: absolute;
-        	top : 45%;
-        	left : 50%;
-        	transform : translate(-50%, -50%);		
-        }
+
+.h1 {
+	text-align: center;
+	box-sizing: content-box;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding: 0;
+	border: 0;
+	box-shadow: none;
+	background-color: transparent;
+}
+
+.heart {
+	width: 30px;
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+.relTd {
+	position: relative;
+}
+
+.wish {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 </style>
 </head>
 <body class="is-preload">
@@ -255,21 +321,22 @@ a {
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-                  <%
-                     if(member != null) {
-                  %>
-                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
-                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
-                  <li><a href="update.jsp"><span class="label">회원 정보수정</span></a></li>
-                  <%
-                     }else{
-                        %>
-                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
-                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
-                        <%
-                     }
-                  %>
-               </ul> 
+						<%
+						if (member != null) {
+						%>
+						<li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+						<li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+						<li><a href="update.jsp"><span class="label">회원
+									정보수정</span></a></li>
+						<%
+						} else {
+						%>
+						<li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+						<li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+						<%
+						}
+						%>
+					</ul>
 				</header>
 
 				<!-- Banner -->
@@ -277,380 +344,175 @@ a {
 				<!-- Section -->
 
 				<section class="wishlist">
+				
+				<!-- <div id="map" style="width:100%;height:600px;"></div>
+
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
+						<script>
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						    mapOption = { 
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 3 // 지도의 확대 레벨
+						    };
+						
+						// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+						var map = new kakao.maps.Map(mapContainer, mapOption); 
+						</script>  -->
+						<div id="map" style="width:100%;height:600px;"></div>
+
+							<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
+							<script>
+							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+							    mapOption = {
+							        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+							        level: 3 // 지도의 확대 레벨
+							    };  
+							
+							// 지도를 생성합니다    
+							var map = new kakao.maps.Map(mapContainer, mapOption); 
+							
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
+							
+							// 주소로 좌표를 검색합니다
+							geocoder.addressSearch("광주광역시", function(result, status) {
+							
+							    // 정상적으로 검색이 완료됐으면 
+							     if (status === kakao.maps.services.Status.OK) {
+							
+							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+							
+							        // 결과값으로 받은 위치를 마커로 표시합니다
+							        var marker = new kakao.maps.Marker({
+							            map: map,
+							            position: coords
+							        });
+							
+							        // 인포윈도우로 장소에 대한 설명을 표시합니다
+							        var infowindow = new kakao.maps.InfoWindow({
+							            content: '<div style="width:150px;text-align:center;padding:6px 0;">Wish</div>'
+							        });
+							        infowindow.open(map, marker);
+							
+							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							        map.setCenter(coords);
+							    } 
+							});    
+							</script>
+						<hr><br>
 					<h3>Wishlist</h3>
-						<div class="col-sm-5">
-							<h4>Info</h4>
-							<table id="wishlist">
-								<thead>
-									<tr>
-										<th>분류</th>
-										<th>학원이름</th>
-										<th>위치</th>
-										<th>문의</th>
-										<th>Wish Check</th>
-									</tr>
-								</thead>
-								<tbody>
+					<div class="col-sm-5">
+						<h4>Info</h4>
+						<table id="wishlist">
+							<thead>
+								<tr>
+									<th>분류</th>
+									<th>학원이름</th>
+									<th>위치</th>
+									<th>문의</th>
+									<th>Wish Check</th>
+								</tr>
+							</thead>
+							<tbody>
 								<%
-									for(int i = 0; i < wishselect.size(); i++){
+								for (int i = 0; i < wishselect.size(); i++) {
 								%>
-									<tr>
-										<td><%= wishselect.get(i).getAc_category() %></td>
-										<td><%= wishselect.get(i).getAc_name() %></td>
-										<td><%= wishselect.get(i).getAc_addr() %></td>
-										<td><a href = "<%= wishselect.get(i).getAc_rel() %>"> 홈페이지 방문</a> </td>
-										<td class = "relTd">
-										 <%if(wishselect2 !=null){
-			                                 if(wishselect2.get(i) != null){
-			                              %>
-			                              <form action="WishlistPageDelCon" method="post" class = "wish">
-			                              <button type="submit" class="h1" name ="Del" value = "<%= 
-			                            		  wishselect.get(i).getAc_id()
-			                                %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
-			                                <% } %>
-			                              </form>
-			                                <% 
-			                                  }
-			                                %>
-										</td>
-									</tr>
+								<tr>
+									<td><%=wishselect.get(i).getAc_category()%></td>
+									<td><%=wishselect.get(i).getAc_name()%></td>
+									<td><%=wishselect.get(i).getAc_addr()%></td>
+									<td><a href="<%=wishselect.get(i).getAc_rel()%>">
+											홈페이지 방문</a></td>
+									<td class="relTd">
+										<%
+										if (wishselect2 != null) {
+											if (wishselect2.get(i) != null) {
+										%>
+										<form action="WishlistPageDelCon" method="post" class="wish">
+											<button type="submit" class="h1" name="Del"
+												value="<%=wishselect.get(i).getAc_id()%>">
+												<img src="./images/heart1.png" alt="heart1" class="heart">
+											</button>
+											<%
+											}
+											%>
+										</form> <%
+ }
+ %>
+									</td>
+								</tr>
 								<%
-									}
+								}
 								%>
-								</tbody>
-							</table>
-						</div>
-
-						<div class="col-sm-7">
-							<h4>map</h4>
-
-
-							<p style="margin-top: -12px">
-      <em class="link">
-        <a href="/web/documentation/#CategoryCode" target="_blank"
-          >카테고리 코드목록을 보시려면 여기를 클릭하세요!</a
-        >
-      </em>
-    </p>
-    <div class="map_wrap">
-      <div
-        id="map"
-        style="width: 100%; height: 580px; position: relative; overflow: hidden"
-      ></div>
-      <ul id="category">
-        <li id="BK9" data-order="0">
-          <span class="category_bg bank"></span>
-          은행
-        </li>
-        <li id="MT1" data-order="1">
-          <span class="category_bg mart"></span>
-          마트
-        </li>
-        <li id="PM9" data-order="2">
-          <span class="category_bg pharmacy"></span>
-          약국
-        </li>
-        <li id="OL7" data-order="3">
-          <span class="category_bg oil"></span>
-          주유소
-        </li>
-        <li id="CE7" data-order="4">
-          <span class="category_bg cafe"></span>
-          카페
-        </li>
-        <li id="CS2" data-order="5">
-          <span class="category_bg store"></span>
-          편의점
-        </li>
-      </ul>
-    </div>
-
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dbeb5d9508706363c850c1665cf88589"
-    ></script>
-    <script>
-      // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
-      var placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 }),
-        contentNode = document.createElement("div"), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
-        markers = [], // 마커를 담을 배열입니다
-        currCategory = ""; // 현재 선택된 카테고리를 가지고 있을 변수입니다
-
-      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        mapOption = {
-          center: new kakao.maps.LatLng(35.12467539437378, 126.92031651129558), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
-        };
-
-      // 지도를 생성합니다
-      var map = new kakao.maps.Map(mapContainer, mapOption);
-
-      // 장소 검색 객체를 생성합니다
-      var ps = new kakao.maps.services.Places(map);
-
-      // 지도에 idle 이벤트를 등록합니다
-      kakao.maps.event.addListener(map, "idle", searchPlaces);
-
-      // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
-      contentNode.className = "placeinfo_wrap";
-
-      // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
-      // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다
-      addEventHandle(contentNode, "mousedown", kakao.maps.event.preventMap);
-      addEventHandle(contentNode, "touchstart", kakao.maps.event.preventMap);
-
-      // 커스텀 오버레이 컨텐츠를 설정합니다
-      placeOverlay.setContent(contentNode);
-
-      // 각 카테고리에 클릭 이벤트를 등록합니다
-      addCategoryClickEvent();
-
-      // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
-      function addEventHandle(target, type, callback) {
-        if (target.addEventListener) {
-          target.addEventListener(type, callback);
-        } else {
-          target.attachEvent("on" + type, callback);
-        }
-      }
-
-      // 카테고리 검색을 요청하는 함수입니다
-      function searchPlaces() {
-        if (!currCategory) {
-          return;
-        }
-
-        // 커스텀 오버레이를 숨깁니다
-        placeOverlay.setMap(null);
-
-        // 지도에 표시되고 있는 마커를 제거합니다
-        removeMarker();
-
-        ps.categorySearch(currCategory, placesSearchCB, { useMapBounds: true });
-      }
-
-      // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-      function placesSearchCB(data, status, pagination) {
-        if (status === kakao.maps.services.Status.OK) {
-          // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
-          displayPlaces(data);
-        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
-        } else if (status === kakao.maps.services.Status.ERROR) {
-          // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
-        }
-      }
-
-      // 지도에 마커를 표출하는 함수입니다
-      function displayPlaces(places) {
-        // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
-        // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
-        var order = document
-          .getElementById(currCategory)
-          .getAttribute("data-order");
-
-        for (var i = 0; i < places.length; i++) {
-          // 마커를 생성하고 지도에 표시합니다
-          var marker = addMarker(
-            new kakao.maps.LatLng(places[i].y, places[i].x),
-            order
-          );
-
-          // 마커와 검색결과 항목을 클릭 했을 때
-          // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
-          (function (marker, place) {
-            kakao.maps.event.addListener(marker, "click", function () {
-              displayPlaceInfo(place);
-            });
-          })(marker, places[i]);
-        }
-      }
-
-      // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-      function addMarker(position, order) {
-        var imageSrc =
-            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
-          imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
-          imgOptions = {
-            spriteSize: new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
-            spriteOrigin: new kakao.maps.Point(46, order * 36), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-            offset: new kakao.maps.Point(11, 28), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-          },
-          markerImage = new kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize,
-            imgOptions
-          ),
-          marker = new kakao.maps.Marker({
-            position: position, // 마커의 위치
-            image: markerImage,
-          });
-
-        marker.setMap(map); // 지도 위에 마커를 표출합니다
-        markers.push(marker); // 배열에 생성된 마커를 추가합니다
-
-        return marker;
-      }
-
-      // 지도 위에 표시되고 있는 마커를 모두 제거합니다
-      function removeMarker() {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-        markers = [];
-      }
-
-      // 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
-      function displayPlaceInfo(place) {
-        var content =
-          '<div class="placeinfo">' +
-          '   <a class="title" href="' +
-          place.place_url +
-          '" target="_blank" title="' +
-          place.place_name +
-          '">' +
-          place.place_name +
-          "</a>";
-
-        if (place.road_address_name) {
-          content +=
-            '    <span title="' +
-            place.road_address_name +
-            '">' +
-            place.road_address_name +
-            "</span>" +
-            '  <span class="jibun" title="' +
-            place.address_name +
-            '">(지번 : ' +
-            place.address_name +
-            ")</span>";
-        } else {
-          content +=
-            '    <span title="' +
-            place.address_name +
-            '">' +
-            place.address_name +
-            "</span>";
-        }
-
-        content +=
-          '    <span class="tel">' +
-          place.phone +
-          "</span>" +
-          "</div>" +
-          '<div class="after"></div>';
-
-        contentNode.innerHTML = content;
-        placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
-        placeOverlay.setMap(map);
-      }
-
-      // 각 카테고리에 클릭 이벤트를 등록합니다
-      function addCategoryClickEvent() {
-        var category = document.getElementById("category"),
-          children = category.children;
-
-        for (var i = 0; i < children.length; i++) {
-          children[i].onclick = onClickCategory;
-        }
-      }
-
-      // 카테고리를 클릭했을 때 호출되는 함수입니다
-      function onClickCategory() {
-        var id = this.id,
-          className = this.className;
-
-        placeOverlay.setMap(null);
-
-        if (className === "on") {
-          currCategory = "";
-          changeCategoryClass();
-          removeMarker();
-        } else {
-          currCategory = id;
-          changeCategoryClass(this);
-          searchPlaces();
-        }
-      }
-
-      // 클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
-      function changeCategoryClass(el) {
-        var category = document.getElementById("category"),
-          children = category.children,
-          i;
-
-        for (i = 0; i < children.length; i++) {
-          children[i].className = "";
-        }
-
-        if (el) {
-          el.className = "on";
-        }
-      }
-    </script>
-						</div>
-				</section>
+							</tbody>
+						</table>
+					</div>
+					
 			</div>
 		</div>
 
-		<!-- Sidebar -->
-		<div id="sidebar">
-			<div class="inner">
-				<!-- Search -->
-				<section id="search" class="alt">
-					<form method="post" action="#">
-						<input type="text" name="query" id="query" placeholder="Search" />
-					</form>
-				</section>
 
-				<!-- Menu -->
-				<nav id="menu">
-					<header class="major">
-						<h2>Menu</h2>
-					</header>
-					<ul>
-                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
-                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
-                  <li><a href="geo.html">길찾기 </a></li>
-                  <li><a href="communityList.jsp">게시판</a></li>
-                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
-               </ul>
-				</nav>
+		</section>
+	</div>
+	</div>
 
-				<!-- Section -->
-				<section>
-					<header class="major">
-						<h2>My Info</h2>
-					</header>
-					<p></p>
-					<ul class="contact">
-                     <%
-                        if(member != null){
-                     %>
-                  <li><a href="#"><%= member.getM_email() %></a></li>
-                  <li><%= member.getM_tel() %></li>
-                  <li><%= member.getM_nick() %>님 환영합니다.
-                  </li>
-               <%
-                        }else {
-                           %>
-                           <li>로그인을 해주세요</li>
-                           <%   
-                        }
-               %>
-               </ul>
-				</section>
+	<!-- Sidebar -->
+	<div id="sidebar">
+		<div class="inner">
+			<!-- <!-- Search -->
+			<section id="search" class="alt">
+				<form method="post" action="#">
+					<input type="text" name="query" id="query" placeholder="Search" />
+				</form>
+			</section>
 
-				<!-- Footer -->
-				<footer id="footer">
-					<p class="copyright">
-						&copy; Untitled. All rights reserved. Demo Images: <a
-							href="https://unsplash.com">Unsplash</a>. Design: <a
-							href="https://html5up.net">HTML5 UP</a>.
-					</p>
-				</footer>
-			</div>
+			<!-- Menu -->
+			<nav id="menu">
+				<header class="major">
+					<h2>Menu</h2>
+				</header>
+				<ul>
+					<li><a href="townGeo.html">우리동네에서찾기</a></li>
+					<li><a href="Recommend.jsp">카테고리별 검색</a></li>
+					<li><a href="geo.html">길찾기 </a></li>
+					<li><a href="communityList.jsp">게시판</a></li>
+					<li><a href="WishlistSelectCon">위시리스트 </a></li>
+				</ul>
+			</nav>
+
+			<!-- Section -->
+			<section>
+				<header class="major">
+					<h2>My Info</h2>
+				</header>
+				<p></p>
+				<ul class="contact">
+					<%
+					if (member != null) {
+					%>
+					<li><a href="#"><%=member.getM_email()%></a></li>
+					<li><%=member.getM_tel()%></li>
+					<li><%=member.getM_nick()%>님 환영합니다.</li>
+					<%
+					} else {
+					%>
+					<li>로그인을 해주세요</li>
+					<%
+					}
+					%>
+				</ul>
+			</section>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<p class="copyright">
+					&copy; Untitled. All rights reserved. Demo Images: <a
+						href="https://unsplash.com">Unsplash</a>. Design: <a
+						href="https://html5up.net">HTML5 UP</a>.
+				</p>
+			</footer>
 		</div>
+	</div>
 	</div>
 
 	<script
