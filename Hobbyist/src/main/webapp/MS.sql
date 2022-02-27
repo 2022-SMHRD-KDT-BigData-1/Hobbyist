@@ -1,19 +1,25 @@
+insert into history values(1,'월화','10:00-12:00','CR_0007','admin')
+select * from member
+select * from HISTORY
+select *from history h, addr ad where h.ac_id=ad.ac_id and m_email='admin' order by h_seq;
+select * from addr
+select ac_id from addr where ac_name = '크로스핏포텐'
 select count(*) from academy where a_L_category = '테스트1' and a_m_category = '테스트1-1' and a_city = '남구'
-
+  select * from history h, addr ad where h.ac_id=ad.ac_id and m_email='admin'
 select * from WISHLIST
 select *
 from wishlist w, academy a
 where w.a_id = a.a_id
 select * from wishlist w, academy a where w.a_id = a.a_id and w_wish = 1 and w_email = 'admin'
 select * from addr where ac_si = '남구' and ac_dong = '봉선동' and ac_category = '크로스핏'
-
+select * from MEMBER
 drop table addr
 select * from addr
 =======
 drop table wishlist cascade constraint
-
+drop table history
 select * from wishlist w, addr a where w.ac_id = a.ac_id and w_wish = 1 and w_email = 'admin'
-
+	1,7,11,2,3,15
 create table wishlist(
    w_seq number(5) not null,
    w_wish number(5) not null,
