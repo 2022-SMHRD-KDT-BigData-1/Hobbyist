@@ -82,8 +82,7 @@ String ex = result2[1].replace(" ", "");
 
             <div>
                <button onClick="getRP()">경로요청 실행</button>
-               <br> <a
-                  href="https://apis.openapi.sk.com/tmap/app/routes?appKey=l7xxeecc964391d54ad994319ded9e19e28d&name=address&lon=<%=x%>&lat=<%=y%>">경로안내</a>
+               <br>
                <p id="result" />
             </div>
 
