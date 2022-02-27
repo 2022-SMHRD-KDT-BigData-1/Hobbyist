@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//ㅇㅇㅇㅇ
 public class MemberDAO {
 	//DAO에는 필요한 필드들을 미리 선언
 	private Connection conn;
