@@ -1,9 +1,7 @@
 <%@page import="com.message.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-MemberDTO member = (MemberDTO) session.getAttribute("member");
-%>
+<%	MemberDTO member = (MemberDTO) session.getAttribute("member");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,12 +23,12 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	margin: 0 auto;
 	padding: 0px auto;
 	width: 1300px;
-	height: 130px;
+	height: 100px;
 	box-sizing: border-box;
 	margin-top: 20px;
 	border: 2px solid #f45c5c;
 	border-radius: 5px 5px 5px 5px;
-	padding-top: 10px;
+	padding-top: 50px;
 	padding-left: 10px;
 }
 
@@ -86,6 +84,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	margin-top: 20px;
 	border: 2px solid #f45c5c;
 	border-radius: 5px 5px 5px 5px;
+	
 }
 
 #recMap {
@@ -112,7 +111,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-                  <%
+                 <!--  <%
                      if(member != null) {
                   %>
                   <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
@@ -125,24 +124,20 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
                   <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
                         <%
                      }
-                  %>
+                  %> -->
                </ul> 
 				</header>
 			</div>
 
 			<div id="category_wrapper_wrapper">
-				<form action="kakaoT.jsp" method="post">
+				<form action="townGeo2.jsp" method="post">
 					<div class="category_wraper">
-						<span>출발주소</span> 
+						<span>주변 학원 찾기</span> 
 						<input type="text" class="category" name="start" placeholder="ex) 광주광역시 북구 호동로"> 
 					</div>
 					<div class="category_wraper">
-						<span>도착주소</span> 
-						<input type="text" class="category" name="end" placeholder="ex) 광주광역시 동구 예술길 31-15">
-					</div>
-					<div class="category_wraper">
 						<button type="submit">
-							<span id="recSearch">지오코딩 실행</span>
+							<span id="recSearch">검색</span>
 						</button>
 					</div>
 				</form>
@@ -183,16 +178,16 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 						<h2>Menu</h2>
 					</header>
 					<ul>
-                  <li><a href="towninput.jsp">우리동네에서찾기</a></li>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
                   <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
-                  <li><a href="geo.jsp">길찾기 </a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>
                   <li><a href="WishlistSelectCon">위시리스트 </a></li>
                </ul>
 				</nav>
 
 				<!-- Section -->
-				<section>
+				<!-- <section>
 					<header class="major">
 						<h2>My Info</h2>
 					</header>
@@ -209,11 +204,11 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
                         }else {
                            %>
                            <li>로그인을 해주세요</li>
-                          <%  
+                           <%   
                         }
                %>
                </ul>
-				</section>
+				</section> -->
 
 				<!-- Footer -->
 				<footer id="footer">
