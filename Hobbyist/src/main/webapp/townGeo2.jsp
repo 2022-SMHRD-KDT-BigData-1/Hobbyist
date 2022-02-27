@@ -8,11 +8,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-request.setCharacterEncoding("UTF-8");
 MemberDTO member = (MemberDTO) session.getAttribute("member");
-String adr = member.getM_address();
 %>
-<input type="hidden" name="adr" class="adr">
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,8 +88,12 @@ String adr = member.getM_address();
 	</script>
 </head>
 <body>
+	<%
+	request.setCharacterEncoding("UTF-8");
+	String start = request.getParameter("start");
+	%>
 
-	<input type="hidden" value="<%=adr%>" class="adr" name='adr'>
+	<input type="hidden" value="<%=start%>" class="start" name='start'>
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
@@ -123,8 +124,9 @@ String adr = member.getM_address();
 
 			<div id="category_wrapper_wrapper">
 					<script>
-						var value1 = document.querySelector('.adr').value;
-					</script>
+						var value1 = document.querySelector('.start').value;
+						
+						</script>
 				
 				<div class="category_wraper">
 					<span>입력하신 주소입니다.</span>
@@ -137,30 +139,16 @@ String adr = member.getM_address();
 						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
 					<script>
 						window.onload = function(){
-							var mapContainer = document.getElementById("recMap"), // 지도를 표시할 div 
+							var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
 						    mapOption = {
-						        center: new kakao.maps.LatLng(35.160617058500605, 126.85134751152451), // 지도의 중심좌표
-						        level: 4, // 지도의 확대 레벨
-						        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-						    }; 
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 3 // 지도의 확대 레벨
+						    };
 							// 지도를 생성합니다    
 							var map = new kakao.maps.Map(mapContainer, mapOption); 
 							// 주소-좌표 변환 객체를 생성합니다
-							var myLocmarker = document.querySelectorAll('.locmarker');
-							var locArray = new Array(myLocmarker.length);
 							var geocoder = new kakao.maps.services.Geocoder();
-							for(var i = 0; i < myLocmarker.length; i++){
-								locArray[i] = new Array(7);
-								var arr = myLocmarker[i].value.split(',');
-								locArray[i][0] = arr[0];
-								locArray[i][1] = arr[1];
-								locArray[i][2] = arr[2];
-								locArray[i][3] = arr[3];
-								locArray[i][4] = arr[4];
-								locArray[i][5] = arr[5];
-								locArray[i][6] = arr[6];
-								console.log(locArray[i][4]+'/'+locArray[i][5] + '/'+locArray[i][6]);
-							}
+						
 							// 주소로 좌표를 검색합니다 (시작지점)
 							geocoder.addressSearch(value1,function(result, status) {
 							    // 정상적으로 검색이 완료됐으면 
@@ -169,65 +157,28 @@ String adr = member.getM_address();
 							        // 위도, 경도로 변환해주는 코드
 							        	/*console.log("test "+ coords);*/
 							     // 결과값으로 받은 위치를 마커로 표시합니다
-							        							        map.setCenter(coords);
+							        var marker = new kakao.maps.Marker({
+							            map: map,
+							            position: coords 
+							        });
+							        // 인포윈도우로 장소에 대한 설명을 표시합니다
+							        var infowindow = new kakao.maps.InfoWindow({
+							            content: '<div style="width:150px;text-align:center;padding:6px 0;">입력한 주소</div>'
+							        });
+							        infowindow.open(map, marker);
+							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							        map.setCenter(coords);
+							        
 							    } 
 							});
-							for(var i =0; i<locArray.length; i++){
-								// 지도에 마커를 생성하고 표시한다
-								var marker = new kakao.maps.Marker({
-									position: new kakao.maps.LatLng(locArray[i][1], locArray[i][2]),
-									map: map // 마커를 표시할 지도 객체
-								});
-								
-								
-								var content = '<div class="wrap">' + 
-					            '    <div class="info">' + 
-					            '        <div class="title">' + 
-					                        locArray[i][0] + 
-					            '            <div class="close" onclick="closeOverlay('+i+')" title="닫기"></div>' + 
-					            '        </div>' + 
-					            '        <div class="body">' + 
-					            '            <div class="img">' +
-					            '                <img src="'+locArray[i][4]+'" width="73" height="70" alt = "NO IMAGE">' +
-					            '           </div>' + 
-					            '            <div class="desc">' + 
-					            '                <div class="ellipsis">'+locArray[i][3]+'</div>' + 
-					            '                <div><a href="'+locArray[i][6]+'" target="_blank" class="link">홈페이지</a></div>' + 
-					            '                <div><a href="'+locArray[i][5]+'" target="_blank" class="link">리뷰</a></div>' +
-					            '            </div>' + 
-					            '        </div>' + 
-					            '    </div>' +    
-					            '</div>';
-
-								// 마커 위에 커스텀오버레이를 표시합니다
-								// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-								overlay = new kakao.maps.CustomOverlay({
-								    content: content,
-								    map: null,
-								    position: marker.getPosition()   
-								});
-								
-								
-								kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
-								// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-								/*kakao.maps.event.addListener(marker, 'click', function() {
-									overlay.setMap(map);
-								});*/
-						
-								// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-								markers.push(marker);
-								overlays.push(overlay);	
-								}
-					//}
 							
-					function closeOverlay(i) {
-						 overlays[i].setMap(null);   
-					    //overlay.setMap(null);
-					    /*$(".wrap").on("click",function(){
-					    	$(this).hide();
-					    })*/
-					}
+							
+							
 						}
+						
+						
+						
+					
 					</script>
 				</div>
 			</div>

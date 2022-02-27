@@ -790,11 +790,17 @@ if(recommend != null){
                </div>
             </div>
             <div id = "recMap">
-                  <% for(int i = 0 ; i < locmarker.size(); i++){ %>
-   <input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
+                  <% for(int i = 0 ; i < recommend.size(); i++){ %>
+   <%-- <input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
+<% } %> --%>
+<input type="hidden" value="<%= recommend.get(i).getAc_name() %>,<%= recommend.get(i).getAc_wi() %>,<%= recommend.get(i).getAc_ky() %>,<%= recommend.get(i).getAc_addr() %>,<%= recommend.get(i).getAc_img() %>,<%= recommend.get(i).getAc_rev() %>,<%= recommend.get(i).getAc_rel() %>" class="locmarker">
 <% } %>
+<input type="hidden" value="<%=locmarker.get(0).getAC_WI() %>" class="wi">
+<input type="hidden" value="<%=locmarker.get(0).getAC_KY() %>" class="ky">
    <div id="map">
-      <script src="./assets/js/jquery.min.js"></script>
+      <script src="./assets/js/jquery.min.js">
+      
+      </script>
       <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=clusterer"></script>
       <script>
       var markers = [];
@@ -805,36 +811,37 @@ if(recommend != null){
               overlay.setMap(map)
           };
       }
+      var myLocmarker = document.querySelectorAll('.locmarker');
       
-      <%-- // 지도를 생성한다--%> 
+      var locArray = new Array(myLocmarker.length);
       var map; 
       var overlay;
+      
+      for(var i = 0; i < myLocmarker.length; i++){
+         locArray[i] = new Array(7);
+         var arr = myLocmarker[i].value.split(',');
+         locArray[i][0] = arr[0];
+         locArray[i][1] = arr[1];
+         locArray[i][2] = arr[2];
+         locArray[i][3] = arr[3];
+         locArray[i][4] = arr[4];
+         locArray[i][5] = arr[5];
+         locArray[i][6] = arr[6];
+         
+      }
+
+      <%-- // 지도를 생성한다--%> 
+      
+   
       //window.onload = function(){
             var mapContainer = document.getElementById("recMap"), // 지도를 표시할 div 
              mapOption = {
-                 center: new kakao.maps.LatLng(35.160617058500605, 126.85134751152451), // 지도의 중심좌표
+                 center: new kakao.maps.LatLng(locArray[0][1], locArray[0][2]), // 지도의 중심좌표
                  level: 4, // 지도의 확대 레벨
                  mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
              }; 
             map = new kakao.maps.Map(mapContainer, mapOption);
-            var myLocmarker = document.querySelectorAll('.locmarker');
-            
-            var locArray = new Array(myLocmarker.length);
-            
-            
-            for(var i = 0; i < myLocmarker.length; i++){
-               locArray[i] = new Array(7);
-               var arr = myLocmarker[i].value.split(',');
-               locArray[i][0] = arr[0];
-               locArray[i][1] = arr[1];
-               locArray[i][2] = arr[2];
-               locArray[i][3] = arr[3];
-               locArray[i][4] = arr[4];
-               locArray[i][5] = arr[5];
-               locArray[i][6] = arr[6];
-               console.log(locArray[i][4]+'/'+locArray[i][5] + '/'+locArray[i][6]);
-            }
-
+           
             
             //클러스터러 추가
              var clusterer = new kakao.maps.MarkerClusterer({
