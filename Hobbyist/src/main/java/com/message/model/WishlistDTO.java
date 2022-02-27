@@ -18,5 +18,5 @@ public class WishlistDTO {
 	private int w_seq;
 	private int w_wish;
 	private String w_email;
-	private String a_id;
+	private String ac_id;
 }

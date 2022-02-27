@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.message.model.AddrDTO;
+import com.message.model.HistoryDTO;
 import com.message.model.MemberDTO;
 import com.message.model.WishlistDAO;
 import com.message.model.WishlistDTO;
@@ -31,10 +32,15 @@ public class ManageCon extends HttpServlet {
 		String classname = request.getParameter("classname"); 
 		String city = request.getParameter("city");
 		String[] day = request.getParameterValues("day");
+		String day2 = "";
+		for(int i = 0; i < day.length; i++) {
+			day2 += day[i] + ",";
+		}
 		String time = request.getParameter("time");
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		
-		int cnt = dao.wishCreate(wishCreate);
+		HistoryDTO inputHis = new HistoryDTO(0,);
+		int cnt = dao.wishCreate(inputHis);
 		
 		if(cnt > 0) {
 			System.out.println("위시리스트 등록 성공");

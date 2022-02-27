@@ -1,8 +1,17 @@
 
+<%@page import="com.message.model.AddrDTO"%>
+<%@page import="com.message.model.MemberDTO"%>
+<%@page import="com.message.model.WishlistDTO"%>
+<%@page import="com.message.model.AcademyDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%
+ArrayList <AddrDTO> wishselect = (ArrayList <AddrDTO>) session.getAttribute("wishselect");
+ArrayList <WishlistDTO> wishselect2 = (ArrayList <WishlistDTO>) session.getAttribute("wishselect");
+MemberDTO member = (MemberDTO)session.getAttribute("member");
+%>
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -16,16 +25,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
-<link
-	href="https://fonts.googleapis.com/
-    icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined"
-	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous" />
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+<link  rel="stylesheet"href="./css/bootstrap.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src = "./js/bootstrap.js"></script>
 <style type="text/css">
 a {
 	text-decoration: none;
@@ -196,6 +199,7 @@ a {
 	font-size: 11px;
 	margin-top: 0;
 }
+
 #mapwrap{position:relative;overflow:hidden;}
 .category, .category *{margin:0;padding:0;color:#000;}   
 .category {position:absolute;overflow:hidden;top:10px;left:10px;width:150px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
@@ -205,6 +209,38 @@ a {
 .category .ico_coffee {background-position:-10px 0;}  
 .category .ico_store {background-position:-10px -36px;}   
 .category .ico_carpark {background-position:-10px -72px;} 
+#wish {
+	margin : 0 auto;
+	padding : 0 auto;
+	height : 30px;
+	width : 30px;
+	box-sizing: content-box;
+}
+      .h1{
+      		text-align : center;
+            box-sizing: content-box;
+            width: 30px;
+            height : 30px;
+            margin: 0 auto;
+            padding: 0;
+            border: 0;
+            box-shadow : none;
+            background-color:transparent;
+        }
+        .heart{
+            width: 30px;
+            margin: 0 auto;
+            padding: 0 auto;
+        }
+        .relTd{
+        	position: relative;	
+        }
+        .wish {
+        	position: absolute;
+        	top : 45%;
+        	left : 50%;
+        	transform : translate(-50%, -50%);		
+        }
 </style>
 </head>
 <body class="is-preload">
@@ -215,14 +251,25 @@ a {
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="index.html" class="logo"><h1>
+					<a href="main.jsp" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-						<li><a href="#"><span class="label">로그아웃</span></a></li>
-						<li><a href="#"><span class="label">메인페이지</span></a></li>
-						<li><a href="#"><span class="label">개인정보수정</span></a></li>
-					</ul>
+                  <%
+                     if(member != null) {
+                  %>
+                  <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
+                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="update.jsp"><span class="label">회원 정보수정</span></a></li>
+                  <%
+                     }else{
+                        %>
+                  <li><a href="Login.jsp"><span class="label">로그인</span></a></li>
+                  <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
+                        <%
+                     }
+                  %>
+               </ul> 
 				</header>
 
 				<!-- Banner -->
@@ -231,7 +278,6 @@ a {
 
 				<section class="wishlist">
 					<h3>Wishlist</h3>
-					<div class="row">
 						<div class="col-sm-5">
 							<h4>Info</h4>
 							<table id="wishlist">
@@ -240,45 +286,39 @@ a {
 										<th>분류</th>
 										<th>학원이름</th>
 										<th>위치</th>
-										<th>문의 번호</th>
+										<th>문의</th>
+										<th>Wish Check</th>
 									</tr>
 								</thead>
 								<tbody>
-									<%
-									for (int i = 0; i <= 10; i++) {
-									%>
+								<%
+									for(int i = 0; i < wishselect.size(); i++){
+								%>
 									<tr>
-										<td>분류</td>
-										<td>학원이름</td>
-										<td>위치</td>
-										<td>문의 번호</td>
+										<td><%= wishselect.get(i).getAc_category() %></td>
+										<td><%= wishselect.get(i).getAc_name() %></td>
+										<td><%= wishselect.get(i).getAc_addr() %></td>
+										<td><a href = "<%= wishselect.get(i).getAc_rel() %>"> 홈페이지 방문</a> </td>
+										<td class = "relTd">
+										 <%if(wishselect2 !=null){
+			                                 if(wishselect2.get(i) != null){
+			                              %>
+			                              <form action="WishlistPageDelCon" method="post" class = "wish">
+			                              <button type="submit" class="h1" name ="Del" value = "<%= 
+			                            		  wishselect.get(i).getAc_id()
+			                                %>"><img src="./images/heart1.png" alt="heart1" class="heart"></button>
+			                                <% } %>
+			                              </form>
+			                                <% 
+			                                  }
+			                                %>
+										</td>
 									</tr>
-									<%
+								<%
 									}
-									%>
+								%>
 								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="2"></td>
-										<td><a href="#" class="button primary small">Small</a></td>
-									</tr>
-								</tfoot>
 							</table>
-							<!-- <div>
-								<img src="images/sample_wishlist.jpg" />
-							</div>
-							<div>
-								<ul class="alt">
-									<li><strong>모던필라테스</strong></li>
-									a_name
-									<li>광주광역시 남구 봉선동</li>
-									구/동
-									<li>062-672-9030</li>
-									
-									<li>광주 남구 용대로74번길 11-1</li>
-									<li><a href="#" class="button primary small">Call</a></li>
-								</ul>
-							</div> -->
 						</div>
 
 						<div class="col-sm-7">
@@ -548,33 +588,6 @@ a {
         }
       }
     </script>
-							<!--  <div class="map">
-                  <img src="images/sample_map.jpg.png" />
-                  * 카카오맵 - 지도퍼가기
-                  1. 지도 노드
-                  <div class="kakao_map">
-                    <div
-                      id="daumRoughmapContainer1644542523530"
-                      class="root_daum_roughmap root_daum_roughmap_landing"
-                    ></div>
-                  </div>
-
-                  <script
-                    charset="UTF-8"
-                    class="daum_roughmap_loader_script"
-                    src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"
-                  ></script>
-
-                  3. 실행 스크립트
-                  <script charset="UTF-8">
-                    new daum.roughmap.Lander({
-                      timestamp: "1644542523530",
-                      key: "2948y",
-                      mapWidth: "1000",
-                      mapHeight: "520",
-                    }).render();
-                  </script>
-                </div> -->
 						</div>
 				</section>
 			</div>
@@ -596,10 +609,12 @@ a {
 						<h2>Menu</h2>
 					</header>
 					<ul>
-						<li><a href="m1.html">My Schedule</a></li>
-						<li><a href="m2.html">My Wishlist</a></li>
-						<li><a href="m3.html">My History</a></li>
-					</ul>
+                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
 				</nav>
 
 				<!-- Section -->
@@ -609,11 +624,21 @@ a {
 					</header>
 					<p></p>
 					<ul class="contact">
-						<li><a href="#">smhrd@smhrd.co.kr</a></li>
-						<li>(000) 000-0000</li>
-						<li>1234 Somewhere Road #8254<br /> Nashville, TN 00000-0000
-						</li>
-					</ul>
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
 				</section>
 
 				<!-- Footer -->

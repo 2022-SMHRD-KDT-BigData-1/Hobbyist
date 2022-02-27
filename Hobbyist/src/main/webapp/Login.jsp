@@ -165,7 +165,7 @@
     <hr>
     <p class="find">
        
-        <p><a href="JoinCon.do" >회원가입</a></p>
+        <p><a href="Join.jsp" >회원가입</a></p>
     </p>
     </div>
     <div>
