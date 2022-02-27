@@ -78,7 +78,7 @@
                      if(member != null) {
                   %>
                   <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
-                  <li><a href="history.jsp"><span class="label">수강관리</span></a></li>
+                  <li><a href="historyCon"><span class="label">수강관리</span></a></li>
                   <li><a href="update.html"><span class="label">정보수정</span></a></li>
                   <%
                      }else{
