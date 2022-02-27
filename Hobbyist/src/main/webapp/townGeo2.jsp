@@ -11,7 +11,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 MemberDTO member = (MemberDTO) session.getAttribute("member");
+String adr = member.getM_address();
 %>
+<input type="hidden" value="<%=adr%>" class="adr">
 <% ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
 MarkerDAO dao = new MarkerDAO();
 locmarker = dao.marSelect(); %>
@@ -138,64 +140,120 @@ locmarker = dao.marSelect(); %>
 				</div>
 			</div>
 			<div id="recWrapper">
-				<div id="recMap">
-					<% for(int i = 0 ; i < locmarker.size(); i++){ %>
+				<div id = "recMap">
+                  <% for(int i = 0 ; i < locmarker.size(); i++){ %>
+	<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
+<% } %>
+	<div id="map">
+		<script src="./assets/js/jquery.min.js"></script>
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=clusterer"></script>
+		<script>
+		var markers = [];
+		var overlays = [];
+		
+		function makeClickListener(map, marker, overlay) {
+		    return function() {
+		        overlay.setMap(map)
+		    };
+		}
+		//회원이 입력한 주소를 var start로 입력????
+		var value1 = document.querySelector('.adr').value;
+		<%-- // 지도를 생성한다--%> 
+		var map; 
+		var overlay;
+		//window.onload = function(){
+				var mapContainer = document.getElementById("recMap"), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(value1), // 지도의 중심좌표
+			        level: 4, // 지도의 확대 레벨
+			        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+			    }; 
+				map = new kakao.maps.Map(mapContainer, mapOption);
+				var myLocmarker = document.querySelectorAll('.locmarker');
+				
+				var locArray = new Array(myLocmarker.length);
+				
+				
+				for(var i = 0; i < myLocmarker.length; i++){
+					locArray[i] = new Array(7);
+					var arr = myLocmarker[i].value.split(',');
+					locArray[i][0] = arr[0];
+					locArray[i][1] = arr[1];
+					locArray[i][2] = arr[2];
+					locArray[i][3] = arr[3];
+					locArray[i][4] = arr[4];
+					locArray[i][5] = arr[5];
+					locArray[i][6] = arr[6];
+					console.log(locArray[i][4]+'/'+locArray[i][5] + '/'+locArray[i][6]);
+				}
+
+				
+				//클러스터러 추가
+				 var clusterer = new kakao.maps.MarkerClusterer({
+				        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+				        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+				        minLevel: 3 // 클러스터 할 최소 지도 레벨 
+				    }); 
 	
-					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
-					<script>
-					var markers = [];
-					var overlays = [];
+				
+				for(var i =0; i<locArray.length; i++){
+					// 지도에 마커를 생성하고 표시한다
+					var marker = new kakao.maps.Marker({
+						position: new kakao.maps.LatLng(locArray[i][1], locArray[i][2]),
+						map: map // 마커를 표시할 지도 객체
+					});
 					
-					function makeClickListener(map, marker, overlay) {
-					    return function() {
-					        overlay.setMap(map)
-					    };
+					
+					var content = '<div class="wrap">' + 
+		            '    <div class="info">' + 
+		            '        <div class="title">' + 
+		                        locArray[i][0] + 
+		            '            <div class="close" onclick="closeOverlay('+i+')" title="닫기"></div>' + 
+		            '        </div>' + 
+		            '        <div class="body">' + 
+		            '            <div class="img">' +
+		            '                <img src="'+locArray[i][4]+'" width="73" height="70" alt = "NO IMAGE">' +
+		            '           </div>' + 
+		            '            <div class="desc">' + 
+		            '                <div class="ellipsis">'+locArray[i][3]+'</div>' + 
+		            '                <div><a href="'+locArray[i][6]+'" target="_blank" class="link">홈페이지</a></div>' + 
+		            '                <div><a href="'+locArray[i][5]+'" target="_blank" class="link">리뷰</a></div>' +
+		            '            </div>' + 
+		            '        </div>' + 
+		            '    </div>' +    
+		            '</div>';
+
+					// 마커 위에 커스텀오버레이를 표시합니다
+					// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+					overlay = new kakao.maps.CustomOverlay({
+					    content: content,
+					    map: null,
+					    position: marker.getPosition()   
+					});
+					
+					
+					kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
+					// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+					/*kakao.maps.event.addListener(marker, 'click', function() {
+						overlay.setMap(map);
+					});*/
+			
+					// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+					markers.push(marker);
+					overlays.push(overlay);	
 					}
-					
-					window.onload = function(){
-							var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
-						    mapOption = {
-						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-						        level: 3 // 지도의 확대 레벨
-						    };
-							// 지도를 생성합니다    
-							var map = new kakao.maps.Map(mapContainer, mapOption); 
-							// 주소-좌표 변환 객체를 생성합니다
-							var geocoder = new kakao.maps.services.Geocoder();
-							var overlay;
-							// 주소로 좌표를 검색합니다 (시작지점)
-							geocoder.addressSearch(value1,function(result, status) {
-							    // 정상적으로 검색이 완료됐으면 
-							     if (status === kakao.maps.services.Status.OK) {
-							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-							        // 위도, 경도로 변환해주는 코드
-							        	/*console.log("test "+ coords);*/
-							     // 결과값으로 받은 위치를 마커로 표시합니다
-							        var marker = new kakao.maps.Marker({
-							            map: map,
-							            position: coords 
-							        });
-							        // 인포윈도우로 장소에 대한 설명을 표시합니다
-							        var infowindow = new kakao.maps.InfoWindow({
-							            content: '<div style="width:150px;text-align:center;padding:6px 0;">입력한 주소</div>'
-							        });
-							        infowindow.open(map, marker);
-							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-							        map.setCenter(coords);
-							        
-							    } 
-							});
-							
-							
-							
-						}
-						/*  */
-						
-						
-					
-					</script>
-				</div>
+		//}
+				
+		function closeOverlay(i) {
+			 overlays[i].setMap(null);   
+		    //overlay.setMap(null);
+		    /*$(".wrap").on("click",function(){
+		    	$(this).hide();
+		    })*/
+		}
+		</script>
+	</div>
+            </div>
 			</div>
 		</div>
 		<!-- Sidebar -->
