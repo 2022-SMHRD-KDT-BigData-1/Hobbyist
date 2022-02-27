@@ -18,11 +18,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
 MarkerDAO dao = new MarkerDAO();
 locmarker = dao.marSelect();
-String addr = wishselect.get(0).getAc_addr();
-String name = wishselect.get(0).getAc_name();
 %>
-<input type="hidden" value="<%=addr%>" class="addr">
-<input type="hidden" value="<%=name%>" class="name">
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -46,7 +42,12 @@ a {
 	text-decoration: none;
 	color: #f45c5c;
 }
-
+#map{
+	margin : 0 auto;
+	padding : 0 auto;
+	width: 100%; 
+	height: 400px;
+}
 .map_wrap, .map_wrap * {
 	margin: 0;
 	padding: 0;
@@ -316,6 +317,23 @@ a {
 </style>
 </head>
 <body class="is-preload">
+<%
+if(wishselect != null && wishselect.size() >= 1){
+String addr = wishselect.get(0).getAc_addr();
+String name = wishselect.get(0).getAc_name();
+%>
+<input type="hidden" value="<%=addr%>" class="addr">
+<input type="hidden" value="<%=name%>" class="name">
+<%
+}else{
+	String addr = "광주광역시 서구 내방로 111";
+	String name = "광주광역시청";
+	%>
+	<input type="hidden" value="<%=addr%>" class="addr">
+	<input type="hidden" value="<%=name%>" class="name">
+	<%
+}
+%>
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Main -->
@@ -331,7 +349,7 @@ a {
 						if (member != null) {
 						%>
 						<li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
-						<li><a href="historyCon"><span class="label">수강관리</span></a></li>
+						<li><a href="history.jsp"><span class="label">수강관리</span></a></li>
 						<li><a href="update.jsp"><span class="label">회원
 									정보수정</span></a></li>
 						<%
@@ -349,23 +367,8 @@ a {
 
 				<!-- Section -->
 
-				<section class="wishlist">
 
-					<!-- <div id="map" style="width:100%;height:600px;"></div>
-
-						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
-						<script>
-						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						    mapOption = { 
-						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-						        level: 3 // 지도의 확대 레벨
-						    };
-						
-						// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-						var map = new kakao.maps.Map(mapContainer, mapOption); 
-						</script>  -->
-					<div id="map"
-						style="width: 80%; height: 400px; margin-left: 150px;"></div>
+					<div id="map"></div>
 
 					<script type="text/javascript"
 						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
@@ -416,7 +419,7 @@ a {
 											}
 										});
 					</script>
-					<div style="margin-left: 150px;">
+					<div>
 						<h3>Wishlist</h3>
 						<div class="col-sm-5">
 							<h4>Info</h4>
@@ -432,6 +435,7 @@ a {
 								</thead>
 								<tbody>
 									<%
+									if(wishselect.size()>=1 && wishselect != null){
 									for (int i = 0; i < wishselect.size(); i++) {
 									%>
 									<tr>
@@ -452,6 +456,7 @@ a {
 												</button>
 												<%
 												}
+											}
 												%>
 											</form> <%
  }
@@ -459,6 +464,14 @@ a {
 										</td>
 									</tr>
 									<%
+									}else{
+										%>
+										<tr>
+										<td colspan ="5" align="center">
+											위시리스트가 없습니다. 
+										<td>
+										</tr>
+										<%
 									}
 									%>
 								</tbody>
@@ -467,71 +480,62 @@ a {
 					</div>
 			</div>
 		</div>
+<div id="sidebar">
+			<div class="inner">
+				<section id="search" class="alt">
+					<form method="post" action="#">
+						<input type="text" name="query" id="query" placeholder="Search" />
+					</form>
+				</section>
 
+				<nav id="menu">
+					<header class="major">
+						<h2>Menu</h2>
+					</header>
+					<ul>
+                  <li><a href="towninput.jsp">우리동네에서찾기</a></li>
+                  <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
+                  <li><a href="geo.jsp">길찾기 </a></li>
+                  <li><a href="communityList.jsp">게시판</a></li>
+                  <li><a href="WishlistSelectCon">위시리스트 </a></li>
+               </ul>
+				</nav>
 
-		</section>
-	</div>
-	</div>
+				<section>
+					<header class="major">
+						<h2>My Info</h2>
+					</header>
+					<p></p>
+					<ul class="contact">
+                     <%
+                        if(member != null){
+                     %>
+                  <li><a href="#"><%= member.getM_email() %></a></li>
+                  <li><%= member.getM_tel() %></li>
+                  <li><%= member.getM_nick() %>님 환영합니다.
+                  </li>
+               <%
+                        }else {
+                           %>
+                           <li>로그인을 해주세요</li>
+                           <%   
+                        }
+               %>
+               </ul>
+				</section>
 
-	<!-- Sidebar -->
-	<div id="sidebar">
-		<div class="inner">
-			<!-- <!-- Search -->
-			<section id="search" class="alt">
-				<form method="post" action="#">
-					<input type="text" name="query" id="query" placeholder="Search" />
-				</form>
-			</section>
-
-			<!-- Menu -->
-			<nav id="menu">
-				<header class="major">
-					<h2>Menu</h2>
-				</header>
-				<ul>
-					<li><a href="towninput.jsp">우리동네에서찾기</a></li>
-					<li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
-					<li><a href="geo.jsp">길찾기 </a></li>
-					<li><a href="communityList.jsp">게시판</a></li>
-					<li><a href="WishlistSelectCon">위시리스트 </a></li>
-				</ul>
-			</nav>
-
-			<!-- Section -->
-			<section>
-				<header class="major">
-					<h2>My Info</h2>
-				</header>
-				<p></p>
-				<ul class="contact">
-					<%
-					if (member != null) {
-					%>
-					<li><a href="#"><%=member.getM_email()%></a></li>
-					<li><%=member.getM_tel()%></li>
-					<li><%=member.getM_nick()%>님 환영합니다.</li>
-					<%
-					} else {
-					%>
-					<li>로그인을 해주세요</li>
-					<%
-					}
-					%>
-				</ul>
-			</section>
-
-			<!-- Footer -->
-			<footer id="footer">
-				<p class="copyright">
-					&copy; Untitled. All rights reserved. Demo Images: <a
-						href="https://unsplash.com">Unsplash</a>. Design: <a
-						href="https://html5up.net">HTML5 UP</a>.
-				</p>
-			</footer>
+				<footer id="footer">
+					<p class="copyright">
+						&copy; Untitled. All rights reserved. Demo Images: <a
+							href="https://unsplash.com">Unsplash</a>. Design: <a
+							href="https://html5up.net">HTML5 UP</a>.
+					</p>
+				</footer>
+			</div>
 		</div>
-	</div>
-	</div>
 
+	
+</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
