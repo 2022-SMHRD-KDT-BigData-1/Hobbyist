@@ -14,9 +14,15 @@ ArrayList<AddrDTO> wishselect = (ArrayList<AddrDTO>) session.getAttribute("wishs
 ArrayList<WishlistDTO> wishselect2 = (ArrayList<WishlistDTO>) session.getAttribute("wishselect");
 MemberDTO member = (MemberDTO) session.getAttribute("member");
 %>
-<% ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
+<%
+ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
 MarkerDAO dao = new MarkerDAO();
-locmarker = dao.marSelect(); %>
+locmarker = dao.marSelect();
+String addr = wishselect.get(0).getAc_addr();
+String name = wishselect.get(0).getAc_name();
+%>
+<input type="hidden" value="<%=addr%>" class="addr">
+<input type="hidden" value="<%=name%>" class="name">
 <!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
@@ -344,8 +350,8 @@ a {
 				<!-- Section -->
 
 				<section class="wishlist">
-				
-				<!-- <div id="map" style="width:100%;height:600px;"></div>
+
+					<!-- <div id="map" style="width:100%;height:600px;"></div>
 
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
 						<script>
@@ -358,96 +364,110 @@ a {
 						// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 						var map = new kakao.maps.Map(mapContainer, mapOption); 
 						</script>  -->
-						<div id="map" style="width:100%;height:600px;"></div>
+					<div id="map"
+						style="width: 80%; height: 400px; margin-left: 150px;"></div>
 
-							<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
-							<script>
-							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-							    mapOption = {
-							        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-							        level: 3 // 지도의 확대 레벨
-							    };  
-							
-							// 지도를 생성합니다    
-							var map = new kakao.maps.Map(mapContainer, mapOption); 
-							
-							// 주소-좌표 변환 객체를 생성합니다
-							var geocoder = new kakao.maps.services.Geocoder();
-							
-							// 주소로 좌표를 검색합니다
-							geocoder.addressSearch("광주광역시", function(result, status) {
-							
-							    // 정상적으로 검색이 완료됐으면 
-							     if (status === kakao.maps.services.Status.OK) {
-							
-							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-							
-							        // 결과값으로 받은 위치를 마커로 표시합니다
-							        var marker = new kakao.maps.Marker({
-							            map: map,
-							            position: coords
-							        });
-							
-							        // 인포윈도우로 장소에 대한 설명을 표시합니다
-							        var infowindow = new kakao.maps.InfoWindow({
-							            content: '<div style="width:150px;text-align:center;padding:6px 0;">Wish</div>'
-							        });
-							        infowindow.open(map, marker);
-							
-							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-							        map.setCenter(coords);
-							    } 
-							});    
-							</script>
-						<hr><br>
-					<h3>Wishlist</h3>
-					<div class="col-sm-5">
-						<h4>Info</h4>
-						<table id="wishlist">
-							<thead>
-								<tr>
-									<th>분류</th>
-									<th>학원이름</th>
-									<th>위치</th>
-									<th>문의</th>
-									<th>Wish Check</th>
-								</tr>
-							</thead>
-							<tbody>
-								<%
-								for (int i = 0; i < wishselect.size(); i++) {
-								%>
-								<tr>
-									<td><%=wishselect.get(i).getAc_category()%></td>
-									<td><%=wishselect.get(i).getAc_name()%></td>
-									<td><%=wishselect.get(i).getAc_addr()%></td>
-									<td><a href="<%=wishselect.get(i).getAc_rel()%>">
-											홈페이지 방문</a></td>
-									<td class="relTd">
-										<%
-										if (wishselect2 != null) {
-											if (wishselect2.get(i) != null) {
-										%>
-										<form action="WishlistPageDelCon" method="post" class="wish">
-											<button type="submit" class="h1" name="Del"
-												value="<%=wishselect.get(i).getAc_id()%>">
-												<img src="./images/heart1.png" alt="heart1" class="heart">
-											</button>
-											<%
+					<script type="text/javascript"
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
+					<script>
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						mapOption = {
+							center : new kakao.maps.LatLng(33.450701,
+									126.570667), // 지도의 중심좌표
+							level : 3
+						// 지도의 확대 레벨
+						};
+						var value1 = document.querySelector('.addr').value;
+						// 지도를 생성합니다    
+						var map = new kakao.maps.Map(mapContainer, mapOption);
+
+						// 주소-좌표 변환 객체를 생성합니다
+						var geocoder = new kakao.maps.services.Geocoder();
+
+						// 주소로 좌표를 검색합니다
+						geocoder
+								.addressSearch(
+										value1,
+										function(result, status) {
+
+											// 정상적으로 검색이 완료됐으면 
+											if (status === kakao.maps.services.Status.OK) {
+
+												var coords = new kakao.maps.LatLng(
+														result[0].y,
+														result[0].x);
+
+												// 결과값으로 받은 위치를 마커로 표시합니다
+												var marker = new kakao.maps.Marker(
+														{
+															map : map,
+															position : coords
+														});
+												var value2 = document
+														.querySelector('.name').value;
+												// 인포윈도우로 장소에 대한 설명을 표시합니다
+												var infowindow = new kakao.maps.InfoWindow(
+														{
+															content : '<div style="width:150px;text-align:center;padding:6px 0;">'
+																	+ value2
+																	+ '</div>'
+														});
+												infowindow.open(map, marker);
+
+												// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+												map.setCenter(coords);
 											}
+										});
+					</script>
+					<div style="margin-left: 150px;">
+						<h3>Wishlist</h3>
+						<div class="col-sm-5">
+							<h4>Info</h4>
+							<table id="wishlist" style="width: 1200px;">
+								<thead>
+									<tr>
+										<th>분류</th>
+										<th>학원이름</th>
+										<th>위치</th>
+										<th>문의</th>
+										<th>Wish Check</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%
+									for (int i = 0; i < wishselect.size(); i++) {
+									%>
+									<tr>
+										<td><%=wishselect.get(i).getAc_category()%></td>
+										<td><%=wishselect.get(i).getAc_name()%></td>
+										<td><%=wishselect.get(i).getAc_addr()%></td>
+										<td><a href="<%=wishselect.get(i).getAc_rel()%>">
+												홈페이지 방문</a></td>
+										<td class="relTd">
+											<%
+											if (wishselect2 != null) {
+												if (wishselect2.get(i) != null) {
 											%>
-										</form> <%
+											<form action="WishlistPageDelCon" method="post" class="wish">
+												<button type="submit" class="h1" name="Del"
+													value="<%=wishselect.get(i).getAc_id()%>">
+													<img src="./images/heart1.png" alt="heart1" class="heart">
+												</button>
+												<%
+												}
+												%>
+											</form> <%
  }
  %>
-									</td>
-								</tr>
-								<%
-								}
-								%>
-							</tbody>
-						</table>
+										</td>
+									</tr>
+									<%
+									}
+									%>
+								</tbody>
+							</table>
+						</div>
 					</div>
-					
 			</div>
 		</div>
 
