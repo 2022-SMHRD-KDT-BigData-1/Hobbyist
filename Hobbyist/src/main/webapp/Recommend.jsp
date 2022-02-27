@@ -790,7 +790,7 @@ if(recommend != null){
                </div>
             </div>
             <div id = "recMap">
-                  <% for(int i = 0 ; i < recommend.size(); i++){ %>
+                  <%if(recommend !=null){ for(int i = 0 ; i < recommend.size(); i++){ %>
    <%-- <input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
 <% } %> --%>
 <input type="hidden" value="<%= recommend.get(i).getAc_name() %>,<%= recommend.get(i).getAc_wi() %>,<%= recommend.get(i).getAc_ky() %>,<%= recommend.get(i).getAc_addr() %>,<%= recommend.get(i).getAc_img() %>,<%= recommend.get(i).getAc_rev() %>,<%= recommend.get(i).getAc_rel() %>" class="locmarker">
@@ -906,11 +906,12 @@ if(recommend != null){
              $(this).hide();
           })*/
       }
+      <%}%>
       </script>
    </div>
             </div>
             
-         </div>
+         </div> 
       </div>
 
       <!-- Sidebar -->
