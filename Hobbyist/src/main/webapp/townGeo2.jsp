@@ -1,8 +1,23 @@
+<%@page import="com.message.model.MarkerDAO"%>
+<%@page import="com.message.model.MarkerDTO"%>
+<%@page import="com.message.model.RecommendDAO"%>
+<%@page import="com.message.model.MessageDTO"%>
+<%@page import="com.message.model.MessageDAO"%>
+<%@page import="com.message.model.MemberDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.message.model.AcademyDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+MemberDTO member = (MemberDTO) session.getAttribute("member");
+%>
+<% ArrayList<MarkerDTO> locmarker = new ArrayList<MarkerDTO>();
+MarkerDAO dao = new MarkerDAO();
+locmarker = dao.marSelect(); %>
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Insert title here</title>
 <meta charset="UTF-8">
 <title>Hobbyist</title>
 <link rel="stylesheet" href="assets/css/main.css" />
@@ -19,12 +34,12 @@
 	margin: 0 auto;
 	padding: 0px auto;
 	width: 1300px;
-	height: 100px;
+	height: 65px;
 	box-sizing: border-box;
 	margin-top: 20px;
 	border: 2px solid #f45c5c;
 	border-radius: 5px 5px 5px 5px;
-	padding-top: 50px;
+	padding-top: 10px;
 	padding-left: 10px;
 }
 
@@ -38,37 +53,9 @@
 	font-family: "SUIT-Medium";
 	color: #f45c5c;
 	font-weight: bold;
-	font-size: 24px;
 	float: left;
-	/* margin : 10px; */
+	margin: 10px;
 	height: 100px;
-	margin-left: 30px;
-	margin-right: 30px;
-}
-
-.category_wraper>input.category {
-	box-sizing: border-box;
-	width: 600px;
-	height: 40px;
-	font-family: "SUIT-Medium";
-	color: #f45c5c;
-	font-weight: bold;
-	margin-left: 200px;
-}
-
-.category_wraper>button {
-	box-sizing: border-box;
-	font-family: "SUIT-Medium";
-	width: 100%;
-	height: 80%;
-	margin-left: 20px;
-	background-color: #f45c5c;
-	opacity: 0.9;
-}
-
-.category_wraper>button>span {
-	font-size: 20px;
-	color: white;
 }
 
 #recWrapper {
@@ -80,7 +67,6 @@
 	margin-top: 20px;
 	border: 2px solid #f45c5c;
 	border-radius: 5px 5px 5px 5px;
-	
 }
 
 #recMap {
@@ -91,12 +77,28 @@
 	box-sizing: border-box;
 	float: right;
 }
+
+#rec {
+	margin: 0 auto;
+	padding: 0 auto;
+	width: 50%;
+	height: 747px;
+	box-sizing: border-box;
+	float: left;
+	border-right: 2px solid #f45c5c;
+}
 </style>
-
-
-
+	<script>
+	var start;
+	</script>
 </head>
 <body>
+	<%
+	request.setCharacterEncoding("UTF-8");
+	String start = request.getParameter("start");
+	%>
+
+	<input type="hidden" value="<%=start%>" class="start" name='start'>
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
@@ -107,7 +109,7 @@
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
-                 <!--  <%
+                  <%
                      if(member != null) {
                   %>
                   <li><a href="logout.jsp"><span class="label">로그아웃</span></a></li>
@@ -120,44 +122,82 @@
                   <li><a href="Join.jsp"><span class="label">회원가입</span></a></li>
                         <%
                      }
-                  %> -->
+                  %>
                </ul> 
 				</header>
 			</div>
 
 			<div id="category_wrapper_wrapper">
-				<form action="townGeo2.jsp" method="post">
-					<div class="category_wraper">
-						<span>주소명을 입력하세요</span> 
-						<input type="text" class="category" name="start" placeholder="ex) 광주광역시 북구 호동로"> 
-					</div>
-					<div class="category_wraper">
-						<button type="submit">
-							<span id="recSearch">지오코딩 실행</span>
-						</button>
-					</div>
-				</form>
-			</div><br>
+					<script>
+						var value1 = document.querySelector('.start').value;
+						</script>
+				
+				<div class="category_wraper">
+					<span>입력하신 주소입니다.</span>
+						
+				</div>
+			</div>
 			<div id="recWrapper">
 				<div id="recMap">
+					<% for(int i = 0 ; i < locmarker.size(); i++){ %>
+	
 					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a"></script>
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
 					<script>
-						var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
-						mapOption = {
-							center : new kakao.maps.LatLng(35.15809599087085,
-									126.817700142583), // 지도의 중심좌표
-							level : 5
-						// 지도의 확대 레벨
-						};
-
-						// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-						var map = new kakao.maps.Map(mapContainer, mapOption);
+					var markers = [];
+					var overlays = [];
+					
+					function makeClickListener(map, marker, overlay) {
+					    return function() {
+					        overlay.setMap(map)
+					    };
+					}
+					
+					window.onload = function(){
+							var mapContainer = document.getElementById('recMap'), // 지도를 표시할 div 
+						    mapOption = {
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 3 // 지도의 확대 레벨
+						    };
+							// 지도를 생성합니다    
+							var map = new kakao.maps.Map(mapContainer, mapOption); 
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
+							var overlay;
+							// 주소로 좌표를 검색합니다 (시작지점)
+							geocoder.addressSearch(value1,function(result, status) {
+							    // 정상적으로 검색이 완료됐으면 
+							     if (status === kakao.maps.services.Status.OK) {
+							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+							        // 위도, 경도로 변환해주는 코드
+							        	/*console.log("test "+ coords);*/
+							     // 결과값으로 받은 위치를 마커로 표시합니다
+							        var marker = new kakao.maps.Marker({
+							            map: map,
+							            position: coords 
+							        });
+							        // 인포윈도우로 장소에 대한 설명을 표시합니다
+							        var infowindow = new kakao.maps.InfoWindow({
+							            content: '<div style="width:150px;text-align:center;padding:6px 0;">입력한 주소</div>'
+							        });
+							        infowindow.open(map, marker);
+							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							        map.setCenter(coords);
+							        
+							    } 
+							});
+							
+							
+							
+						}
+						/*  */
+						
+						
+					
 					</script>
 				</div>
 			</div>
 		</div>
-
 		<!-- Sidebar -->
 		<div id="sidebar">
 			<div class="inner">
@@ -167,23 +207,22 @@
 						<input type="text" name="query" id="query" placeholder="Search" />
 					</form>
 				</section>
-
 				<!-- Menu -->
 				<nav id="menu">
 					<header class="major">
 						<h2>Menu</h2>
 					</header>
 					<ul>
-                  <li><a href="townGeo.html">우리동네에서찾기</a></li>
+                  <li><a href="townGeo.jsp">우리동네에서찾기</a></li>
                   <li><a href="Recommend.jsp">카테고리별 검색</a></li>
-                  <li><a href="geo.html">길찾기 </a></li>
+                  <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>
                   <li><a href="WishlistSelectCon">위시리스트 </a></li>
                </ul>
 				</nav>
 
 				<!-- Section -->
-				<!-- <section>
+				<section>
 					<header class="major">
 						<h2>My Info</h2>
 					</header>
@@ -204,8 +243,7 @@
                         }
                %>
                </ul>
-				</section> -->
-
+				</section>
 				<!-- Footer -->
 				<footer id="footer">
 					<p class="copyright">

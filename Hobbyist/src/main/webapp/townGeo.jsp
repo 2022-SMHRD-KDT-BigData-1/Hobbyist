@@ -134,6 +134,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 			</div>
 			<div id="recWrapper">
 				<div id="recMap">
+					
 					<script type="text/javascript"
 						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=services"></script>
 					<script>
@@ -174,7 +175,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 							
 							
 						}
-						
+						/*  */
 						
 						
 					
