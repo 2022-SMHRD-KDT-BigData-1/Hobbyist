@@ -108,6 +108,7 @@
                   	<td align="center">요일</td>
                   	<td align="center">시간</td>
                   	<td align="center">홈페이지</td>
+                  	<td align="center"></td>
                   	</tr>
                   	<%
                   		int cnt = 1;
