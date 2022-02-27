@@ -65,13 +65,10 @@ a {
 </head>
 
 <body class="is-preload">
-	<!-- Wrapper -->
 	<div id="wrapper">
-		<!-- Main -->
 		<div id="main">
 			<div class="inner">
 
-				<!-- Header -->
 				<header id="header">
 					<a href="#" class="logo"><h1>
 							<strong>Hobbyist</strong>
@@ -94,7 +91,6 @@ a {
                </ul> 
 				</header>
 
-				<!-- Banner -->
 				<br>
 
 				<div class="section">
@@ -104,7 +100,6 @@ a {
 					<div class="slidewrap">
 
 						<ul class="slidelist">
-							<!-- 슬라이드 영역 -->
 							<li class="slideitem"><a>
 									<div class="textbox">
 										<h3>Hobbyist</h3>
@@ -123,7 +118,6 @@ a {
 									</div> <img src="./images/knit.jpg">
 							</a></li class="slideitem">
 
-							<!-- 좌,우 슬라이드 버튼 -->
 							<div class="slide-control">
 								<div>
 									<label for="slide03" class="left"></label> <label for="slide02"
@@ -140,7 +134,6 @@ a {
 							</div>
 
 						</ul>
-						<!-- 페이징 -->
 						<ul class="slide-pagelist">
 							<li><label for="slide01"></label></li>
 							<li><label for="slide02"></label></li>
@@ -165,9 +158,6 @@ a {
 					<div class="col-sm-10">
 
 						<div class="map">
-							<!-- <img src="images/sample_map.jpg.png" /> -->
-							<!-- * 카카오맵 - 지도퍼가기 -->
-							<!-- 1. 지도 노드 -->
 							<div class="kakao_map">
 								<div id="daumRoughmapContainer1644542523530"
 									class="root_daum_roughmap root_daum_roughmap_landing"></div>
@@ -176,7 +166,6 @@ a {
 							<script charset="UTF-8" class="daum_roughmap_loader_script"
 								src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
-							<!-- 3. 실행 스크립트 -->
 							<script charset="UTF-8">
 								new daum.roughmap.Lander({
 									timestamp : "1644542523530",
@@ -189,7 +178,6 @@ a {
 					</div>
 				</section>
 
-				<!-- Section -->
 				
 				<section>
 					<header class="major">
@@ -263,32 +251,27 @@ a {
 				</section>
 			</div>
 		</div>
-<!--  -->
-		<!-- Sidebar -->
 		<div id="sidebar">
 			<div class="inner">
-				<!-- Search -->
 				<section id="search" class="alt">
 					<form method="post" action="#">
 						<input type="text" name="query" id="query" placeholder="Search" />
 					</form>
 				</section>
 
-				<!-- Menu -->
 				<nav id="menu">
 					<header class="major">
 						<h2>Menu</h2>
 					</header>
 					<ul>
                   <li><a href="townGeo.html">우리동네에서찾기</a></li>
-                  <li><a href="Recommend.jsp">카테고리별 검색</a></li>
+                  <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
                   <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>
                   <li><a href="WishlistSelectCon">위시리스트 </a></li>
                </ul>
 				</nav>
 
-				<!-- Section -->
 				<section>
 					<header class="major">
 						<h2>My Info</h2>
@@ -312,7 +295,6 @@ a {
                </ul>
 				</section>
 
-				<!-- Footer -->
 				<footer id="footer">
 					<p class="copyright">
 						&copy; Untitled. All rights reserved. Demo Images: <a
@@ -327,7 +309,6 @@ a {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>
 	<script src="assets/js/breakpoints.min.js"></script>

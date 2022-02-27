@@ -592,7 +592,7 @@ div>.revPass {
 						%>
 					</ul>
 				</header>
-			</div>
+			
 
 			<div id="category_wrapper_wrapper">
 				<form action="RecommendSelectCon" method="post">
