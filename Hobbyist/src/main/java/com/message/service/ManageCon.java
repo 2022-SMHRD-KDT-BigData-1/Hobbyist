@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.message.model.AddrDTO;
+import com.message.model.HistoryDAO;
 import com.message.model.HistoryDTO;
 import com.message.model.MemberDTO;
 import com.message.model.WishlistDAO;
@@ -34,36 +35,27 @@ public class ManageCon extends HttpServlet {
 		String[] day = request.getParameterValues("day");
 		String day2 = "";
 		for(int i = 0; i < day.length; i++) {
-			day2 += day[i] + ",";
+			day2 += day[i] + "/";
 		}
 		String time = request.getParameter("time");
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		HistoryDAO dao = new HistoryDAO();
+		String ac_id = dao.selectAc_id(classname);
 		
-		HistoryDTO inputHis = new HistoryDTO(0,);
-		int cnt = dao.wishCreate(inputHis);
+		HistoryDTO inputHis = new HistoryDTO(0, day2,time,ac_id, member.getM_email());
+		
+		
+		int cnt = dao.historyCreate(inputHis);
 		
 		if(cnt > 0) {
-			System.out.println("위시리스트 등록 성공");
-			if(session.getAttribute("wish") != null) {
-				ArrayList <WishlistDTO> wish = (ArrayList <WishlistDTO>) session.getAttribute("wish");
-				session.removeAttribute("wish");
-				ArrayList <AddrDTO> recommend = (ArrayList<AddrDTO>) session.getAttribute("recommend");
-				for(int i = 0; i<wish.size();i++) {
-					if(recommend.get(i).getAc_id().equals(a_id)) {
-						wish.remove(i);
-						wish.add(i, new WishlistDTO(0,1,null,null));
-						session.setAttribute("wish", wish);
-						break;
-					}
-				}
-				String pageNum = (String) session.getAttribute("pageNum");
-				response.sendRedirect("Recommend.jsp?pageNum=" + pageNum);
+			System.out.println("수강이력 등록 성공");
+				response.sendRedirect("HistoryCon");
 			}else {
-				System.out.println("위시리스트 등록 실패");
+				System.out.println("수강이력 등록 실패");
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
-				out.print("alert('위시리스트 등록 실패');");
-				out.print("location.href='Recommend.jsp';");
+				out.print("alert('수강이력 등록 실패');");
+				out.print("location.href='history.jsp';");
 				out.print("</script>");
 			}
 	}

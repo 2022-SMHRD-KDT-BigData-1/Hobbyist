@@ -107,4 +107,52 @@ public class HistoryDAO {
 		return list;
 	}
 
+	public String selectAc_id(String classname) {
+		String ac_id = null;
+		connect();
+
+		sql = "select ac_id from addr where ac_name = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, classname);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				ac_id = rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return ac_id;
+	}
+	
+	public int historyCreate(HistoryDTO his) {
+
+		connect();
+		sql = "insert into history values(num_seq.nextval, ?, ?, ?,?)";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, his.getH_day());
+			psmt.setString(2, his.getH_time());
+			psmt.setString(3, his.getAc_id());
+			psmt.setString(4, his.getM_email());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return cnt;
+
+	}
+
 }
