@@ -94,18 +94,7 @@
               <label for="woman">여자</label>
             </td>
           </tr>
-          <tr>
-            <td align="center">
-              <strong>학원코드</strong>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="a_id"
-                placeholder="다니고 있는 학원코드"
-              />
-            </td>
-          </tr>
+          
         </table>
         <div class="btn">
         	<button type = "submit"><span id="update">UPDATE</span></button>
