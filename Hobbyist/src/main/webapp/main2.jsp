@@ -63,17 +63,23 @@ a {
 	outline: none;
 	float: right;
 }
- 		#s{
-            position: relative;
-            width: 100%;
-            height:  836px;
+		#sw{
+            width: 1343px;
+            height: 836px;
             overflow: hidden;
         }
+ 		#s{
+            position: relative;
+            width: 4029px;
+            height:  836px;
+        }
         #s > .sl {
-            width: 100%;
+        	margin : 0 auto;
+        	padding : 0 auto;
+            width: 1343px;
             height: 836px;
             position: relative;
-            display: inline-block;
+            float: left;
         }
         #s > .sl > img{
             width: 100%;
@@ -124,6 +130,7 @@ a {
 				<div class="section">
 					<div class="slidewrap">
 						<p id = "slp">Hobbyist</p>
+						<div id="sw"> 
 					    <div id="s">
 					        <div class="sl">
 					           <img src="./images/yoga.jpg">
@@ -136,6 +143,7 @@ a {
 					        <div class="sl">
 					              <img src="./images/knit.jpg">
 					        </div>
+					   </div>
 					   </div>
 					</div>
 				</div>
@@ -196,19 +204,13 @@ a {
 		</div>
 	</div>
 	 <script>
-    $("#s").children("div:gt(0)").hide();
-    var current = 0; 
-	setInterval(function(){
-        var next = (current+1) % 3; 
-        $("#s").find(".sl").eq(current).fadeOut(600);
-        $("#s").find(".sl").eq(next).fadeIn(600);
-        current = next;
-    }, 3000); 
-    $("#topBtn").click(function(){
-            $("html,body").animate({
-                scrollTop:0
-            });
-        });
+	 var current = 0;
+     setInterval(function(){
+         var next = (current+1)%3;
+         var slidePosition = current * (-1343) + "px";
+         $("#s").animate({left : slidePosition},500);
+         current = next;
+     },2500);
     </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
