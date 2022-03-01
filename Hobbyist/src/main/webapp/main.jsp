@@ -61,6 +61,12 @@ a {
 	outline: none;
 	float: right;
 }
+
+#menu ul a {
+	
+	font-family : "SUIT-Medium";
+	font-size : 18px;
+}
 </style>
 </head>
 

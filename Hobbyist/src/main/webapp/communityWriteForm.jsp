@@ -41,17 +41,11 @@ a {
 	color: #f45c5c;
 }
 
-#map_search {
-	font-size: 11px;
-	float: left;
-}
 
-#main_map {
-	background-color: #f56a6a;
-	border-radius: 0.25em;
-	border: 0px;
-	outline: none;
-	float: right;
+#menu ul a {
+	
+	font-family : "SUIT-Medium";
+	font-size : 18px;
 }
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>

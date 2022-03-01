@@ -21,7 +21,7 @@
     />
     <style>
       table {
-        width: 400px;
+        width: 800px;
         display: table;
         margin-left: auto;
         margin-right: auto;
@@ -31,7 +31,18 @@
       }
     </style>
   </head>
-  <body>
+<body class="is-preload">
+	<div id="wrapper">
+		<div id="main">
+			<div class="inner">
+
+				<header id="header">
+					<a href="#" class="logo"><h1>
+							<strong>Hobbyist</strong>
+						</h1></a>
+				</header>
+
+				<br>
     <form action="JoinCon.do" method="post">
       <fieldset>
         <legend align="center"><h3>Hobbyist JOIN</h3></legend>
@@ -112,6 +123,9 @@
         </table>
       </fieldset>
     </form>
+    
+    </div>
+    </div>
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/browser.min.js"></script>

@@ -26,7 +26,6 @@
 	height: 100px;
 	box-sizing: border-box;
 	margin-top: 20px;
-	border: 2px solid #f45c5c;
 	border-radius: 5px 5px 5px 5px;
 	padding-top: 50px;
 	padding-left: 10px;
@@ -83,7 +82,7 @@
 	height: 750px;
 	box-sizing: border-box;
 	margin-top: 20px;
-	border: 2px solid #f45c5c;
+	border: 2px solid #dfe6e9;
 	border-radius: 5px 5px 5px 5px;
 	
 }
@@ -95,6 +94,12 @@
 	height: 745px;
 	box-sizing: border-box;
 	float: right;
+}
+
+#menu ul a {
+	
+	font-family : "SUIT-Medium";
+	font-size : 18px;
 }
 </style>
 
@@ -179,7 +184,7 @@
 						<h2>Menu</h2>
 					</header>
 					<ul>
-                  <li><a href="towninput.jsp">우리동네에서찾기</a></li>
+                  <li><a href="towninput.jsp">우리동네에서 찾기</a></li>
                   <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
                   <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>

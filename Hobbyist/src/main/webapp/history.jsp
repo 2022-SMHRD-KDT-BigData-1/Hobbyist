@@ -49,6 +49,13 @@
       .inin {
         color: #f45c5c;
       }
+      
+      
+#menu ul a {
+	
+	font-family : "SUIT-Medium";
+	font-size : 18px;
+}
     </style>
   </head>
   <body class="is-preload">

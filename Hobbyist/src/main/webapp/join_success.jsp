@@ -22,28 +22,28 @@
         @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
         @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');} @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');} @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');} @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');} @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
 	
-		body{
-		background-image: url(images/knit.jpg);
-		}
+/* 		body{
+		background-image: url(images/yoga.jpg);
+		} */
 		#Update > ul.actions {
 			margin-top:10%;
 		}
 		#js_div{
-			background-color : #ffefc1;
+			background-color : #f56a6a;
 			box-sizing:border-box;
-			width : 400px;
+			width : 1000px;
 			text-align : center;
 			margin : 0 auto;
 			margin-top : 100px;
-			border : 5px solid #f56a6a;;
 			border-radius: 0.375em;
 			height : 300px;
 			padding-top : 50px;
 			padding-left : 10px;
 			font-family:'Noto Sans KR';
+			color : #fff;
 		}
 		#js_div > p{
-			color : #666; 
+			color : black; 
 			font-size : 40px;
 			margin : 0;
 			margin-bottom : 10px;
@@ -55,9 +55,21 @@
 			display : block;
 			margin-bottom : 5px;
 		}
+
 	</style>
 	</head>
-	<body style="text-align: center;">
+<body class="is-preload">
+	<div id="wrapper">
+		<div id="main">
+			<div class="inner">
+	
+				<header id="header">
+					<a href="#" class="logo"><h1>
+							<strong>Hobbyist</strong>
+						</h1></a>
+				</header>
+
+				<br>
 	
 					<div id = "js_div">
 							<p>환영합니다!</p>
@@ -65,8 +77,10 @@
 							<li class = "js_li">회원가입을 축하합니다.</li> 
 							<li class = "js_li">Hobbyist의 새로운 이메일은 <%=member.getM_email() %>입니다.</li>
 						</ul>
-							<button onclick='location.href="main.jsp"' >시작하기</button>
+							<button class="button" onclick='location.href="main.jsp"' >시작하기</button>
 							
+					</div>
+					</div>
 					</div>
 	</body>
 </html>

@@ -20,6 +20,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css"
 	rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+
 <style type="text/css">
 #category_wrapper_wrapper {
 	margin: 0 auto;
@@ -28,7 +29,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	height: 130px;
 	box-sizing: border-box;
 	margin-top: 20px;
-	border: 2px solid #f45c5c;
+	
 	border-radius: 5px 5px 5px 5px;
 	padding-top: 10px;
 	padding-left: 10px;
@@ -44,7 +45,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	font-family: "SUIT-Medium";
 	color: #f45c5c;
 	font-weight: bold;
-	font-size: 24px;
+	font-size: 20px;
 	float: left;
 	/* margin : 10px; */
 	height: 100px;
@@ -84,7 +85,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	height: 750px;
 	box-sizing: border-box;
 	margin-top: 20px;
-	border: 2px solid #f45c5c;
+	border: 1px solid #dfe6e9;
 	border-radius: 5px 5px 5px 5px;
 }
 
@@ -95,6 +96,12 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 	height: 745px;
 	box-sizing: border-box;
 	float: right;
+}
+
+#menu ul a {
+	
+	font-family : "SUIT-Medium";
+	font-size : 18px;
 }
 </style>
 
@@ -183,7 +190,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 						<h2>Menu</h2>
 					</header>
 					<ul>
-                  <li><a href="towninput.jsp">우리동네에서찾기</a></li>
+                  <li><a href="towninput.jsp">우리동네에서 찾기</a></li>
                   <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
                   <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>

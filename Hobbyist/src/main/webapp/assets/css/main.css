@@ -2762,6 +2762,7 @@ button:disabled,
   color: inherit;
   cursor: pointer;
   display: block;
+  font-family: "SUIT-Medium";
   font-size: 0.9em;
   padding: 0.625em 0;
 }
@@ -3108,12 +3109,14 @@ div.wishlist {
 }
 #sidebar h2 {
   font-size: 1.38889em;
+  font-family: "SUIT-Medium";
 }
 #sidebar > .inner {
   padding: 2.22222em 2.22222em 2.44444em 2.22222em;
   position: relative;
   width: 26em;
 }
+
 #sidebar > .inner > * {
   border-bottom: solid 2px rgba(210, 215, 217, 0.75);
   margin: 0 0 3.5em 0;
@@ -3308,3 +3311,10 @@ section #calendar {
 #main > div > section > div > article {
       white-space:normal;
       }
+      
+
+#menu ul a {
+	
+	font-family : "SUIT-Medium";
+	font-size : 18px;
+}
