@@ -548,8 +548,7 @@ div>.revPass {
          $('html').animate({scrollTop : offset.top}, 400);
       });
       $("#popDown<%=i%>").click(function(){
-         $("#popUp<%=i%>
-	").fadeOut();
+         $("#popUp<%=i%>").fadeOut();
 			$("#popDark").fadeOut();
 		})
 	})
