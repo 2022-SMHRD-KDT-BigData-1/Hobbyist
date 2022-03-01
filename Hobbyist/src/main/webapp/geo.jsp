@@ -149,7 +149,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 					</div>
 					<div class="category_wraper">
 						<button type="submit">
-							<span id="recSearch">지오코딩 실행</span>
+							<span id="recSearch">길찾기 실행</span>
 						</button>
 					</div>
 				</form>
