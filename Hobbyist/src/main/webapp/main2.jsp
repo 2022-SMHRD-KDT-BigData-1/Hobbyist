@@ -134,12 +134,22 @@ a {
 #map_wrap {
 	margin: 1px 2px 3px 4px;
 	padding: 1px 2px 3px 4px;
+	border: thin #dfe6e9;
+	border-radius: 5px 5px 5px 5px;
 }
 
 #menu ul a {
-	
-	font-family : "SUIT-Medium";
-	font-size : 18px;
+	font-family: "SUIT-Medium";
+	font-size: 18px;
+}
+
+#map {
+	border: 2px solid b2bec3;
+	border-radius: 5px 5px 5px 5px;
+}
+
+.primary{
+	border-radius: 5px 5px 5px 5px;
 }
 </style>
 
@@ -176,7 +186,7 @@ a {
 
 				<div class="section">
 					<div class="slidewrap">
-						<h2 >Hobbyist</h2>
+						<h2>Hobbyist</h2>
 						<div class="slidelist">
 							<div class="items">
 								<div class="sl">
@@ -199,7 +209,7 @@ a {
 					<div class="col-sm-12">
 						<div id="category_wrapper_wrapper">
 							<div class="category_wraper">
-								<span>스마트 인재 개발원 주변 학원 찾기</span>
+								<span>광주 시내에서 학원 찾기</span>
 							</div>
 						</div>
 						<br>
@@ -331,37 +341,100 @@ a {
 						</script>
 					</div>
 					<br>
-<!-- 					<table>
-						<thead>
-							<tr>
-								<th>이름</th>
-								<th>위치</th>
-								<th>사이트</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>이름</td>
-								<td>위치</td>
-								<td>사이트</td>
-							</tr>
-							<tr>
-								<td>이름</td>
-								<td>위치</td>
-								<td>사이트</td>
-							</tr>
-							<tr>
-								<td>이름</td>
-								<td>위치</td>
-								<td>사이트</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="3"></td>
-							</tr>
-						</tfoot>
-					</table> -->
+					<div class="row">
+						<div class="form-group row full-right">
+							<div class="col-sm-10">
+								<input align="center" class="form-control" id="Academy"
+									type="text" size="20">
+							</div>
+							<div class="col-sm-2">
+								<button class="button primary" type="button">search</button>
+							</div>
+							<div>
+								<br>
+							</div>
+							<div class="col-sm-12" id="ajax_list">
+
+								<table id="mapList">
+									<thead>
+										<tr>
+											<th>분류</th>
+											<th>학원이름</th>
+											<th>위치</th>
+											<th>링크</th>
+										</tr>
+									</thead>
+									<tbody id="ajaxTable">
+									</tbody>
+									<!-- <tfoot>
+									<tr>
+										<td colspan="2"></td>
+										<td><a href="#" class="button primary small">Small</a></td>
+									</tr>
+								</tfoot> -->
+								</table>
+							</div>
+							<br>
+							<script type="text/javascript">
+								$(".primary")
+										.on(
+												'click',
+												function() {
+													var Academy = $('#Academy')
+															.val();
+													console.log('클릭' + Academy);
+													$
+															.ajax({
+																type : "post",
+																url : "MapInfoListSearch",
+																data : {
+																	"Academy" : Academy
+																},
+																success : function(
+																		result) {
+																	console
+																			.log('성공');
+																	console
+																			.log(result[1]);
+																	let content = JSON
+																			.parse(result);
+																	console
+																			.log(content);
+																	$(
+																			"#ajaxTable")
+																			.empty();
+																	for (var i = 0; i < 10; i++) {
+																		console
+																				.log("test content "
+																						+ content[i])
+																		let list = content[i];
+
+																		$(
+																				"#ajaxTable")
+																				.append(
+																						"<tr>"
+																								+ "<td>"
+																								+ list.ac_category
+																								+ "</td>"
+																								+ "<td>"
+																								+ list.ac_name
+																								+ "</td>"
+																								+ "<td>"
+																								+ list.ac_addr
+																								+ "</td>"
+																								+ "<td>"
+																								+ list.ac_rel
+																								+ "</td>"
+																								+ +"</tr>");
+																	}
+
+																},
+																error : function() {
+																	alert("실패");
+																}
+															});
+												});
+							</script>
 				</section>
 			</div>
 		</div>
