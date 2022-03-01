@@ -113,7 +113,7 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="main.jsp" class="logo"><h1>
+					<a href="main2.jsp" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">

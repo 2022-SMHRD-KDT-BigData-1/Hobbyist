@@ -151,7 +151,7 @@ a {
 			<div class="inner">
 
 				<header id="header">
-					<a href="#" class="logo"><h1>
+					<a href="main2.jsp" class="logo"><h1>
 							<strong>Hobbyist</strong>
 						</h1></a>
 					<ul class="icons">
