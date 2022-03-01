@@ -43,7 +43,7 @@ locmarker = dao.marSelect(); %>
 <% for(int i = 0 ; i < locmarker.size(); i++){ %>
 	<input type="hidden" value="<%= locmarker.get(i).getAC_NAME() %>,<%= locmarker.get(i).getAC_WI() %>,<%= locmarker.get(i).getAC_KY() %>,<%= locmarker.get(i).getAC_ADDR() %>,<%= locmarker.get(i).getAC_IMG() %>,<%= locmarker.get(i).getAC_REV() %>,<%= locmarker.get(i).getAC_REL() %>" class="locmarker">
 <% } %>
-	<div id="map">
+	<div id="map"></div>
 		<script src="./assets/js/jquery.min.js"></script>
 		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29fc3997888570a1dca257593cd4be4a&libraries=clusterer"></script>
 		<script>
