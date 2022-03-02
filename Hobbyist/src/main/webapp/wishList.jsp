@@ -314,7 +314,19 @@ a {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+#map {
+	border: 2px solid b2bec3;
+	border-radius: 5px 5px 5px 5px;
+}
+
+#menu ul a {
+	font-family: "SUIT-Medium";
+	font-size: 18px;
+}
+
 </style>
+
 </head>
 <body class="is-preload">
 <%
@@ -366,6 +378,9 @@ String name = wishselect.get(0).getAc_name();
 				<!-- Banner -->
 
 				<!-- Section -->
+				<div>
+				<br>
+				</div>
 
 
 					<div id="map"></div>

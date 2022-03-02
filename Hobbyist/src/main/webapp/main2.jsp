@@ -143,10 +143,7 @@ a {
 	font-size: 18px;
 }
 
-#map {
-	border: 2px solid b2bec3;
-	border-radius: 5px 5px 5px 5px;
-}
+
 
 .primary{
 	border-radius: 5px 5px 5px 5px;
@@ -165,6 +162,16 @@ a {
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
+
+div #map {
+	border: 2px solid b2bec3;
+	border-radius: 5px 5px 5px 5px;
+}
+
+#ajaxTable {
+
+font-size: 15px;
+}
     
 </style>
 
@@ -373,10 +380,10 @@ a {
 								<table id="mapList">
 									<thead>
 										<tr>
-											<th>분류</th>
-											<th>학원이름</th>
-											<th>위치</th>
-											<th>링크</th>
+											<th width="15%">분류</th>
+											<th width="25%">학원이름</th>
+											<th width="25%">위치</th>
+											<th width="35%">링크</th>
 										</tr>
 									</thead>
 									<tbody id="ajaxTable">
@@ -466,7 +473,7 @@ a {
 						<h2>Menu</h2>
 					</header>
 					<ul id="sidebar_menu">
-						<li><a href="towninput.jsp">동네에서 찾기</a></li>
+						<li><a href="towninput.jsp">우리동네에서 찾기</a></li>
 						<li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
 						<li><a href="geo.jsp">길찾기 </a></li>
 						<li><a href="communityList.jsp">게시판</a></li>
