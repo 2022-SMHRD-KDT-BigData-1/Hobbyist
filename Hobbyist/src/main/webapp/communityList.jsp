@@ -90,6 +90,10 @@ a {
 	font-family : "SUIT-Medium";
 	font-size : 18px;
 }
+#board_list{
+	font-family : "SUIT-Medium";
+	font-size : 25px;
+}
 </style>
 <%-- 검색버튼 클릭시 유효성 검사 --%>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -134,8 +138,11 @@ a {
                   %>
                </ul> 
 				</header>
+				<div>
+				<br>
+				</div>
 				<center>
-					<h3>게시글 목록</h3>
+					<h3 id="board_list">게시글 목록</h3>
 					(총 레코드 수 :
 					<%=count%>
 					/ 검색 데이터 수 :
@@ -314,7 +321,7 @@ a {
 				<h2>Menu</h2>
 				</header>
 				<ul>
-                  <li><a href="towninput.jsp">우리동네에서찾기</a></li>
+                  <li><a href="towninput.jsp">우리동네에서 찾기</a></li>
                   <li><a href="RecommendMove.jsp">카테고리별 검색</a></li>
                   <li><a href="geo.jsp">길찾기 </a></li>
                   <li><a href="communityList.jsp">게시판</a></li>

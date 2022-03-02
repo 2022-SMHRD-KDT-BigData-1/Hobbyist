@@ -82,6 +82,11 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
    float: left;
    border-right: 2px solid #f45c5c;
 }
+
+#menu ul a {
+	font-family: "SUIT-Medium";
+	font-size: 18px;
+}
 </style>
    <script>
    var start;

@@ -41,6 +41,20 @@ String ex = result2[1].replace(" ", "");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>simpleMap</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+#menu ul a {
+	font-family: "SUIT-Medium";
+	font-size: 18px;
+}
+#map_wrap{
+border : 2px solid #b2bec3;
+border-radius: 5px 5px 5px 5px;
+}
+#result {
+font-weight: bold;
+font-family : "SUIT-Medium";
+}
+</style>
 </head>
 <body onload="initTmap();">
 
@@ -70,11 +84,14 @@ String ex = result2[1].replace(" ", "");
                   %>
                </ul> 
             </header>
+            <div>
+            <br>
+            </div>
 
 
             <!-- 190430 기존 지도를 모두 이미지 처리 위해 주석 처리 S -->
             <div id="map_wrap" class="map_wrap3">
-               <div id="map_div"></div>
+               <div id="map_div" style="width: 100%; height: 800px;"></div>
             </div>
             <div class="map_act_btn_wrap clear_box"></div>
             <p id="result"></p>
@@ -268,7 +285,7 @@ String ex = result2[1].replace(" ", "");
          map = new Tmapv2.Map("map_div", {
             center : new Tmapv2.LatLng(y, x),
             width : "100%",
-            height : "400px",
+            height : "800px",
             zoom : 14,
             zoomControl : true,
             scrollwheel : true
@@ -298,8 +315,7 @@ String ex = result2[1].replace(" ", "");
                });
 
          // 3. 경로탐색 API 사용요청
-         $
-               .ajax({
+         $.ajax({
                   method : "POST",
                   url : "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result",
                   async : false,
