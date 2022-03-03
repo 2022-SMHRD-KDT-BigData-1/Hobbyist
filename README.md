@@ -43,7 +43,7 @@
 ![image](https://user-images.githubusercontent.com/97599731/156507886-168e0282-b29e-4084-aba8-6b829f644ce5.png)
 
 ## 팀원 단위 업무 분장 및 결과표
-
+![image](https://user-images.githubusercontent.com/97599731/156512909-91513bc7-81e9-4944-aab9-1f464ccae32c.png)
 
 ## 서비스 URL
 http://localhost:8083/Hobby/main2.jsp
